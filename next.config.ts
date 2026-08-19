@@ -1,7 +1,17 @@
+import createMDX from "@next/mdx";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Journal posts are authored as MDX pages under app/journal/<slug>/page.mdx.
+  pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
 };
 
-export default nextConfig;
+// The site's TSX copy uses typographic quotes and dashes; smartypants keeps
+// MDX prose consistent with it rather than emitting straight quotes.
+const withMDX = createMDX({
+  // Turbopack passes loader options to Rust, so plugins must be named as
+  // strings — a function reference is not serializable.
+  options: { remarkPlugins: [["remark-smartypants", {}]] },
+});
+
+export default withMDX(nextConfig);

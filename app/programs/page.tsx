@@ -5,28 +5,36 @@ import { Section, Eyebrow, H1, H2 } from "@/components/ui";
 import { PROGRAMS, type Program } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: "Programs & Pricing — Inner Alchemy Institution",
+  title: "Programs & Pricing",
   description:
     "Eight coaching and quantum healing programs, from a 90-minute Power Reset to the two-day MRI Mindset Intensive.",
+  alternates: { canonical: "/programs" },
 };
 
 function ProgramCard({ p }: { p: Program }) {
   const dark = p.featured;
   return (
-    <article
-      className={`flex flex-col gap-3.5 rounded-[18px] p-[38px] max-md:p-[26px] ${
-        dark
-          ? "border border-clay-light bg-gradient-to-br from-ink-2 to-ink"
-          : "border border-rule bg-parchment"
-      }`}
-    >
-      <div className="flex items-baseline justify-between gap-4">
-        <h3 className={`font-display text-[28px] max-md:text-[23px] ${dark ? "text-cream-2" : "text-ink"}`}>{p.name}</h3>
-        <span className={`whitespace-nowrap font-bold ${dark ? "text-clay-light" : "text-clay-dark"}`}>{p.price}</span>
-      </div>
-      <p className={`text-[12.5px] uppercase tracking-[0.1em] ${dark ? "text-clay-light" : "text-sage-dark"}`}>{p.duration}</p>
-      <p className={`flex-1 text-[15px] leading-[1.7] ${dark ? "text-cream" : "text-body-3"}`}>{p.blurb}</p>
-      <p className={`text-sm ${dark ? "text-cream" : "text-muted"}`}>For you if: {p.forYouIf}</p>
+    // `id` keeps the slug usable as an anchor target, so older #deep-links still land.
+    <article id={p.slug} className="scroll-mt-28">
+      <Link
+        href={`/programs/${p.slug}`}
+        className={`flex h-full flex-col gap-3.5 rounded-[18px] p-[38px] no-underline transition-colors max-md:p-[26px] ${
+          dark
+            ? "border border-clay-light bg-gradient-to-br from-ink-2 to-ink hover:border-clay-pale"
+            : "border border-rule bg-parchment hover:border-clay-light"
+        }`}
+      >
+        <div className="flex items-baseline justify-between gap-4">
+          <h3 className={`font-display text-[28px] max-md:text-[23px] ${dark ? "text-cream-2" : "text-ink"}`}>{p.name}</h3>
+          <span className={`whitespace-nowrap font-bold ${dark ? "text-clay-light" : "text-clay-dark"}`}>{p.price}</span>
+        </div>
+        <p className={`text-[12.5px] uppercase tracking-[0.1em] ${dark ? "text-clay-light" : "text-sage-dark"}`}>{p.duration}</p>
+        <p className={`flex-1 text-[15px] leading-[1.7] ${dark ? "text-cream" : "text-body-3"}`}>{p.blurb}</p>
+        <p className={`text-sm ${dark ? "text-cream" : "text-muted"}`}>For you if: {p.forYouIf}</p>
+        <span className={`text-sm font-semibold ${dark ? "text-clay-light" : "text-clay-dark"}`}>
+          Read more →
+        </span>
+      </Link>
     </article>
   );
 }

@@ -27,12 +27,12 @@ export default function SiteHeader() {
         Skip to content
       </a>
       <div className="mx-auto flex max-w-[1120px] items-center justify-between gap-8 px-8 py-[18px] max-md:px-[22px]">
-        <Link href="/" className="flex flex-col gap-0.5">
+        <Link href="/" className="flex min-w-0 flex-col gap-0.5">
           <span className="flex items-baseline gap-2.5 font-display text-[26px] font-medium tracking-[0.04em] text-body">
             Inner <span aria-hidden="true" className="text-[15px] text-clay">✦</span> Alchemy
           </span>
-          <span className="text-[11px] uppercase tracking-[0.24em] text-muted">
-            Institution · Life Coaching &amp; Hypnotherapy Services
+          <span className="text-[11px] uppercase tracking-[0.2em] text-muted max-xl:hidden max-lg:block">
+            Life Coaching &amp; Hypnotherapy Services
           </span>
         </Link>
 
@@ -43,14 +43,14 @@ export default function SiteHeader() {
           aria-expanded={menuOpen}
           aria-controls="mobile-nav"
           onClick={() => setMenuOpen((v) => !v)}
-          className="hidden cursor-pointer flex-col gap-[5px] p-2 -m-2 max-lg:flex"
+          className="hidden shrink-0 cursor-pointer flex-col gap-[5px] p-2 -m-2 max-lg:flex"
         >
           <span className="h-[1.5px] w-6 bg-body-2" />
           <span className="h-[1.5px] w-6 bg-body-2" />
           <span className="h-[1.5px] w-6 bg-body-2" />
         </button>
 
-        <nav className="flex items-center gap-7 max-lg:hidden">
+        <nav className="flex items-center gap-6 max-lg:hidden">
           {NAV.map((item) => {
             const active = pathname === item.href;
             return (
@@ -58,7 +58,7 @@ export default function SiteHeader() {
                 key={item.href}
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                className={`border-b pb-[3px] text-sm font-semibold ${
+                className={`whitespace-nowrap border-b pb-[3px] text-sm font-semibold ${
                   active ? "border-clay-light text-clay-dark" : "border-transparent text-body-2 hover:text-clay-dark"
                 }`}
               >

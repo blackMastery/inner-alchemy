@@ -5,9 +5,10 @@ import { Section, Eyebrow, H1, H2 } from "@/components/ui";
 import { SESSION_TIMELINE } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: "What a Session Actually Looks Like — Inner Alchemy Institution",
+  title: "What a Session Actually Looks Like",
   description:
     "Hour by hour, plainly written: the interview, the induction, the regression, your questions, and the recording you take home. Including what happens if you don't reach a deep trance.",
+  alternates: { canonical: "/session" },
 };
 
 export default function SessionPage() {

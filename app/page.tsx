@@ -1,8 +1,9 @@
 import Link from "next/link";
-import Image from "next/image";
+import ImageSlot from "@/components/ImageSlot";
 import BookingButton from "@/components/BookingButton";
-import { Section, Eyebrow, H1, H2, Card } from "@/components/ui";
+import { Section, Eyebrow, H2, Card } from "@/components/ui";
 import { SITE, PRACTITIONER, PROGRAMS, PRICING_ROWS, TESTIMONIALS, FIT } from "@/content/site";
+import { JOURNAL } from "@/content/journal";
 
 const ASSURANCES = [
   ["Sessions run 3–6 hours", "plan a long, unhurried block"],
@@ -49,9 +50,10 @@ export default function HomePage() {
         </div>
         <div className="flex justify-center">
           {/* Portrait: 380×480 desktop, rounded to a full arch (radius 190px). */}
-          <Image
+          <ImageSlot
             src="/images/hero-portrait.png"
             alt={PRACTITIONER.name}
+            label="Warm portrait of the practitioner, arch crop"
             width={380}
             height={480}
             priority
@@ -81,7 +83,14 @@ export default function HomePage() {
         </p>
         {/* Replace with the real embed (Mux / YouTube / self-hosted). 16:9. */}
         <div className="relative mx-auto aspect-video max-w-[720px] overflow-hidden rounded-2xl bg-linen-warm">
-          <Image src="/images/welcome-video-poster.png" alt="Welcome video" fill className="object-cover" />
+          <ImageSlot
+            alt="Welcome video"
+            label="Video poster frame — the two-minute practitioner introduction"
+            width={1280}
+            height={720}
+            fill
+            className="object-cover"
+          />
           <span className="pointer-events-none absolute inset-0 flex items-center justify-center">
             <span className="flex h-[76px] w-[76px] items-center justify-center rounded-full bg-linen/90 shadow-[0_8px_30px_rgba(53,48,42,0.25)]">
               <span className="ml-1.5 border-y-[12px] border-l-[20px] border-y-transparent border-l-clay" />
@@ -212,6 +221,36 @@ export default function HomePage() {
         <p className="mt-10 text-center">
           <Link href="/programs" className="inline-block rounded-full bg-sage px-[26px] py-3.5 text-[15px] font-semibold text-linen hover:bg-sage-dark">
             Explore all 8 programs →
+          </Link>
+        </p>
+      </Section>
+
+      {/* JOURNAL — takes the ink slot in the rhythm, so the band alternates
+          whether or not the testimonial section above is showing. */}
+      <Section tone="ink" width="mid">
+        <div className="mb-12 text-center">
+          <Eyebrow tone="light">From the journal</Eyebrow>
+          <H2 dark>The questions people ask first</H2>
+        </div>
+        <div className="grid grid-cols-3 gap-7 max-md:grid-cols-1">
+          {[...JOURNAL]
+            .sort((a, b) => b.date.localeCompare(a.date))
+            .slice(0, 3)
+            .map((post) => (
+              <Link
+                key={post.slug}
+                href={`/journal/${post.slug}`}
+                className="flex flex-col gap-3 rounded-[18px] border border-rule/20 bg-linen/[0.06] p-8 no-underline hover:border-clay-light max-md:p-[26px]"
+              >
+                <span className="text-xs uppercase tracking-[0.16em] text-clay-light">{post.tag}</span>
+                <span className="font-display text-[23px] leading-tight text-cream-2">{post.title}</span>
+                <span className="flex-1 text-sm leading-[1.7] text-cream">{post.excerpt}</span>
+              </Link>
+            ))}
+        </div>
+        <p className="mt-10 text-center">
+          <Link href="/journal" className="text-sm font-semibold text-clay-light">
+            Read the journal →
           </Link>
         </p>
       </Section>

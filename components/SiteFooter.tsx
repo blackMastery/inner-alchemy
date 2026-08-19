@@ -25,6 +25,7 @@ export default function SiteFooter() {
             <Link href="/programs" className="text-cream hover:text-cream-2">Programs &amp; pricing</Link>
             <Link href="/qhht" className="text-cream hover:text-cream-2">QHHT®</Link>
             <Link href="/faq" className="text-cream hover:text-cream-2">FAQ</Link>
+            <Link href="/journal" className="text-cream hover:text-cream-2">Journal</Link>
             <Link href="/story" className="text-cream hover:text-cream-2">How I came to this work</Link>
           </div>
 

@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import ImageSlot from "@/components/ImageSlot";
 import Link from "next/link";
 import BookingButton from "@/components/BookingButton";
 import { Section, Eyebrow, H1, H2 } from "@/components/ui";
 import { SITE } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: "QHHT® Sessions — Inner Alchemy Institution",
+  title: "QHHT® Sessions",
   description:
     "Quantum Healing Hypnosis Technique: a full-day in-person regression session — life review, regression, and a dialogue with your deeper self.",
+  alternates: { canonical: "/qhht" },
 };
 
 const INCLUDES = [
@@ -44,9 +45,9 @@ export default function QhhtPage() {
             </p>
           </div>
         </div>
-        <Image
-          src="/images/session-room.png"
+        <ImageSlot
           alt="The session room"
+          label="The room where in-person QHHT® sessions are held"
           width={560}
           height={420}
           className="h-[420px] w-full rounded-[20px] object-cover max-md:h-[260px]"

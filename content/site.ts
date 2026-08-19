@@ -132,6 +132,53 @@ export const PROGRAMS: Program[] = [
   },
 ];
 
+/** Human label for each tier, reused by /programs and /programs/[slug]. */
+export const TIER_LABELS: Record<Program["tier"], string> = {
+  session: "Single session",
+  program: "Guided transformation",
+  entrepreneur: "For entrepreneurs",
+};
+
+/**
+ * Programs whose arc includes a full hypnosis session, and which therefore
+ * show the hour-by-hour walkthrough on their detail page.
+ */
+export const PROGRAMS_WITH_SESSION_DAY = ["beyond-the-mind", "unleash-the-inner-alchemist"];
+
+/**
+ * Which existing FAQ questions to surface on a program page, by tier.
+ * Referenced verbatim by question text — no answer is rewritten anywhere.
+ */
+export const PROGRAM_FAQ_BY_TIER: Record<Program["tier"], string[]> = {
+  session: [
+    "Will I be unconscious or lose control?",
+    "Will I remember the session?",
+    "What if nothing happens for me?",
+    "Why are sessions so long?",
+  ],
+  program: [
+    "What should I ask? How do I prepare my questions?",
+    "Can I do this online over video?",
+    "How do I book, and what's the cancellation policy?",
+    "Is what I say confidential?",
+  ],
+  entrepreneur: [
+    "Can I do this online over video?",
+    "How do I book, and what's the cancellation policy?",
+    "Is what I say confidential?",
+    "Is this a treatment for my medical or mental health condition?",
+  ],
+};
+
+/** Flattened FAQ lookup, so pages can pull a reviewed answer by its question. */
+export function faqByQuestion(question: string) {
+  for (const group of FAQ_GROUPS) {
+    const hit = group.items.find((i) => i.q === question);
+    if (hit) return hit;
+  }
+  return undefined;
+}
+
 export const PRICING_ROWS: { label: string; price: string; highlight?: boolean }[] = [
   { label: "Discovery call · 15 minutes", price: "Free" },
   { label: "The Power Reset Session · 90 minutes", price: "$150" },

@@ -28,7 +28,7 @@ export default function BookingButton({
     <button
       type="button"
       onClick={open}
-      className={`rounded-full font-semibold cursor-pointer transition-colors ${pad} ${variants[variant]} ${className}`}
+      className={`rounded-full font-semibold cursor-pointer transition-colors whitespace-nowrap ${pad} ${variants[variant]} ${className}`}
     >
       {children}
     </button>

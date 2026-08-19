@@ -4,9 +4,10 @@ import { Section, Eyebrow, H1 } from "@/components/ui";
 import { FAQ_GROUPS } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: "FAQ — Inner Alchemy Institution",
+  title: "FAQ",
   description:
     "Honest answers about hypnosis, control, memory, session length, what happens if you don't go deep, confidentiality, and booking.",
+  alternates: { canonical: "/faq" },
 };
 
 /* Every answer is also SEO surface — emit FAQPage structured data. */
@@ -22,7 +23,7 @@ function FaqJsonLd() {
       })),
     ),
   };
-  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(json) }} />;
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(json).replace(/</g, "\\u003c") }} />;
 }
 
 export default function FaqPage() {

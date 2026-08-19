@@ -1,22 +1,23 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import ImageSlot from "@/components/ImageSlot";
 import BookingButton from "@/components/BookingButton";
 import { Section, Eyebrow, H1 } from "@/components/ui";
 import { PRACTITIONER, STORY_PARAGRAPHS, STORY_PULL_QUOTE, STORY_PARAGRAPHS_AFTER } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: "How I Came to This Work — Hadassah Headley",
+  title: "How I Came to This Work",
   description:
     "From Guyana to transformational coaching: Hadassah Headley's story of survival, single motherhood, and remembering who she truly is.",
+  alternates: { canonical: "/story" },
 };
 
 export default function StoryPage() {
   return (
     <Section className="grid grid-cols-[0.8fr_1.2fr] items-start gap-[72px] !pb-[72px] max-md:grid-cols-1 max-md:gap-8">
       <div className="sticky top-[120px] max-lg:static">
-        <Image
-          src="/images/story-portrait.png"
+        <ImageSlot
           alt={PRACTITIONER.name}
+          label="Portrait for the origin story — warm, informal, not a studio headshot"
           width={440}
           height={460}
           className="h-[460px] w-full rounded-[20px] object-cover max-md:h-[320px]"
