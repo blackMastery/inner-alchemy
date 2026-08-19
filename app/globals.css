@@ -1,26 +1,83 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Inner Alchemy — grounded natural palette.
+   Values lifted verbatim from the HTML prototype. */
+@theme {
+  --color-linen:      #FAF6EF; /* page background */
+  --color-linen-warm: #F4EEE2; /* alternating band background */
+  --color-parchment:  #FFFDF8; /* card surface */
+  --color-parchment-2:#FBF3E7; /* "good to know" callout */
+  --color-highlight:  #FAF4E9; /* highlighted pricing row */
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-ink:        #2E2A24; /* headings, dark sections */
+  --color-ink-2:      #3A342C; /* dark hover / gradient stop */
+  --color-body:       #35302A;
+  --color-body-2:     #4A443C;
+  --color-body-3:     #5C5347;
+  --color-muted:      #6E6558;
+  --color-muted-2:    #8C8172;
+  --color-muted-dark: #9A8F80; /* on dark bg */
+  --color-cream:      #C9BFAE; /* body copy on dark bg */
+  --color-cream-2:    #F4EEE2; /* headings on dark bg */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-clay:       #A96B4F; /* primary accent / CTA */
+  --color-clay-dark:  #8A5540; /* CTA hover */
+  --color-clay-light: #C7A98F; /* accent on dark bg */
+  --color-clay-pale:  #D8B9A5;
+  --color-sand:       #E8D9BF;
+
+  --color-sage:       #7F8F76; /* secondary accent */
+  --color-sage-dark:  #64735C;
+  --color-sage-light: #B9C2B0;
+
+  --color-rule:       #E7DECF; /* hairline borders */
+  --color-rule-2:     #E0D5C2;
+  --color-rule-3:     #DCCDB9;
+  --color-rule-4:     #EFE7D8;
+
+  --font-display: var(--font-cormorant), Georgia, serif;
+  --font-sans:    var(--font-karla), system-ui, sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-linen);
+  color: var(--color-body);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* clay on linen is 3.98:1 — below AA for body text. clay-dark is 5.64:1.
+   The hover state carries an underline rather than a lighter colour, because
+   every lighter step in the palette fails contrast. */
+a { color: var(--color-clay-dark); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+summary { list-style: none; }
+summary::-webkit-details-marker { display: none; }
+
+/* The prototype had no visible focus state: inputs were outline-none with only
+   a border-colour change. Keyboard users could not see where they were. */
+:focus-visible {
+  outline: 2px solid var(--color-clay-dark);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* clay-dark on the ink bands is only 2.35:1 — invisible. sand is 10.26:1.
+   The offset keeps the ring outside filled buttons, so it always lands on the
+   band colour rather than on the button itself. */
+.bg-ink :focus-visible {
+  outline-color: var(--color-sand);
+}
+
+/* Motion is minimal by design; honour the OS preference regardless. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
