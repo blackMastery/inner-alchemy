@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+/* Inner Alchemy — grounded natural palette.
+   Values lifted verbatim from the HTML prototype. */
+@theme {
+  --color-linen:      #FAF6EF; /* page background */
+  --color-linen-warm: #F4EEE2; /* alternating band background */
+  --color-parchment:  #FFFDF8; /* card surface */
+  --color-parchment-2:#FBF3E7; /* "good to know" callout */
+  --color-highlight:  #FAF4E9; /* highlighted pricing row */
+
+  --color-ink:        #2E2A24; /* headings, dark sections */
+  --color-ink-2:      #3A342C; /* dark hover / gradient stop */
+  --color-body:       #35302A;
+  --color-body-2:     #4A443C;
+  --color-body-3:     #5C5347;
+  --color-muted:      #6E6558;
+  --color-muted-2:    #8C8172;
+  --color-muted-dark: #9A8F80; /* on dark bg */
+  --color-cream:      #C9BFAE; /* body copy on dark bg */
+  --color-cream-2:    #F4EEE2; /* headings on dark bg */
+
+  --color-clay:       #A96B4F; /* primary accent / CTA */
+  --color-clay-dark:  #8A5540; /* CTA hover */
+  --color-clay-light: #C7A98F; /* accent on dark bg */
+  --color-clay-pale:  #D8B9A5;
+  --color-sand:       #E8D9BF;
+
+  --color-sage:       #7F8F76; /* secondary accent */
+  --color-sage-dark:  #64735C;
+  --color-sage-light: #B9C2B0;
+
+  --color-rule:       #E7DECF; /* hairline borders */
+  --color-rule-2:     #E0D5C2;
+  --color-rule-3:     #DCCDB9;
+  --color-rule-4:     #EFE7D8;
+
+  --font-display: var(--font-cormorant), Georgia, serif;
+  --font-sans:    var(--font-karla), system-ui, sans-serif;
+}
+
+body {
+  background: var(--color-linen);
+  color: var(--color-body);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--color-clay); text-decoration: none; }
+a:hover { color: var(--color-clay-dark); }
+
+summary { list-style: none; }
+summary::-webkit-details-marker { display: none; }
