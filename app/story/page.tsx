@@ -16,11 +16,13 @@ export default function StoryPage() {
     <Section className="grid grid-cols-[0.8fr_1.2fr] items-start gap-[72px] !pb-[72px] max-md:grid-cols-1 max-md:gap-8">
       <div className="sticky top-[120px] max-lg:static">
         <ImageSlot
+          src="/images/IMG_3906.PNG"
           alt={PRACTITIONER.name}
           label="Portrait for the origin story — warm, informal, not a studio headshot"
-          width={440}
-          height={460}
-          className="h-[460px] w-full rounded-[20px] object-cover max-md:h-[320px]"
+          width={469}
+          height={443}
+          priority
+          className="h-[460px] w-full rounded-[20px] object-cover object-top max-md:h-[320px]"
         />
         <p className="mt-3.5 text-center text-[13px] italic text-muted">{PRACTITIONER.credentials}</p>
       </div>

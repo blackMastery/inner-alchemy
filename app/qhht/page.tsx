@@ -3,7 +3,7 @@ import ImageSlot from "@/components/ImageSlot";
 import Link from "next/link";
 import BookingButton from "@/components/BookingButton";
 import { Section, Eyebrow, H1, H2 } from "@/components/ui";
-import { SITE } from "@/content/site";
+import { SITE, PRACTITIONER } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "QHHT® Sessions",
@@ -46,11 +46,13 @@ export default function QhhtPage() {
           </div>
         </div>
         <ImageSlot
-          alt="The session room"
-          label="The room where in-person QHHT® sessions are held"
-          width={560}
-          height={420}
-          className="h-[420px] w-full rounded-[20px] object-cover max-md:h-[260px]"
+          src="/images/IMG_3907.PNG"
+          alt={PRACTITIONER.name}
+          label="Portrait of the practitioner who holds in-person QHHT® sessions"
+          width={375}
+          height={397}
+          priority
+          className="h-[420px] w-full rounded-[20px] object-cover object-top max-md:h-[260px]"
         />
       </Section>
 

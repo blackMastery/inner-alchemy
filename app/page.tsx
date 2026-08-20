@@ -111,7 +111,7 @@ export default function HomePage() {
           </p>
           <Link
             href="/session"
-            className="inline-block rounded-full bg-sage px-[26px] py-3.5 text-[15px] font-semibold text-linen hover:bg-sage-dark"
+            className="inline-block rounded-full border border-clay-light px-[26px] py-3.5 text-[15px] font-semibold text-clay-dark hover:border-clay hover:bg-parchment"
           >
             Read the full walkthrough
           </Link>
