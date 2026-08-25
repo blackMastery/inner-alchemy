@@ -58,8 +58,8 @@ export function PostFooter() {
       <p className="mb-8 max-w-[62ch] text-[16.5px] leading-[1.8] text-body-3">
         The discovery call is fifteen minutes, free, and genuinely without obligation — a conversation, not a
         sales call. If you would rather read first, the{" "}
-        <Link href="/session">session walkthrough</Link> covers the whole day hour by hour, and the{" "}
-        <Link href="/faq">FAQ</Link> answers the thirteen questions people ask most.
+        <Link href="/programs">programs page</Link> lays out every way to work together, and the{" "}
+        <Link href="/faq">FAQ</Link> answers the questions people ask most.
       </p>
       <BookingButton />
     </footer>

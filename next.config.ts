@@ -4,6 +4,10 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   // Journal posts are authored as MDX pages under app/journal/<slug>/page.mdx.
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
+  // The standalone QHHT® page was folded into the Beyond the Mind programme.
+  async redirects() {
+    return [{ source: "/qhht", destination: "/programs/beyond-the-mind", permanent: true }];
+  },
 };
 
 // The site's TSX copy uses typographic quotes and dashes; smartypants keeps

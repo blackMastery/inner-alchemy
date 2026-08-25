@@ -21,7 +21,7 @@ const karla = Karla({
 });
 
 const DESCRIPTION =
-  "Transformational life coaching and BQH/QHHT® quantum healing sessions with Hadassah Headley. Begin with a free 15-minute discovery call.";
+  "Transformational life coaching with Hadassah Headley — identity transformation, subconscious healing and practical manifestation, online. Plus BQH/QHHT® quantum healing sessions. Begin with a free 15-minute discovery call.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),

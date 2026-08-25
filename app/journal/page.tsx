@@ -57,7 +57,7 @@ export default function JournalPage() {
         <H2 className="mb-4">Still have a question?</H2>
         <p className="mb-[30px] text-base leading-[1.75] text-body-3">
           Bring it to the discovery call — fifteen minutes, free, no obligation. Or read the{" "}
-          <Link href="/session">hour-by-hour walkthrough</Link> of a session first.
+          <Link href="/session">stage-by-stage walkthrough</Link> of a quantum healing session first.
         </p>
         <BookingButton />
       </Section>

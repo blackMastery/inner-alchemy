@@ -5,5 +5,9 @@ export const contentType = OG_CONTENT_TYPE;
 export const alt = "Eight doorways. One destination.";
 
 export default async function Image() {
-  return ogImage({ eyebrow: "Coaching & healing programs", title: "Eight doorways. One destination.", meta: "From a 90-minute Power Reset to a two-day private intensive." });
+  return ogImage({
+    eyebrow: "Transformational coaching programs",
+    title: "Eight doorways. One destination.",
+    meta: "From a 90-minute reset to a 12-week identity transformation.",
+  });
 }

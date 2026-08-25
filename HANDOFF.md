@@ -5,16 +5,38 @@ a person. Nothing here blocks the site from running; all of it blocks launch.
 
 ## 1. Unconfirmed values
 
-All five live in the `SITE` object at the top of [`content/site.ts`](content/site.ts).
+All four live in the `SITE` object at the top of [`content/site.ts`](content/site.ts).
 Edit them there and they update everywhere.
 
 | Value | Current | Needs |
 |---|---|---|
 | `SITE.email` | `hello@inneralchemy.example` | A real, monitored address. This one does not exist. |
-| `SITE.qhhtPrice` | `$495` | Confirmation. Flagged as a placeholder in the design handoff. Appears in `PRICING_ROWS` and on `/qhht`. |
-| `SITE.location` | `Georgetown, Guyana` | Confirmation — and whether in-person QHHT® is actually offered there, since `/qhht` sells an in-person session. |
+| `SITE.location` | `Georgetown, Guyana` | Confirmation. Shown in the footer and as `areaServed` for the in-person MRI intensive. |
 | `SITE.url` | `NEXT_PUBLIC_SITE_URL`, falling back to localhost | The production domain, set as an env var in Vercel. Until then canonicals, the sitemap and OG image URLs point at localhost. |
 | `SITE.testimonialsApproved` | `false` | See below. |
+
+## 1b. Copy derived from her PDFs — needs her sign-off
+
+The eight programme pages ([`content/programs.ts`](content/programs.ts)) are
+her package PDFs transcribed verbatim; only headings and obvious typos were
+normalised. Things to confirm with her:
+
+- **Power Reset vs "Power Reclaim".** The Power Reset PDF calls itself "The
+  Power Reclaim Session" once in the body. The site uses "Power Reset" throughout.
+- **Voice-note support** is listed on three PDFs (Inner Alchemist, Boss Babe,
+  Soul Awakens). The new FAQ answer says so; confirm it isn't offered on the others too.
+- **Recordings.** Only the two single sessions list a recording. The FAQ says
+  programme calls aren't recorded by default — confirm.
+- **New FAQ answers** under "Coaching programs" in `content/site.ts` are
+  written from the PDFs, not by her. Each is marked `TODO: confirm`.
+- **`METHOD`, `ASSURANCES`, `HOME_HERO`** in `content/site.ts` are drawn
+  from her bio, not verbatim. Marked `TODO: confirm`.
+- **QHHT®.** The standalone `/qhht` page (and its placeholder `$495` price)
+  is gone; `/qhht` now redirects to `/programs/beyond-the-mind`, which carries a
+  short "prefer it in person?" note (`QHHT_NOTE`). If she does offer QHHT® as a
+  priced product, it needs its own PDF and a programme entry.
+- **"Why are sessions so long?"** still says three to six hours; the Beyond the
+  Mind PDF says 3–4. The session timeline no longer shows clock times.
 
 ## 2. Testimonials — currently not published
 
@@ -78,10 +100,12 @@ Services", and is hidden between 1024–1280px where it would collide with the n
 
 ## 6. Still missing
 
-- **Photography.** Three of four image slots are placeholders rendered by
-  `components/ImageSlot.tsx` at the correct dimensions: the video poster
-  (1280×720), the QHHT session room (560×420), and the story portrait (440×460).
-  Pass a `src` prop to swap in a real photo. The hero portrait is real.
+- **Photography.** Her four portraits are in place: `portrait-white-suit.jpg`
+  (home hero), `portrait-dark.jpg` (home "Meet Hadassah" band), `portrait-casual.jpg`
+  (`/story`), and `portrait-sunglasses.jpg` (unused, in reserve). All four are tall
+  ~1:2 crops, so every slot is portrait with `object-top`. `hero-portrait.png` and
+  the `IMG_39xx.PNG` files in `public/images/` are no longer referenced and can be
+  deleted. The only remaining placeholder is the video poster (1280×720).
 - **Practitioner video.** The homepage reserves a 16:9 block for it. The handoff
   calls this the highest-leverage asset on the site.
 - **Booking backend.** `POST /api/booking` validates and logs; it does not

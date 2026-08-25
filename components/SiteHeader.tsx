@@ -8,8 +8,6 @@ import BookingButton from "./BookingButton";
 export const NAV = [
   { label: "Home", href: "/" },
   { label: "Programs", href: "/programs" },
-  { label: "The Session", href: "/session" },
-  { label: "QHHT", href: "/qhht" },
   { label: "FAQ", href: "/faq" },
   { label: "My Story", href: "/story" },
 ];

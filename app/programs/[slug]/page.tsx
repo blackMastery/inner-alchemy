@@ -2,65 +2,75 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import BookingButton from "@/components/BookingButton";
+import CheckList from "@/components/CheckList";
+import Curriculum from "@/components/Curriculum";
+import FaqAccordion from "@/components/FaqAccordion";
+import ProgramCard from "@/components/ProgramCard";
+import SessionTimeline from "@/components/SessionTimeline";
 import { Section, Eyebrow, H1, H2, Card } from "@/components/ui";
-import {
-  SITE,
-  PROGRAMS,
-  TIER_LABELS,
-  PROGRAMS_WITH_SESSION_DAY,
-  PROGRAM_FAQ_BY_TIER,
-  SESSION_TIMELINE,
-  FIT,
-  faqByQuestion,
-} from "@/content/site";
+import { PROGRAMS, TIER_LABELS, programBySlug, type Prose } from "@/content/programs";
+import { SITE, PROGRAM_FAQ_BY_TIER, QHHT_NOTE, faqByQuestion } from "@/content/site";
 
 /**
- * Program detail pages are composed entirely from copy that already exists in
- * content/site.ts. Nothing here is paraphrased or newly written — the handoff
- * states the copy is final and reviewed.
+ * Programme pages render the practitioner's own package copy, section for
+ * section, from content/programs.ts. Nothing here is newly written.
  */
 
 export function generateStaticParams() {
   return PROGRAMS.map((p) => ({ slug: p.slug }));
 }
 
-export async function generateMetadata({
-  params,
-}: PageProps<"/programs/[slug]">): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps<"/programs/[slug]">): Promise<Metadata> {
   const { slug } = await params;
-  const program = PROGRAMS.find((p) => p.slug === slug);
+  const program = programBySlug(slug);
   if (!program) return {};
 
+  const description = `${program.tagline} ${program.price} · ${program.duration}.`.slice(0, 160);
   return {
     title: program.name,
-    description: `${program.price} · ${program.duration}. ${program.blurb}`.slice(0, 200),
+    description,
     alternates: { canonical: `/programs/${program.slug}` },
+    openGraph: { title: program.name, description },
   };
+}
+
+function ProseBlock({ prose, tone = "linen" }: { prose: Prose; tone?: "linen" | "warm" }) {
+  return (
+    <Section tone={tone} width="narrow">
+      {prose.heading && <H2 className="mb-6">{prose.heading}</H2>}
+      <div className="flex flex-col gap-[18px] text-[16.5px] leading-[1.85] text-body-2">
+        {prose.paragraphs.map((p) => <p key={p.slice(0, 32)}>{p}</p>)}
+        {prose.bullets && <CheckList items={prose.bullets} marker="clay" className="!gap-2 !text-[15.5px]" />}
+        {prose.after?.map((p) => <p key={p.slice(0, 32)}>{p}</p>)}
+      </div>
+    </Section>
+  );
 }
 
 export default async function ProgramPage({ params }: PageProps<"/programs/[slug]">) {
   const { slug } = await params;
-  const program = PROGRAMS.find((p) => p.slug === slug);
+  const program = programBySlug(slug);
   if (!program) notFound();
 
   const siblings = PROGRAMS.filter((p) => p.tier === program.tier && p.slug !== program.slug);
-  const showTimeline = PROGRAMS_WITH_SESSION_DAY.includes(program.slug);
-  const faqs = PROGRAM_FAQ_BY_TIER[program.tier]
-    .map(faqByQuestion)
-    .filter((item) => item !== undefined);
+  const faqs = (program.faq ?? PROGRAM_FAQ_BY_TIER[program.tier]).map(faqByQuestion);
+  const inPerson = program.format === "in-person";
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Service",
     name: program.name,
-    description: program.blurb,
+    description: program.tagline,
     serviceType: TIER_LABELS[program.tier],
     url: `${SITE.url}/programs/${program.slug}`,
-    provider: { "@type": "Person", name: "Hadassah Headley" },
+    provider: { "@id": `${SITE.url}/#practitioner` },
+    areaServed: inPerson ? SITE.location : "Worldwide",
     offers: {
       "@type": "Offer",
+      url: `${SITE.url}/programs/${program.slug}`,
       price: program.price.replace(/[^0-9.]/g, ""),
       priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
     },
   };
 
@@ -73,14 +83,27 @@ export default async function ProgramPage({ params }: PageProps<"/programs/[slug
 
       {/* HERO */}
       <Section width="mid" className="!pb-16">
-        <Eyebrow>{TIER_LABELS[program.tier]}</Eyebrow>
-        <H1 className="mb-5">{program.name}</H1>
-        <p className="mb-7 flex flex-wrap items-baseline gap-x-3 gap-y-1 text-[17px] text-body-3">
+        <Eyebrow>
+          Programme {program.number} · {TIER_LABELS[program.tier]}
+        </Eyebrow>
+        <H1 className="mb-3">{program.name}</H1>
+        {program.motto && (
+          <p className="mb-5 text-[13px] font-bold uppercase tracking-[0.16em] text-clay-dark">{program.motto}</p>
+        )}
+        <p className="mb-7 max-w-[56ch] font-display text-[27px] italic leading-[1.4] text-body-2 max-md:text-[22px]">
+          {program.tagline}
+        </p>
+        <p className="mb-9 flex flex-wrap items-baseline gap-x-3 gap-y-1 text-[17px] text-body-3">
           <span className="font-display text-[30px] text-clay">{program.price}</span>
           <span className="text-muted">·</span>
           <span>{program.duration}</span>
+          {!program.duration.includes(inPerson ? "in person" : "online") && (
+            <>
+              <span className="text-muted">·</span>
+              <span>{inPerson ? "in person" : "online"}</span>
+            </>
+          )}
         </p>
-        <p className="mb-8 max-w-[62ch] text-[17px] leading-[1.8] text-body-3">{program.blurb}</p>
         <div className="flex flex-wrap items-center gap-6">
           <BookingButton />
           <Link href="/programs" className="text-[15px] font-semibold">
@@ -89,101 +112,117 @@ export default async function ProgramPage({ params }: PageProps<"/programs/[slug
         </div>
       </Section>
 
-      {/* FIT — the practitioner's own words, unchanged */}
-      <Section tone="warm" width="mid">
-        <Eyebrow tone="clay">Is this the one?</Eyebrow>
-        <H2 className="mb-6">This is for you if…</H2>
-        <p className="mb-10 max-w-[60ch] font-display text-[27px] italic leading-[1.45] text-body-2 max-md:text-[22px]">
-          {program.forYouIf.charAt(0).toUpperCase() + program.forYouIf.slice(1)}
+      {/* OPENING — the PDF's own preamble, where it has one */}
+      {program.opening && <ProseBlock prose={program.opening} tone="warm" />}
+
+      {/* WHO THIS IS FOR */}
+      <Section tone={program.opening ? "linen" : "warm"} width="mid">
+        <Eyebrow tone="clay">Who this is for</Eyebrow>
+        <H2 className="mb-6">Is this the one?</H2>
+        <p className="mb-3 max-w-[62ch] text-[17px] leading-[1.8] text-body-3">{program.audience.intro}</p>
+        <p className="mb-6 text-[15.5px] font-semibold text-body">{program.audience.lead}</p>
+        <CheckList items={program.audience.bullets} className="mb-8 max-w-[68ch]" />
+        <p className="max-w-[60ch] font-display text-[25px] italic leading-[1.45] text-clay-dark max-md:text-[21px]">
+          {program.audience.closing}
         </p>
-        <div className="grid grid-cols-2 gap-8 max-md:grid-cols-1">
-          <Card>
-            <p className="mb-[22px] font-display text-[26px] text-sage-dark">
-              This work tends to fit if…
-            </p>
-            <ul className="flex flex-col gap-4 text-[15px] leading-[1.65] text-body-3">
-              {FIT.yes.map((line) => (
-                <li key={line} className="flex gap-3">
-                  <span aria-hidden="true" className="text-sage">✦</span>
-                  <span>{line}</span>
-                </li>
-              ))}
-            </ul>
-          </Card>
-          <Card>
-            <p className="mb-[22px] font-display text-[26px] text-clay">It isn&rsquo;t the right tool if…</p>
-            <ul className="flex flex-col gap-4 text-[15px] leading-[1.65] text-body-3">
-              {FIT.no.map((line) => (
-                <li key={line} className="flex gap-3">
-                  <span aria-hidden="true" className="text-[#C09A82]">—</span>
-                  <span>{line}</span>
-                </li>
-              ))}
-            </ul>
-          </Card>
-        </div>
       </Section>
 
-      {/* THE SESSION DAY — only where the program actually includes one */}
-      {showTimeline && (
-        <>
-          <Section width="narrow" className="!pb-10">
-            <Eyebrow>What the session day looks like</Eyebrow>
-            <H2 className="mb-4">Hour by hour</H2>
-            <p className="max-w-[60ch] text-base leading-[1.75] text-muted">
-              This program includes a full hypnosis session. Here is how that day runs, start to finish.
+      {/* THE TRANSFORMATION */}
+      <Section width="wide" outerClassName={program.opening ? "border-t border-rule" : ""}>
+        <div className="mb-12 max-w-[62ch]">
+          <Eyebrow>The transformation you will experience</Eyebrow>
+          <H2 className="mb-5">What changes</H2>
+          <p className="text-[17px] leading-[1.8] text-body-3">{program.transformation.intro}</p>
+        </div>
+        <div className="grid grid-cols-2 gap-7 max-md:grid-cols-1">
+          {program.transformation.outcomes.map((o) => (
+            <Card key={o.heading} className={o.body ? "" : "!py-6"}>
+              <p className={`font-display text-[24px] leading-tight text-ink ${o.body ? "mb-3" : ""}`}>{o.heading}</p>
+              {o.body && <p className="text-[15px] leading-[1.7] text-body-3">{o.body}</p>}
+            </Card>
+          ))}
+        </div>
+        <p className="mt-10 max-w-[62ch] text-[17px] font-semibold leading-[1.7] text-body">
+          {program.transformation.closing}
+        </p>
+      </Section>
+
+      {/* PROGRAM STRUCTURE */}
+      <Section tone="warm" width="mid">
+        <Eyebrow tone="clay">Program structure</Eyebrow>
+        <H2 className="mb-8">How it unfolds</H2>
+        <Curriculum structure={program.structure} />
+
+        {program.bqh === "included" && (
+          <div className="mt-10 rounded-[18px] border border-sage-light bg-parchment px-9 py-8 max-md:p-[26px]">
+            <p className="mb-2 font-bold text-ink">This program includes a 3-hour BQH session</p>
+            <p className="text-[14.5px] leading-[1.75] text-muted">
+              A full quantum healing hypnotherapy session sits at the heart of Phase 2. It is deep relaxation, not
+              sleep — you stay aware and in control the whole time. Read{" "}
+              <Link href="/session">what a session actually looks like</Link>, stage by stage.
             </p>
-          </Section>
-          <section className="mx-auto max-w-[760px] px-8 pb-[72px] max-md:px-[22px]">
-            {SESSION_TIMELINE.map((step, i) => (
-              <div
-                key={step.time}
-                className={`grid grid-cols-[120px_1fr] gap-7 py-8 max-md:grid-cols-1 max-md:gap-2 ${
-                  i < SESSION_TIMELINE.length - 1 ? "border-b border-rule" : ""
-                }`}
-              >
-                <div>
-                  <p className="font-display text-[30px] text-clay max-md:text-[25px]">{step.time}</p>
-                  <p className="text-xs uppercase tracking-[0.12em] text-muted">{step.span}</p>
-                </div>
-                <div>
-                  <h3 className="mb-2 text-lg font-bold text-ink">{step.title}</h3>
-                  <p className="text-[15.5px] leading-[1.75] text-body-3">{step.body}</p>
-                </div>
-              </div>
-            ))}
-            <p className="text-sm text-muted">
-              The full walkthrough, including what happens if you don&rsquo;t go deep, is on the{" "}
+          </div>
+        )}
+      </Section>
+
+      {program.bqh === "session" && (
+        <>
+          <Section width="narrow" className="!pb-4">
+            <Eyebrow>Stage by stage</Eyebrow>
+            <H2 className="mb-4">How the session unfolds</H2>
+            <p className="max-w-[60ch] text-base leading-[1.75] text-muted">
+              You are never unconscious. It is deep relaxation — like the moments before sleep — and you can speak the
+              whole time. The full walkthrough, including what happens if you don&rsquo;t go deep, is on the{" "}
               <Link href="/session">session page</Link>.
             </p>
+          </Section>
+          <section className="mx-auto max-w-[760px] px-8 pb-16 max-md:px-[22px]">
+            <SessionTimeline />
+            <div className="mt-10 rounded-[18px] border border-sand bg-parchment-2 px-[38px] py-[34px] max-md:p-[26px]">
+              <p className="mb-2 font-bold text-ink">{QHHT_NOTE.heading}</p>
+              <p className="text-[14.5px] leading-[1.75] text-muted">{QHHT_NOTE.body}</p>
+            </div>
           </section>
         </>
       )}
 
+      {/* WHAT CLIENTS RECEIVE */}
+      <Section width="mid" outerClassName={program.bqh === "session" ? "border-t border-rule" : ""}>
+        <Eyebrow>What clients receive</Eyebrow>
+        <H2 className="mb-8">Included</H2>
+        <CheckList items={program.receive} className="max-w-[64ch] !text-[16px]" />
+        {program.receiveNote && (
+          <p className="mt-8 max-w-[60ch] text-[16px] font-semibold leading-[1.7] text-body">{program.receiveNote}</p>
+        )}
+        {program.addendum && (
+          <div className="mt-10 rounded-[18px] border border-rule-2 bg-linen-warm px-10 py-9 max-md:p-[26px]">
+            <h3 className="mb-3 font-display text-2xl text-ink">{program.addendum.heading}</h3>
+            <p className="mb-4 text-[15.5px] leading-[1.75] text-body-3">{program.addendum.intro}</p>
+            <CheckList items={program.addendum.bullets} marker="clay" className="!gap-2 !text-[14.5px]" />
+            {program.addendum.closing && (
+              <p className="mt-5 text-[15px] font-semibold leading-[1.7] text-body">{program.addendum.closing}</p>
+            )}
+          </div>
+        )}
+        {program.disclaimer && <p className="mt-8 text-sm text-muted">{program.disclaimer}</p>}
+      </Section>
+
+      {/* CLOSING ESSAY — the PDF's own afterword, where it has one */}
+      {program.essay && <ProseBlock prose={program.essay} tone="warm" />}
+
       {/* RELEVANT QUESTIONS — reviewed answers, pulled verbatim from the FAQ */}
-      {faqs.length > 0 && (
-        <Section tone={showTimeline ? "warm" : "linen"} width="narrow" outerClassName={showTimeline ? "" : "border-t border-rule"}>
-          <Eyebrow tone="clay">Before you book</Eyebrow>
-          <H2 className="mb-8">Questions people ask about this</H2>
-          {faqs.map((item) => (
-            <details key={item.q} className="group border-b border-rule">
-              <summary className="flex cursor-pointer justify-between gap-4 py-[22px] text-[17px] font-semibold text-ink">
-                {item.q}
-                <span
-                  aria-hidden="true"
-                  className="font-normal text-clay-dark transition-transform group-open:rotate-45"
-                >
-                  +
-                </span>
-              </summary>
-              <p className="mb-6 max-w-[62ch] text-[15.5px] leading-[1.8] text-body-3">{item.a}</p>
-            </details>
-          ))}
-          <p className="mt-8 text-sm text-muted">
-            All thirteen questions are answered on the <Link href="/faq">FAQ page</Link>.
-          </p>
-        </Section>
-      )}
+      <Section
+        tone={program.essay ? "linen" : "warm"}
+        width="narrow"
+        outerClassName={program.essay ? "border-t border-rule" : ""}
+      >
+        <Eyebrow tone="clay">Before you book</Eyebrow>
+        <H2 className="mb-8">Questions people ask about this</H2>
+        <FaqAccordion items={faqs} />
+        <p className="mt-8 text-sm text-muted">
+          Every question is answered on the <Link href="/faq">FAQ page</Link>.
+        </p>
+      </Section>
 
       {/* SIBLINGS */}
       {siblings.length > 0 && (
@@ -191,18 +230,7 @@ export default async function ProgramPage({ params }: PageProps<"/programs/[slug
           <Eyebrow>Also in {TIER_LABELS[program.tier].toLowerCase()}</Eyebrow>
           <H2 className="mb-10">Other ways in</H2>
           <div className="grid grid-cols-3 gap-7 max-md:grid-cols-1">
-            {siblings.map((p) => (
-              <Link
-                key={p.slug}
-                href={`/programs/${p.slug}`}
-                className="flex flex-col gap-3 rounded-[18px] border border-rule bg-parchment p-8 no-underline hover:border-clay-light max-md:p-[26px]"
-              >
-                <h3 className="font-display text-[24px] text-ink">{p.name}</h3>
-                <p className="text-[12.5px] uppercase tracking-[0.1em] text-sage-dark">{p.duration}</p>
-                <p className="flex-1 text-sm leading-[1.7] text-body-3">{p.forYouIf}</p>
-                <span className="font-bold text-clay-dark">{p.price}</span>
-              </Link>
-            ))}
+            {siblings.map((p) => <ProgramCard key={p.slug} p={p} variant="compact" />)}
           </div>
         </Section>
       )}

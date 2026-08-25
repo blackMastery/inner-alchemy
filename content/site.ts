@@ -1,10 +1,13 @@
 /* All site copy lives here so pages stay layout-only.
-   Prices and durations come from the practitioner's own programme PDFs. */
+   The eight programmes themselves live in ./programs (transcribed from the
+   practitioner's PDFs); this file holds everything around them. */
+
+import { PROGRAMS, FLAGSHIP_SLUG, type ProgramTier } from "./programs";
 
 /* ---------------------------------------------------------------------------
  * Unconfirmed values live here and NOWHERE else.
  * Every `TODO: confirm` below is a placeholder the practitioner must sign off
- * before launch. See the handoff checklist in the project README.
+ * before launch. See the handoff checklist in HANDOFF.md.
  * ------------------------------------------------------------------------- */
 export const SITE = {
   /** Absolute origin, used for metadataBase, canonicals, sitemap and OG images. */
@@ -17,11 +20,8 @@ export const SITE = {
   /** TODO: confirm — placeholder, not a deliverable address. */
   email: "hello@inneralchemy.example",
 
-  /** TODO: confirm — and whether in-person QHHT® is actually offered here. */
+  /** TODO: confirm. */
   location: "Georgetown, Guyana",
-
-  /** TODO: confirm — placeholder price, appears in PRICING_ROWS and on /qhht. */
-  qhhtPrice: "$495",
 
   /**
    * Testimonials stay out of the rendered site until written consent is on
@@ -32,201 +32,89 @@ export const SITE = {
 
 export const PRACTITIONER = {
   name: "Hadassah Headley",
+  title: "Life coach · Hypnotherapist",
   credentials: "Transformational life coach · BQH/QHHT® practitioner",
   location: `${SITE.location} — sessions online`,
 };
 
-export type Program = {
-  slug: string;
-  name: string;
-  price: string;
-  duration: string;
-  blurb: string;
-  forYouIf: string;
-  tier: "session" | "program" | "entrepreneur";
-  featured?: boolean;
+/* ---------------------------------------------------------------------------
+ * Home page
+ * ------------------------------------------------------------------------- */
+
+/** Hero. Headline and lede are lifted from her short bio. */
+export const HOME_HERO = {
+  eyebrow: "Transformational life coaching · BQH/QHHT® · online",
+  headline: "Remember who you truly are — the creator of your own reality.",
+  lede: "I'm Hadassah Headley, transformational life coach and BQH/QHHT® practitioner. My work guides you to break through limiting beliefs, heal subconscious patterns, and consciously create a life filled with love, prosperity, and purpose — through deep identity transformation, spiritual awareness, and practical manifestation.",
 };
 
-export const PROGRAMS: Program[] = [
+/** The short bio, verbatim from her one-page PDF. */
+export const SHORT_BIO = [
+  "I empower people to remember who they truly are — the creators of their own reality. As a transformational life coach and BQH/QHHT® practitioner, my work guides individuals to break through limiting beliefs, heal subconscious patterns, and manifest lives filled with love, prosperity, and purpose.",
+  "My approach blends deep identity transformation, spiritual awareness, and practical manifestation techniques so clients can step into the life they know they are meant to live. I didn't discover this power through theory. I discovered it through my own personal transformation.",
+  "Today, I guide others through the same awakening, helping them reclaim their inner power and consciously create the beautiful life that has always been their birthright.",
+];
+
+/** TODO: confirm — the three pillars named in her bio, expanded into a line each. */
+export const METHOD = [
   {
-    slug: "power-reset",
-    name: "The Power Reset Session",
-    price: "$150",
-    duration: "90 minutes · online",
-    blurb:
-      "A focused breakthrough coaching session for when you're overwhelmed, stuck, or navigating a hard decision. We find the root block, shift the perspective holding it in place, and map clear next steps — with the recording to keep.",
-    forYouIf: "you need to get out of the ditch and back into motion — fast.",
-    tier: "session",
+    title: "Identity transformation",
+    body: "Who you believe you are decides what you allow. We find the identity you've been living from — often built in survival — and rebuild it from truth.",
   },
   {
-    slug: "beyond-the-mind",
-    name: "Beyond the Mind — BQH Quantum Healing",
-    price: "$350",
-    duration: "3–4 hours · online",
-    blurb:
-      "The deep subconscious session: pre-session conversation, guided hypnotic journey, exploration of the patterns and guidance that arise, and an integration discussion — plus the recording, if you wish.",
-    forYouIf: "you feel stuck in repeating patterns and want to understand their deeper cause.",
-    tier: "session",
-    featured: true,
+    title: "Spiritual awareness",
+    body: "Reconnecting with the inner wisdom that already knows the way: intuition, grounded daily practice, and trust in your own guidance.",
   },
   {
-    slug: "when-the-soul-awakens",
-    name: "When the Soul Awakens",
-    price: "$999",
-    duration: "4 weeks · 90 min per week",
-    blurb:
-      "A grounded guide through spiritual awakening: understanding what's happening within you, discerning the flood of spiritual information, strengthening your own intuition, and integrating it all into everyday life.",
-    forYouIf: "something deep is waking up and you want steady, grounded support — not more confusion.",
-    tier: "program",
-  },
-  {
-    slug: "magnetic-boss-babe",
-    name: "The Magnetic Boss Babe",
-    price: "$1,200",
-    duration: "8 weeks · weekly sessions",
-    blurb:
-      "For high-achieving women who built success in survival mode and lost touch with their feminine power. Eight weeks to break old relationship patterns, rebuild self-worth and boundaries, and become the woman who naturally attracts the love she deserves.",
-    forYouIf: "you're strong and self-sufficient, yet keep attracting emotionally unavailable partners.",
-    tier: "program",
-  },
-  {
-    slug: "limitless-manifestor",
-    name: "The Limitless Manifestor",
-    price: "$1,800",
-    duration: "10 weeks · step-by-step",
-    blurb:
-      "A manifestation experience that goes beneath the surface teachings: clarity on what you truly want in love, prosperity, and purpose — then the identity work, belief alignment, and daily practices to consciously create it.",
-    forYouIf: "you've tried every manifestation technique and nothing sticks.",
-    tier: "program",
-  },
-  {
-    slug: "unleash-the-inner-alchemist",
-    name: "Unleash the Inner Alchemist",
-    price: "$2,500",
-    duration: "12 weeks · includes a 3-hour BQH session",
-    blurb:
-      "The signature identity transformation: awaken to the patterns shaping your life, release the wounds beneath them — including a full BQH hypnotherapy session at the heart of the program — then rebuild and embody the self you're becoming.",
-    forYouIf: "you've outgrown the version of yourself you've been living as.",
-    tier: "program",
-  },
-  {
-    slug: "limitless-entrepreneur",
-    name: "The Limitless Entrepreneur",
-    price: "$2,500",
-    duration: "12 weeks · six 90-min sessions",
-    blurb:
-      "An identity and wealth expansion program for entrepreneurs hitting the same financial ceiling month after month: find what built the ceiling, reprogram the wealth identity underneath it, then scale from abundance instead of fear.",
-    forYouIf: "your business earns, but your income refuses to expand past a familiar number.",
-    tier: "entrepreneur",
-  },
-  {
-    slug: "mri-intensive",
-    name: "MRI — Mindset Rehabilitation Intensive",
-    price: "$10,000",
-    duration: "2 private days · 16 hours · in person",
-    blurb:
-      "Like a medical MRI scans the body, this private intensive scans the internal patterns shaping your business and leadership. Day one: deep mindset scan and diagnosis. Day two: rehabilitation, strategy, and a vision for your next level.",
-    forYouIf: "you need a deep breakthrough, not another round of surface-level coaching.",
-    tier: "entrepreneur",
-    featured: true,
+    title: "Practical manifestation",
+    body: "Aligning thought, emotion, and action so the life you want stops being a wish and becomes the way you move through the world.",
   },
 ];
 
-/** Human label for each tier, reused by /programs and /programs/[slug]. */
-export const TIER_LABELS: Record<Program["tier"], string> = {
-  session: "Single session",
-  program: "Guided transformation",
-  entrepreneur: "For entrepreneurs",
-};
-
-/**
- * Programs whose arc includes a full hypnosis session, and which therefore
- * show the hour-by-hour walkthrough on their detail page.
- */
-export const PROGRAMS_WITH_SESSION_DAY = ["beyond-the-mind", "unleash-the-inner-alchemist"];
-
-/**
- * Which existing FAQ questions to surface on a program page, by tier.
- * Referenced verbatim by question text — no answer is rewritten anywhere.
- */
-export const PROGRAM_FAQ_BY_TIER: Record<Program["tier"], string[]> = {
-  session: [
-    "Will I be unconscious or lose control?",
-    "Will I remember the session?",
-    "What if nothing happens for me?",
-    "Why are sessions so long?",
-  ],
-  program: [
-    "What should I ask? How do I prepare my questions?",
-    "Can I do this online over video?",
-    "How do I book, and what's the cancellation policy?",
-    "Is what I say confidential?",
-  ],
-  entrepreneur: [
-    "Can I do this online over video?",
-    "How do I book, and what's the cancellation policy?",
-    "Is what I say confidential?",
-    "Is this a treatment for my medical or mental health condition?",
-  ],
-};
-
-/** Flattened FAQ lookup, so pages can pull a reviewed answer by its question. */
-export function faqByQuestion(question: string) {
-  for (const group of FAQ_GROUPS) {
-    const hit = group.items.find((i) => i.q === question);
-    if (hit) return hit;
-  }
-  return undefined;
-}
-
-export const PRICING_ROWS: { label: string; price: string; highlight?: boolean }[] = [
-  { label: "Discovery call · 15 minutes", price: "Free" },
-  { label: "The Power Reset Session · 90 minutes", price: "$150" },
-  { label: "Beyond the Mind · BQH quantum healing session · 3–4 hours, includes recording", price: "$350", highlight: true },
-  { label: "QHHT® full session · in person, 4–6 hours, includes recording", price: SITE.qhhtPrice },
-  { label: "When the Soul Awakens · 4-week guided journey", price: "$999" },
-  { label: "The Magnetic Boss Babe · 8-week coaching experience", price: "$1,200" },
-  { label: "The Limitless Manifestor · 10-week experience", price: "$1,800" },
-  { label: "The Limitless Entrepreneur / Unleash the Inner Alchemist · 12 weeks", price: "$2,500" },
-  { label: "MRI — Mindset Rehabilitation Intensive · 2 private days", price: "$10,000" },
+/** Assurance bar under the hero. TODO: confirm — drawn from what the programme PDFs list. */
+export const ASSURANCES = [
+  ["Private, one-to-one", "online, from wherever you are"],
+  ["Support between sessions", "voice notes, prompts, and check-ins"],
+  ["Single sessions are recorded", "the audio is yours to keep"],
+  ["Free discovery call first", "always"],
 ];
 
-export const SESSION_TIMELINE = [
-  {
-    time: "10:00",
-    span: "Hours 1–2",
-    title: "The interview — most of the morning is just talking",
-    body: "We sit with tea and go through your life story and your question list. This isn't small talk — the interview is where the session is really built. What you share here shapes where the regression goes. Many people say this part alone was worth the day.",
-  },
-  {
-    time: "12:15",
-    span: "~30 min",
-    title: "The induction — reaching the state",
-    body: "You lie down, fully clothed, and I guide you through relaxation and imagery. It feels like a daydream you can steer. You are not asleep, not unconscious, and you can speak, adjust the blanket, or open your eyes at any point. Hypnosis cannot make you do or say anything you don't want to.",
-  },
-  {
-    time: "12:45",
-    span: "1–2 hours",
-    title: "The regression — the scenes that arise",
-    body: "You'll begin describing what you see — for some it's vivid like a film, for others it's a quiet knowing. It may be another lifetime, a memory from this one, or something more symbolic. My job is to ask questions and keep you moving; yours is simply to say what comes without judging it.",
-  },
-  {
-    time: "14:15",
-    span: "~1 hour",
-    title: "Your questions — the heart of the day",
-    body: "We speak with the deeper part of you and go through your written list, question by question, including anything you asked about the body. The answers come in your own voice, and they are often startlingly direct.",
-  },
-  {
-    time: "15:30",
-    span: "Final hour",
-    title: "Coming back, debrief, and your recording",
-    body: "I bring you gently back to full alertness — you'll feel like you've had a long, deep rest. We talk through what came up, and you leave with the complete audio. Listen again within a week: the recording keeps working long after the session ends.",
-  },
-];
-
+/* ---------------------------------------------------------------------------
+ * FAQ — the reviewed answers. Programme pages pull from here by question.
+ * ------------------------------------------------------------------------- */
 export const FAQ_GROUPS = [
   {
-    group: "Before you book",
+    group: "Coaching programs",
+    items: [
+      {
+        /* TODO: confirm — formats taken from the programme PDFs. */
+        q: "How are coaching sessions held?",
+        a: "Privately, one-to-one, online over video. The multi-week programs meet once a week — the Limitless Entrepreneur meets every two weeks for a longer session — and single sessions run 90 minutes for the Power Reset or 3–4 hours for Beyond the Mind. The MRI intensive is the one exception: two full days in person.",
+      },
+      {
+        /* TODO: confirm. */
+        q: "Does coaching involve hypnosis?",
+        a: "Not unless you choose it. The coaching programs are conversation, exercises, and reflection work. Hypnosis appears in two places: Beyond the Mind, which is a BQH quantum healing session, and Unleash the Inner Alchemist, which includes a 3-hour BQH session in its second phase.",
+      },
+      {
+        /* TODO: confirm — voice-note support is listed on three of the programme PDFs. */
+        q: "What support do I get between sessions?",
+        a: "Voice-note support between sessions is built into Unleash the Inner Alchemist, the Magnetic Boss Babe, and When the Soul Awakens — which also includes a mid-week check-in. Every program comes with weekly prompts or exercises, so the work continues between calls.",
+      },
+      {
+        /* TODO: confirm. */
+        q: "Are sessions recorded?",
+        a: "Single sessions are: the Power Reset and Beyond the Mind both include a recording — for BQH, only if you want one. Coaching program calls aren't recorded by default; ask if you'd like them to be.",
+      },
+      {
+        /* TODO: confirm — repeats the pricing footnote. */
+        q: "Can I pay in instalments?",
+        a: "Yes — payment plans are available on every program. Ask on the discovery call and we'll set one up. A deposit holds your place.",
+      },
+    ],
+  },
+  {
+    group: "Quantum healing sessions",
     items: [
       {
         q: "Will I be unconscious or lose control?",
@@ -245,15 +133,6 @@ export const FAQ_GROUPS = [
         a: "After booking you'll get an intake form that walks you through it. Most people bring 10–15 questions across life purpose, relationships, recurring patterns, and the body. Write them down — we use your exact wording in the session.",
       },
       {
-        q: "Can I do this online over video?",
-        a: "BQH quantum healing sessions, coaching, and programs are all held online. QHHT® is practiced in person only — that's a guideline of the method itself, and I follow it.",
-      },
-    ],
-  },
-  {
-    group: "During the session",
-    items: [
-      {
         q: "What if nothing happens for me?",
         a: "A fair question with an honest answer: a small number of people stay in a lighter state on a first session, usually from trying too hard to \"do it right.\" Lighter states still produce real material. If we get very little, I'll tell you plainly and we'll decide together on next steps — including a second attempt at a reduced rate.",
       },
@@ -269,14 +148,18 @@ export const FAQ_GROUPS = [
         q: "Can my partner sit in?",
         a: "No — sessions are strictly one-on-one. Another presence, however loving, changes what people allow themselves to say. Your partner is welcome to hear everything on the recording, if you choose to share it.",
       },
-    ],
-  },
-  {
-    group: "Afterwards & practicalities",
-    items: [
       {
         q: "How will I feel afterwards?",
         a: "Usually rested, a little dreamy, and hungry. Plan a quiet evening — no big social plans. Insights tend to keep arriving for days or weeks, especially after re-listening to your recording.",
+      },
+    ],
+  },
+  {
+    group: "Booking & practicalities",
+    items: [
+      {
+        q: "Which programs are in person?",
+        a: "Everything is online except the MRI intensive, which is two in-person days, and QHHT®, which the method itself requires in person. Coaching, the Power Reset, and BQH sessions are all held over video.",
       },
       {
         q: "Is this a treatment for my medical or mental health condition?",
@@ -284,13 +167,98 @@ export const FAQ_GROUPS = [
       },
       {
         q: "How do I book, and what's the cancellation policy?",
-        a: "Start with the free discovery call. If we're a fit, we pick a session day and a deposit holds it. Reschedule freely up to 72 hours before; inside that window the deposit covers the held time, since a session blocks a long calendar block.",
+        a: "Start with the free discovery call. If we're a fit, we pick a start date and a deposit holds it. Reschedule freely up to 72 hours before; inside that window the deposit covers the held time, since a session blocks a long calendar block.",
       },
       {
         q: "Is what I say confidential?",
         a: "Completely. Your session, your recording, your story — nothing is shared without your written permission. Testimonials on this site are used with explicit consent, first names only.",
       },
     ],
+  },
+] as const satisfies readonly { group: string; items: readonly { q: string; a: string }[] }[];
+
+/** Every FAQ question, as a string-literal union — so references are type-checked. */
+export type FaqQuestion = (typeof FAQ_GROUPS)[number]["items"][number]["q"];
+export type FaqItem = { q: FaqQuestion; a: string };
+
+/** Flattened FAQ lookup, so pages can pull a reviewed answer by its question. */
+export function faqByQuestion(question: FaqQuestion): FaqItem {
+  for (const group of FAQ_GROUPS) {
+    const hit = group.items.find((i) => i.q === question);
+    if (hit) return hit;
+  }
+  // Unreachable while FaqQuestion is derived from FAQ_GROUPS.
+  throw new Error(`Unknown FAQ question: ${question}`);
+}
+
+/**
+ * Which FAQ questions to surface on a programme page, by tier. A programme can
+ * override this with its own `faq` list.
+ */
+export const PROGRAM_FAQ_BY_TIER: Record<ProgramTier, FaqQuestion[]> = {
+  program: [
+    "How are coaching sessions held?",
+    "Does coaching involve hypnosis?",
+    "What support do I get between sessions?",
+    "Can I pay in instalments?",
+    "Is what I say confidential?",
+  ],
+  entrepreneur: [
+    "How are coaching sessions held?",
+    "Which programs are in person?",
+    "Can I pay in instalments?",
+    "Is this a treatment for my medical or mental health condition?",
+  ],
+  session: [
+    "Will I be unconscious or lose control?",
+    "Will I remember the session?",
+    "What if nothing happens for me?",
+    "Why are sessions so long?",
+  ],
+};
+
+/* ---------------------------------------------------------------------------
+ * Pricing — derived from PROGRAMS so a price can never drift between pages.
+ * ------------------------------------------------------------------------- */
+export const PRICING_ROWS: { label: string; price: string; href?: string; highlight?: boolean }[] = [
+  { label: "Discovery call · 15 minutes", price: "Free" },
+  ...PROGRAMS.map((p) => ({
+    label: `${p.name} · ${p.duration}`,
+    price: p.price,
+    href: `/programs/${p.slug}`,
+    highlight: p.slug === FLAGSHIP_SLUG,
+  })),
+];
+
+/* ---------------------------------------------------------------------------
+ * The quantum healing session, hour by hour. Shown on /session and on the
+ * Beyond the Mind page. Spans are relative — a BQH session runs 3–4 hours.
+ * ------------------------------------------------------------------------- */
+export const SESSION_TIMELINE = [
+  {
+    span: "First hour",
+    title: "The interview — most of the first hour is just talking",
+    body: "We go through your life story and your question list. This isn't small talk — the interview is where the session is really built. What you share here shapes where the journey goes. Many people say this part alone was worth the day.",
+  },
+  {
+    span: "~30 min",
+    title: "The induction — reaching the state",
+    body: "You lie down, fully clothed, and I guide you through relaxation and imagery. It feels like a daydream you can steer. You are not asleep, not unconscious, and you can speak, adjust the blanket, or open your eyes at any point. Hypnosis cannot make you do or say anything you don't want to.",
+  },
+  {
+    span: "1–2 hours",
+    title: "The journey — the scenes that arise",
+    body: "You'll begin describing what you see — for some it's vivid like a film, for others it's a quiet knowing. It may be another lifetime, a memory from this one, or something more symbolic. My job is to ask questions and keep you moving; yours is simply to say what comes without judging it.",
+  },
+  {
+    span: "~45 min",
+    title: "Your questions — the heart of the session",
+    body: "We speak with the deeper part of you and go through your written list, question by question, including anything you asked about the body. The answers come in your own voice, and they are often startlingly direct.",
+  },
+  {
+    span: "Final stretch",
+    title: "Coming back, debrief, and your recording",
+    body: "I bring you gently back to full alertness — you'll feel like you've had a long, deep rest. We talk through what came up, and you leave with the complete audio. Listen again within a week: the recording keeps working long after the session ends.",
   },
 ];
 
@@ -312,12 +280,13 @@ export const TESTIMONIALS = [
   },
 ];
 
+/** Home-page fit check. `yes` is drawn from the programme PDFs' audience lists. */
 export const FIT = {
   yes: [
-    "You're carrying grief, burnout, or a health question that talk alone hasn't reached",
-    "A pattern keeps repeating — in relationships, money, body — and you can't trace its origin",
-    "You're curious and open, even if you're skeptical. Skeptics do beautifully in this work",
-    "You can set aside the time and come rested, sober, and unhurried",
+    "A pattern keeps repeating — in relationships, money, or how you see yourself — and you can't trace its origin",
+    "You've outgrown the version of yourself you've been living as, and the old identity no longer fits",
+    "You feel spiritually aware but uncertain about your purpose or direction",
+    "You know you're capable of a greater life and feel internally blocked from creating it",
   ],
   no: [
     "You're in acute crisis or actively suicidal — please reach out to a mental health professional or crisis line first; this work can wait for you",
@@ -340,3 +309,9 @@ export const STORY_PARAGRAPHS_AFTER = [
   "I had been living as if my circumstances defined me — even when they didn't. Within every human being lives an incredible creative power: the ability to shape our lives from the inside out. When I remembered that truth, my life began to change. Slowly, I rebuilt myself — healed old wounds, reshaped my identity, and began consciously creating a future that once felt impossible.",
   "Today, I am a transformational life coach and a BQH/QHHT® practitioner devoted to helping others remember that same truth within themselves. I guide people through identity transformation and subconscious healing so they can break free from the patterns that keep them stuck and begin creating lives filled with love, prosperity, and purpose. Because I know from my own life: where you begin does not determine where you can go.",
 ];
+
+/** Shown on the Beyond the Mind page — the in-person alternative, without a price. TODO: confirm in-person availability. */
+export const QHHT_NOTE = {
+  heading: "Prefer it in person? QHHT®",
+  body: "Beyond the Mind is a BQH session, held online. I'm also certified in QHHT®, which is practiced in person only, per the method's guidelines — the depth of the state requires being in the room together. Sessions are one-on-one; no observers, including partners. If you'd like the in-person format, ask on the call — the right fit depends on your questions.",
+};

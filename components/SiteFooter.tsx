@@ -15,15 +15,15 @@ export default function SiteFooter() {
               Institution · Life Coaching &amp; Hypnotherapy Services
             </p>
             <p className="max-w-[40ch] text-[13px] leading-relaxed text-cream">
-              Online coaching and quantum healing sessions. {SITE.location} — serving clients worldwide.
+              Transformational life coaching and quantum healing sessions, online worldwide. {SITE.location}.
             </p>
           </div>
 
           <div className="flex flex-col gap-3 text-sm">
             <p className="mb-1 text-[11px] uppercase tracking-[0.16em] text-cream">Explore</p>
-            <Link href="/session" className="text-cream hover:text-cream-2">What a session looks like</Link>
             <Link href="/programs" className="text-cream hover:text-cream-2">Programs &amp; pricing</Link>
-            <Link href="/qhht" className="text-cream hover:text-cream-2">QHHT®</Link>
+            <Link href="/programs/beyond-the-mind" className="text-cream hover:text-cream-2">Quantum healing sessions</Link>
+            <Link href="/session" className="text-cream hover:text-cream-2">What a session looks like</Link>
             <Link href="/faq" className="text-cream hover:text-cream-2">FAQ</Link>
             <Link href="/journal" className="text-cream hover:text-cream-2">Journal</Link>
             <Link href="/story" className="text-cream hover:text-cream-2">How I came to this work</Link>

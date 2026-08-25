@@ -1,28 +1,29 @@
 import Link from "next/link";
 import ImageSlot from "@/components/ImageSlot";
 import BookingButton from "@/components/BookingButton";
+import FlagshipCard from "@/components/FlagshipCard";
+import ProgramCard from "@/components/ProgramCard";
+import CheckList from "@/components/CheckList";
 import { Section, Eyebrow, H2, Card } from "@/components/ui";
-import { SITE, PRACTITIONER, PROGRAMS, PRICING_ROWS, TESTIMONIALS, FIT } from "@/content/site";
+import {
+  SITE,
+  PRACTITIONER,
+  HOME_HERO,
+  SHORT_BIO,
+  METHOD,
+  ASSURANCES,
+  PRICING_ROWS,
+  TESTIMONIALS,
+  FIT,
+} from "@/content/site";
+import { FLAGSHIP_SLUG, TIER_LABELS, TIER_ORDER, programBySlug, programsByTier } from "@/content/programs";
 import { JOURNAL } from "@/content/journal";
 
-const ASSURANCES = [
-  ["Sessions run 3–6 hours", "plan a long, unhurried block"],
-  ["You're never unconscious", "it's deep relaxation, not sleep"],
-  ["Everything is recorded", "the audio is yours to keep"],
-  ["Free discovery call first", "always"],
-];
-
 export default function HomePage() {
-  const ladder = [
-    PROGRAMS.find((p) => p.slug === "power-reset")!,
-    PROGRAMS.find((p) => p.slug === "beyond-the-mind")!,
-    PROGRAMS.find((p) => p.slug === "unleash-the-inner-alchemist")!,
-    PROGRAMS.find((p) => p.slug === "mri-intensive")!,
-  ];
+  const flagship = programBySlug(FLAGSHIP_SLUG)!;
+  const bqh = programBySlug("beyond-the-mind")!;
 
   // Testimonials stay out of the DOM entirely until written consent is on file.
-  // With the band hidden, the fit-check and ladder sections are both linen and
-  // would butt together with no separation — so the ladder picks up a hairline.
   const showTestimonials = SITE.testimonialsApproved && TESTIMONIALS.length > 0;
 
   return (
@@ -30,20 +31,15 @@ export default function HomePage() {
       {/* HERO */}
       <Section className="grid grid-cols-[1.15fr_0.85fr] items-center gap-[72px] !pb-[88px] !pt-[104px] max-md:grid-cols-1 max-md:gap-8">
         <div>
-          <Eyebrow>BQH · QHHT® · Transformational coaching — online</Eyebrow>
+          <Eyebrow>{HOME_HERO.eyebrow}</Eyebrow>
           <h1 className="mb-[26px] font-display text-[58px] font-medium leading-[1.12] text-ink text-pretty max-md:text-[34px]">
-            Some patterns don&rsquo;t come from this life.
+            {HOME_HERO.headline}
           </h1>
-          <p className="mb-9 max-w-[52ch] text-lg leading-[1.75] text-body-3">
-            For the ache you can&rsquo;t trace back to anything — the grief that won&rsquo;t settle, the pattern that
-            keeps returning, the question underneath everything. I&rsquo;m {PRACTITIONER.name}, transformational life
-            coach and BQH/QHHT® practitioner, and I guide deep, gentle regression sessions. You stay aware the whole
-            time. Most people remember everything.
-          </p>
+          <p className="mb-9 max-w-[52ch] text-lg leading-[1.75] text-body-3">{HOME_HERO.lede}</p>
           <div className="flex flex-wrap items-center gap-6">
             <BookingButton />
-            <Link href="/session" className="border-b border-sage-light pb-0.5 text-[15px] font-semibold text-sage-dark hover:text-ink">
-              What a session actually looks like →
+            <Link href="/programs" className="border-b border-sage-light pb-0.5 text-[15px] font-semibold text-sage-dark hover:text-ink">
+              Explore the eight programs →
             </Link>
           </div>
           <p className="mt-5 text-[13px] text-muted">No obligation. It&rsquo;s a conversation, not a sales call.</p>
@@ -51,13 +47,13 @@ export default function HomePage() {
         <div className="flex justify-center">
           {/* Portrait: 380×480 desktop, rounded to a full arch (radius 190px). */}
           <ImageSlot
-            src="/images/hero-portrait.png"
-            alt={PRACTITIONER.name}
-            label="Warm portrait of the practitioner, arch crop"
+            src="/images/portrait-white-suit.jpg"
+            alt={`${PRACTITIONER.name}, ${PRACTITIONER.title.toLowerCase()}`}
+            label="Portrait of the practitioner, arch crop"
             width={380}
             height={480}
             priority
-            className="h-[480px] w-[380px] rounded-[190px] object-cover max-md:h-[360px] max-md:w-full max-md:max-w-[300px]"
+            className="h-[480px] w-[380px] rounded-[190px] object-cover object-top max-md:h-[360px] max-md:w-full max-md:max-w-[300px]"
           />
         </div>
       </Section>
@@ -73,13 +69,93 @@ export default function HomePage() {
         </div>
       </div>
 
+      {/* METHOD */}
+      <Section>
+        <div className="mb-14 text-center">
+          <Eyebrow tone="clay">How the work works</Eyebrow>
+          <H2 className="mb-3.5">Three things, done together</H2>
+          <p className="mx-auto max-w-[56ch] text-base leading-[1.7] text-muted">
+            Every program blends the same three threads. The difference is depth, length, and which door you walk in
+            through.
+          </p>
+        </div>
+        <div className="grid grid-cols-3 gap-7 max-md:grid-cols-1">
+          {METHOD.map((m, i) => (
+            <Card key={m.title}>
+              <p className="mb-3 font-display text-[34px] text-clay">0{i + 1}</p>
+              <p className="mb-2 font-display text-[25px] text-ink">{m.title}</p>
+              <p className="text-[15px] leading-[1.7] text-body-3">{m.body}</p>
+            </Card>
+          ))}
+        </div>
+      </Section>
+
+      {/* FLAGSHIP */}
+      <Section tone="warm">
+        <div className="mb-10 text-center">
+          <Eyebrow>The signature program</Eyebrow>
+          <H2>Where the name comes from</H2>
+        </div>
+        <FlagshipCard p={flagship} />
+      </Section>
+
+      {/* ALL PROGRAMS */}
+      <Section>
+        <div className="mb-14 text-center">
+          <Eyebrow>Ways to work together</Eyebrow>
+          <H2 className="mb-3.5">Find your doorway</H2>
+          <p className="mx-auto max-w-[58ch] text-base leading-[1.7] text-muted">
+            Eight programs, three kinds. Many clients begin with a single session and move deeper when it feels right.
+          </p>
+        </div>
+        <div className="grid grid-cols-3 gap-8 max-lg:grid-cols-1">
+          {TIER_ORDER.map((tier) => (
+            <div key={tier} className="flex flex-col gap-5">
+              <h3 className="text-[13px] font-bold uppercase tracking-[0.16em] text-clay-dark">{TIER_LABELS[tier]}</h3>
+              {programsByTier(tier).map((p) => (
+                <ProgramCard key={p.slug} p={p} variant="compact" dark={p.slug === FLAGSHIP_SLUG} />
+              ))}
+            </div>
+          ))}
+        </div>
+        <p className="mt-10 text-center">
+          <Link href="/programs" className="inline-block rounded-full bg-sage px-[26px] py-3.5 text-[15px] font-semibold text-linen hover:bg-sage-dark">
+            Compare all 8 programs →
+          </Link>
+        </p>
+      </Section>
+
+      {/* MEET HADASSAH */}
+      <Section tone="ink" className="grid grid-cols-[0.8fr_1.2fr] items-center gap-[72px] max-md:grid-cols-1 max-md:gap-8">
+        <div className="flex justify-center">
+          <ImageSlot
+            src="/images/portrait-dark.jpg"
+            alt={PRACTITIONER.name}
+            label="Portrait of the practitioner on a dark backdrop"
+            width={400}
+            height={533}
+            className="h-auto w-full max-w-[400px] rounded-[20px] object-cover object-top"
+          />
+        </div>
+        <div>
+          <Eyebrow tone="light">Meet {PRACTITIONER.name.split(" ")[0]}</Eyebrow>
+          <H2 dark className="mb-6">{PRACTITIONER.title}</H2>
+          <div className="flex flex-col gap-[18px] text-[16.5px] leading-[1.8] text-cream">
+            {SHORT_BIO.map((p) => <p key={p.slice(0, 24)}>{p}</p>)}
+          </div>
+          <Link href="/story" className="mt-8 inline-block text-[15px] font-semibold text-clay-light hover:text-cream-2">
+            How I came to this work →
+          </Link>
+        </div>
+      </Section>
+
       {/* VIDEO */}
       <Section width="mid" className="text-center">
         <Eyebrow tone="clay">A two-minute hello</Eyebrow>
         <H2 className="mb-4">Hear my voice before you book anything.</H2>
         <p className="mx-auto mb-10 max-w-[56ch] text-[16.5px] leading-[1.75] text-body-3">
-          Hypnosis is a relationship of trust. Before you decide anything, listen to how I speak and how a session is
-          held — your nervous system will tell you whether this feels safe.
+          Coaching is a relationship of trust. Before you decide anything, listen to how I speak and how I hold a
+          conversation — you&rsquo;ll know quickly whether this feels like a fit.
         </p>
         {/* Replace with the real embed (Mux / YouTube / self-hosted). 16:9. */}
         <div className="relative mx-auto aspect-video max-w-[720px] overflow-hidden rounded-2xl bg-linen-warm">
@@ -99,42 +175,21 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* SESSION TEASER */}
-      <Section tone="warm" className="grid grid-cols-[0.9fr_1.1fr] gap-[72px] max-md:grid-cols-1 max-md:gap-8">
+      {/* WHEN TALK ISN'T ENOUGH — the one place hypnosis is framed on the home page */}
+      <Section tone="warm" className="grid grid-cols-[1fr_1fr] items-center gap-[72px] max-md:grid-cols-1 max-md:gap-8">
         <div>
-          <Eyebrow tone="clay">No mystery, no surprises</Eyebrow>
-          <H2 className="mb-5">What actually happens in a session</H2>
-          <p className="mb-8 text-[16.5px] leading-[1.75] text-body-3">
-            A deep session is a long block of time together — most of it is simply talking. Here&rsquo;s the shape of
-            it, hour by hour. The full walkthrough covers everything, including what happens if you don&rsquo;t reach a
-            deep trance.
+          <Eyebrow tone="clay">When talk isn&rsquo;t enough</Eyebrow>
+          <H2 className="mb-5">Go beneath the mind</H2>
+          <p className="mb-5 text-[16.5px] leading-[1.75] text-body-3">
+            Some patterns don&rsquo;t move through conversation alone. A BQH quantum healing session reaches the
+            subconscious directly — a deeply relaxed state where you stay aware, speak the whole time, and put your own
+            questions to the part of you that knows why the pattern is there.
           </p>
-          <Link
-            href="/session"
-            className="inline-block rounded-full border border-clay-light px-[26px] py-3.5 text-[15px] font-semibold text-clay-dark hover:border-clay hover:bg-parchment"
-          >
-            Read the full walkthrough
-          </Link>
+          <p className="text-[15px] text-muted">
+            Curious what that looks like? <Link href="/session">Read the session, stage by stage</Link>.
+          </p>
         </div>
-        <div className="flex flex-col">
-          {[
-            ["Hours 1–2", "The conversation", "We talk about your life, your questions, and what brought you here. Nothing hypnotic yet — just honesty."],
-            ["Hour 3", "Settling in", "You lie down, eyes closed. A guided relaxation — like the edge of a nap, except you can always hear me and always answer."],
-            ["Hours 3–5", "The regression", "You describe the scenes that arise, and we ask your deeper self the questions you brought — including any about health and the body."],
-            ["Final hour", "Coming back & debrief", "We talk through what came up while it's fresh. You leave with the full audio recording — most of the integration happens re-listening over the following weeks."],
-          ].map(([span, title, body], i, arr) => (
-            <div
-              key={title}
-              className={`grid grid-cols-[88px_1fr] gap-5 py-5 max-md:grid-cols-1 max-md:gap-1 ${i < arr.length - 1 ? "border-b border-rule-2" : ""}`}
-            >
-              <p className="font-display text-[22px] text-clay-dark">{span}</p>
-              <div>
-                <p className="mb-1 font-semibold text-body">{title}</p>
-                <p className="text-[14.5px] leading-[1.65] text-muted">{body}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+        <ProgramCard p={bqh} variant="compact" dark />
       </Section>
 
       {/* FIT CHECK */}
@@ -146,19 +201,11 @@ export default function HomePage() {
         <div className="mx-auto grid max-w-[960px] grid-cols-2 gap-8 max-md:grid-cols-1">
           <Card className="!p-10 max-md:!p-[26px]">
             <p className="mb-[22px] font-display text-[26px] text-sage-dark">This tends to be a fit if…</p>
-            <ul className="flex flex-col gap-4 text-[15px] leading-[1.65] text-body-3">
-              {FIT.yes.map((line) => (
-                <li key={line} className="flex gap-3"><span aria-hidden="true" className="text-sage">✦</span><span>{line}</span></li>
-              ))}
-            </ul>
+            <CheckList items={FIT.yes} />
           </Card>
           <Card className="!p-10 max-md:!p-[26px]">
             <p className="mb-[22px] font-display text-[26px] text-clay">It isn&rsquo;t the right tool if…</p>
-            <ul className="flex flex-col gap-4 text-[15px] leading-[1.65] text-body-3">
-              {FIT.no.map((line) => (
-                <li key={line} className="flex gap-3"><span aria-hidden="true" className="text-[#C09A82]">—</span><span>{line}</span></li>
-              ))}
-            </ul>
+            <CheckList items={FIT.no} marker="dash" />
           </Card>
         </div>
         <p className="mx-auto mt-8 max-w-[60ch] text-center text-sm text-muted">
@@ -184,53 +231,11 @@ export default function HomePage() {
         </Section>
       )}
 
-      {/* LADDER */}
-      <Section outerClassName={showTestimonials ? "" : "border-t border-rule"}>
-        <div className="mb-14 text-center">
-          <Eyebrow>Ways to work together</Eyebrow>
-          <H2 className="mb-3.5">Start where you are</H2>
-          <p className="mx-auto max-w-[58ch] text-base leading-[1.7] text-muted">
-            Not everyone is ready for deep regression work — and that&rsquo;s fine. Many clients begin with a single
-            coaching session and move deeper when it feels right.
-          </p>
-        </div>
-        <div className="grid grid-cols-4 gap-6 max-md:grid-cols-1">
-          {ladder.map((p, i) => {
-            const dark = p.slug === "beyond-the-mind";
-            return (
-              <div
-                key={p.slug}
-                className={`relative flex flex-col gap-3 rounded-[18px] border p-8 max-md:p-[26px] ${
-                  dark ? "border-ink bg-ink" : "border-rule bg-parchment"
-                }`}
-              >
-                {i === 0 && (
-                  <span className="absolute -top-[11px] left-6 rounded-full bg-sage px-3 py-1 text-[10.5px] font-bold uppercase tracking-[0.14em] text-linen">
-                    Start here
-                  </span>
-                )}
-                <p className={`mt-2 font-display text-[25px] ${dark ? "text-cream-2" : "text-ink"}`}>{p.name}</p>
-                <p className={`flex-1 text-sm leading-[1.65] ${dark ? "text-cream" : "text-muted"}`}>{p.blurb}</p>
-                <p className={`text-sm font-semibold ${dark ? "text-clay-light" : "text-clay-dark"}`}>
-                  {p.price} · {p.duration}
-                </p>
-              </div>
-            );
-          })}
-        </div>
-        <p className="mt-10 text-center">
-          <Link href="/programs" className="inline-block rounded-full bg-sage px-[26px] py-3.5 text-[15px] font-semibold text-linen hover:bg-sage-dark">
-            Explore all 8 programs →
-          </Link>
-        </p>
-      </Section>
-
-      {/* JOURNAL — takes the ink slot in the rhythm, so the band alternates
-          whether or not the testimonial section above is showing. */}
-      <Section tone="ink" width="mid">
+      {/* JOURNAL */}
+      <Section tone="warm" width="mid">
         <div className="mb-12 text-center">
-          <Eyebrow tone="light">From the journal</Eyebrow>
-          <H2 dark>The questions people ask first</H2>
+          <Eyebrow tone="clay">From the journal</Eyebrow>
+          <H2>Read before you book</H2>
         </div>
         <div className="grid grid-cols-3 gap-7 max-md:grid-cols-1">
           {[...JOURNAL]
@@ -240,23 +245,23 @@ export default function HomePage() {
               <Link
                 key={post.slug}
                 href={`/journal/${post.slug}`}
-                className="flex flex-col gap-3 rounded-[18px] border border-rule/20 bg-linen/[0.06] p-8 no-underline hover:border-clay-light max-md:p-[26px]"
+                className="flex flex-col gap-3 rounded-[18px] border border-rule bg-parchment p-8 no-underline hover:border-clay-light max-md:p-[26px]"
               >
-                <span className="text-xs uppercase tracking-[0.16em] text-clay-light">{post.tag}</span>
-                <span className="font-display text-[23px] leading-tight text-cream-2">{post.title}</span>
-                <span className="flex-1 text-sm leading-[1.7] text-cream">{post.excerpt}</span>
+                <span className="text-xs uppercase tracking-[0.16em] text-clay-dark">{post.tag}</span>
+                <span className="font-display text-[23px] leading-tight text-ink">{post.title}</span>
+                <span className="flex-1 text-sm leading-[1.7] text-body-3">{post.excerpt}</span>
               </Link>
             ))}
         </div>
         <p className="mt-10 text-center">
-          <Link href="/journal" className="text-sm font-semibold text-clay-light">
+          <Link href="/journal" className="text-sm font-semibold">
             Read the journal →
           </Link>
         </p>
       </Section>
 
       {/* PRICING */}
-      <Section tone="warm" width="narrow">
+      <Section width="narrow">
         <div className="mb-11 text-center">
           <Eyebrow tone="clay">No surprises</Eyebrow>
           <H2 className="mb-3.5">Pricing, plainly</H2>
@@ -265,35 +270,45 @@ export default function HomePage() {
           </p>
         </div>
         <div className="overflow-hidden rounded-[18px] border border-rule-2 bg-parchment">
-          {PRICING_ROWS.map((row, i) => (
-            <div
-              key={row.label}
-              className={`flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 px-8 py-5 max-md:px-5 max-md:py-4 ${
-                i < PRICING_ROWS.length - 1 ? "border-b border-rule-4" : ""
-              } ${row.highlight ? "bg-highlight" : ""}`}
-            >
-              <span className="text-[15.5px] text-body">{row.label}</span>
-              <span className={`font-bold ${row.price === "Free" ? "text-sage-dark" : row.highlight ? "text-lg text-clay-dark" : "text-body"}`}>
-                {row.price}
-              </span>
-            </div>
-          ))}
+          {PRICING_ROWS.map((row, i) => {
+            const rowClass = `flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 px-8 py-5 max-md:px-5 max-md:py-4 ${
+              i < PRICING_ROWS.length - 1 ? "border-b border-rule-4" : ""
+            } ${row.highlight ? "bg-highlight" : ""}`;
+            const priceClass = `font-bold ${
+              row.price === "Free" ? "text-sage-dark" : row.highlight ? "text-lg text-clay-dark" : "text-body"
+            }`;
+            const inner = (
+              <>
+                <span className="text-[15.5px] text-body">{row.label}</span>
+                <span className={priceClass}>{row.price}</span>
+              </>
+            );
+            return row.href ? (
+              <Link key={row.label} href={row.href} className={`${rowClass} no-underline hover:bg-highlight`}>
+                {inner}
+              </Link>
+            ) : (
+              <div key={row.label} className={rowClass}>
+                {inner}
+              </div>
+            );
+          })}
         </div>
         <p className="mt-[22px] text-center text-[13px] text-muted">
-          Payment plans available — just ask on the discovery call. A deposit holds your session.
+          Payment plans available — just ask on the discovery call. A deposit holds your place.
         </p>
       </Section>
 
       {/* CLOSING CTA */}
-      <Section width="narrow" className="text-center !py-[104px]">
-        <h2 className="mb-5 font-display text-[44px] font-medium leading-tight text-ink max-md:text-[27px]">
+      <Section tone="ink" width="narrow" className="text-center !py-[104px]">
+        <h2 className="mb-5 font-display text-[44px] font-medium leading-tight text-cream-2 max-md:text-[27px]">
           Start with fifteen minutes.
         </h2>
-        <p className="mb-9 text-[17px] leading-[1.75] text-body-3">
+        <p className="mb-9 text-[17px] leading-[1.75] text-cream">
           Bring your questions — the practical ones and the strange ones. If this isn&rsquo;t the right work for you,
           I&rsquo;ll say so and point you somewhere better.
         </p>
-        <BookingButton>Book a free discovery call</BookingButton>
+        <BookingButton variant="sand">Book a free discovery call</BookingButton>
       </Section>
     </>
   );

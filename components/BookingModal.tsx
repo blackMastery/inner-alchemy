@@ -232,7 +232,7 @@ export default function BookingModal() {
                 {status === "submitting" ? "Sending…" : "Request my call"}
               </button>
               <p className="text-center text-xs text-muted">
-                Deep sessions are booked as long blocks, after we&rsquo;ve spoken.
+                Programs and sessions are booked after we&rsquo;ve spoken.
               </p>
             </form>
           </>
@@ -244,8 +244,8 @@ export default function BookingModal() {
             </h2>
             <p className="mb-7 text-[15px] leading-relaxed text-muted">
               I&rsquo;ll be in touch within one business day with a few times to talk. In the meantime, the{" "}
-              <Link href="/session" onClick={dismiss} className="border-b border-clay-pale">
-                session walkthrough
+              <Link href="/programs" onClick={dismiss} className="border-b border-clay-pale">
+                programs page
               </Link>{" "}
               answers most questions.
             </p>

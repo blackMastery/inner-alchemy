@@ -118,7 +118,7 @@ export async function ogImage({
             color: C.muted,
           }}
         >
-          <span>Hadassah Headley · BQH · QHHT®</span>
+          <span>Hadassah Headley · Transformational life coach</span>
           <span>Free 15-minute discovery call</span>
         </div>
       </div>
