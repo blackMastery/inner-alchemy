@@ -48,9 +48,13 @@ body {
 
 /* clay on linen is 3.98:1 — below AA for body text. clay-dark is 5.64:1.
    The hover state carries an underline rather than a lighter colour, because
-   every lighter step in the palette fails contrast. */
-a { color: var(--color-clay-dark); text-decoration: none; }
-a:hover { text-decoration: underline; text-underline-offset: 3px; }
+   every lighter step in the palette fails contrast.
+   Lives in @layer base so utility classes (text-*, no-underline) can override
+   it — unlayered rules would beat every utility on an <a>, whatever its class. */
+@layer base {
+  a { color: var(--color-clay-dark); text-decoration: none; }
+  a:hover { text-decoration: underline; text-underline-offset: 3px; }
+}
 
 summary { list-style: none; }
 summary::-webkit-details-marker { display: none; }

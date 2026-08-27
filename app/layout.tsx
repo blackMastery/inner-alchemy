@@ -3,8 +3,6 @@ import { Cormorant_Garamond, Karla } from "next/font/google";
 import "./globals.css";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
-import { BookingProvider } from "@/components/BookingContext";
-import BookingModal from "@/components/BookingModal";
 import { SITE, PRACTITIONER } from "@/content/site";
 
 const cormorant = Cormorant_Garamond({
@@ -64,6 +62,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         description: DESCRIPTION,
         url: SITE.url,
         email: SITE.email,
+        telephone: SITE.phone,
         areaServed: "Worldwide",
         address: { "@type": "PostalAddress", addressLocality: SITE.location },
         founder: { "@id": `${SITE.url}/#practitioner` },
@@ -78,12 +77,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
         />
-        <BookingProvider>
-          <SiteHeader />
-          <main id="main" className="flex-1">{children}</main>
-          <SiteFooter />
-          <BookingModal />
-        </BookingProvider>
+        <SiteHeader />
+        <main id="main" className="flex-1">{children}</main>
+        <SiteFooter />
       </body>
     </html>
   );

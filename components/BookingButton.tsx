@@ -1,6 +1,4 @@
-"use client";
-
-import { useBooking } from "./BookingContext";
+import { SITE } from "@/content/site";
 
 type Props = {
   children?: React.ReactNode;
@@ -16,21 +14,20 @@ const variants = {
   outline: "border border-rule-3 text-muted hover:border-clay hover:text-clay-dark",
 } as const;
 
+/** The site-wide call to action. Dials SITE.phone directly — no form in between. */
 export default function BookingButton({
   children = "Book a free 15-minute call",
   variant = "primary",
   size = "md",
   className = "",
 }: Props) {
-  const { open } = useBooking();
   const pad = size === "sm" ? "px-[22px] py-[11px] text-[13.5px]" : "px-[30px] py-4 text-[15px]";
   return (
-    <button
-      type="button"
-      onClick={open}
-      className={`rounded-full font-semibold cursor-pointer transition-colors whitespace-nowrap ${pad} ${variants[variant]} ${className}`}
+    <a
+      href={SITE.phoneHref}
+      className={`inline-block rounded-full font-semibold no-underline transition-colors whitespace-nowrap ${pad} ${variants[variant]} ${className}`}
     >
       {children}
-    </button>
+    </a>
   );
 }

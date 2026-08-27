@@ -32,6 +32,9 @@ export default function SiteFooter() {
           <div className="flex flex-col items-start gap-3 text-sm">
             <p className="mb-1 text-[11px] uppercase tracking-[0.16em] text-cream">Begin</p>
             <BookingButton variant="sand" size="sm">Book a free discovery call</BookingButton>
+            <a href={SITE.phoneHref} className="text-cream hover:text-cream-2">
+              {SITE.phone}
+            </a>
             <a href={`mailto:${SITE.email}`} className="text-cream hover:text-cream-2">
               {SITE.email}
             </a>

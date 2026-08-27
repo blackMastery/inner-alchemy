@@ -5,12 +5,13 @@ a person. Nothing here blocks the site from running; all of it blocks launch.
 
 ## 1. Unconfirmed values
 
-All four live in the `SITE` object at the top of [`content/site.ts`](content/site.ts).
+All five live in the `SITE` object at the top of [`content/site.ts`](content/site.ts).
 Edit them there and they update everywhere.
 
 | Value | Current | Needs |
 |---|---|---|
-| `SITE.email` | `hello@inneralchemy.example` | A real, monitored address. This one does not exist. |
+| `SITE.email` | `info@inneralchemyinstitution.com` | Set. Confirm the inbox is live and monitored before launch. |
+| `SITE.phone` | `+592 663 1808` | Every "Book a call" button dials this. Confirm it's the number she wants public. |
 | `SITE.location` | `Georgetown, Guyana` | Confirmation. Shown in the footer and as `areaServed` for the in-person MRI intensive. |
 | `SITE.url` | `NEXT_PUBLIC_SITE_URL`, falling back to localhost | The production domain, set as an env var in Vercel. Until then canonicals, the sitemap and OG image URLs point at localhost. |
 | `SITE.testimonialsApproved` | `false` | See below. |
@@ -29,7 +30,7 @@ normalised. Things to confirm with her:
   programme calls aren't recorded by default — confirm.
 - **New FAQ answers** under "Coaching programs" in `content/site.ts` are
   written from the PDFs, not by her. Each is marked `TODO: confirm`.
-- **`METHOD`, `ASSURANCES`, `HOME_HERO`** in `content/site.ts` are drawn
+- **`METHOD`, `HOME_HERO`, `HOME_INTRO`** in `content/site.ts` are drawn
   from her bio, not verbatim. Marked `TODO: confirm`.
 - **QHHT®.** The standalone `/qhht` page (and its placeholder `$495` price)
   is gone; `/qhht` now redirects to `/programs/beyond-the-mind`, which carries a
@@ -108,10 +109,14 @@ Services", and is hidden between 1024–1280px where it would collide with the n
   deleted. The only remaining placeholder is the video poster (1280×720).
 - **Practitioner video.** The homepage reserves a 16:9 block for it. The handoff
   calls this the highest-leverage asset on the site.
-- **Booking backend.** `POST /api/booking` validates and logs; it does not
-  deliver anywhere. Replace the `deliver()` function in
-  [`app/api/booking/route.ts`](app/api/booking/route.ts) with Resend/Postmark, or
-  hand off to a scheduler. The client, validation and response shape are done.
+- **Booking.** Every "Book a call" button is a `tel:` link to `SITE.phone`;
+  there is no form in the flow. The earlier modal form
+  ([`components/BookingModal.tsx`](components/BookingModal.tsx),
+  [`components/BookingContext.tsx`](components/BookingContext.tsx)) and its
+  `POST /api/booking` route are still in the repo but unmounted. To bring the
+  form back, re-wrap the layout in `BookingProvider`, mount `BookingModal`, and
+  wire `deliver()` in [`app/api/booking/route.ts`](app/api/booking/route.ts)
+  to Resend/Postmark or a scheduler.
 - **Pre-session intake form.** Not built. The FAQ and a journal post both promise
   clients an intake form after booking, so this is a stated commitment.
 

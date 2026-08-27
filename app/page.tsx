@@ -9,20 +9,19 @@ import {
   SITE,
   PRACTITIONER,
   HOME_HERO,
+  HOME_INTRO,
   SHORT_BIO,
   METHOD,
-  ASSURANCES,
   PRICING_ROWS,
   TESTIMONIALS,
   FIT,
 } from "@/content/site";
-import { FLAGSHIP_SLUG, programBySlug, programsByPrice } from "@/content/programs";
+import { FLAGSHIP_SLUG, programBySlug } from "@/content/programs";
 import { JOURNAL } from "@/content/journal";
 
 export default function HomePage() {
   const flagship = programBySlug(FLAGSHIP_SLUG)!;
   const bqh = programBySlug("beyond-the-mind")!;
-  const programs = programsByPrice().filter((p) => p.slug !== FLAGSHIP_SLUG);
 
   // Testimonials stay out of the DOM entirely until written consent is on file.
   const showTestimonials = SITE.testimonialsApproved && TESTIMONIALS.length > 0;
@@ -36,12 +35,8 @@ export default function HomePage() {
           <h1 className="mb-[26px] font-display text-[58px] font-medium leading-[1.12] text-ink text-pretty max-md:text-[34px]">
             {HOME_HERO.headline}
           </h1>
-          <p className="mb-9 max-w-[52ch] text-lg leading-[1.75] text-body-3">{HOME_HERO.lede}</p>
-          <div className="flex flex-wrap items-center gap-6">
+          <div className="mt-2">
             <BookingButton />
-            <Link href="/programs" className="border-b border-sage-light pb-0.5 text-[15px] font-semibold text-sage-dark hover:text-ink">
-              Explore the eight programs →
-            </Link>
           </div>
           <p className="mt-5 text-[13px] text-muted">No obligation. It&rsquo;s a conversation, not a sales call.</p>
         </div>
@@ -59,16 +54,17 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* ASSURANCE BAR */}
-      <div className="border-y border-rule bg-linen-warm">
-        <div className="mx-auto flex max-w-[1120px] flex-wrap justify-between gap-6 px-8 py-[26px] max-md:px-[22px]">
-          {ASSURANCES.map(([bold, rest]) => (
-            <p key={bold} className="text-sm text-muted">
-              <strong className="text-body">{bold}</strong> — {rest}
-            </p>
-          ))}
-        </div>
-      </div>
+      {/* INTRO */}
+      <Section width="mid" className="text-center !py-20">
+        <Eyebrow>{HOME_INTRO.eyebrow}</Eyebrow>
+        <p className="mx-auto max-w-[58ch] text-[19px] leading-[1.75] text-body-3 max-md:text-[17px]">{HOME_INTRO.body}</p>
+        <Link
+          href="/programs"
+          className="mt-8 inline-block border-b border-sage-light pb-0.5 text-[15px] font-semibold text-sage-dark hover:text-ink"
+        >
+          Explore the eight programs →
+        </Link>
+      </Section>
 
       {/* METHOD */}
       <Section>
@@ -98,26 +94,6 @@ export default function HomePage() {
           <H2>Where the name comes from</H2>
         </div>
         <FlagshipCard p={flagship} />
-      </Section>
-
-      {/* ALL PROGRAMS */}
-      <Section>
-        <div className="mb-14 text-center">
-          <Eyebrow>Ways to work together</Eyebrow>
-          <H2 className="mb-3.5">Find your doorway</H2>
-          <p className="mx-auto max-w-[58ch] text-base leading-[1.7] text-muted">
-            Eight programs, from a single session to a two-day intensive — listed from the lightest investment to the deepest.
-            Many clients begin with a single session and move deeper when it feels right.
-          </p>
-        </div>
-        <div className="grid grid-cols-3 gap-8 max-lg:grid-cols-2 max-md:grid-cols-1">
-          {programs.map((p) => <ProgramCard key={p.slug} p={p} variant="compact" />)}
-        </div>
-        <p className="mt-10 text-center">
-          <Link href="/programs" className="inline-block rounded-full bg-sage px-[26px] py-3.5 text-[15px] font-semibold text-linen hover:bg-sage-dark">
-            Compare all 8 programs →
-          </Link>
-        </p>
       </Section>
 
       {/* MEET HADASSAH */}

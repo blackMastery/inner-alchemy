@@ -2,7 +2,7 @@
    The eight programmes themselves live in ./programs (transcribed from the
    practitioner's PDFs); this file holds everything around them. */
 
-import { PROGRAMS, FLAGSHIP_SLUG, type ProgramTier } from "./programs";
+import { programsByPrice, FLAGSHIP_SLUG, type ProgramTier } from "./programs";
 
 /* ---------------------------------------------------------------------------
  * Unconfirmed values live here and NOWHERE else.
@@ -17,8 +17,12 @@ export const SITE = {
       ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
       : "http://localhost:3000"),
 
-  /** TODO: confirm — placeholder, not a deliverable address. */
-  email: "hello@inneralchemy.example",
+  /** TODO: confirm the inbox is live and monitored. */
+  email: "info@inneralchemyinstitution.com",
+
+  /** Every "Book a call" button dials this number. Display form, and the tel: href. */
+  phone: "+592 663 1808",
+  phoneHref: "tel:+5926631808",
 
   /** TODO: confirm. */
   location: "Georgetown, Guyana",
@@ -42,10 +46,16 @@ export const PRACTITIONER = {
  * ------------------------------------------------------------------------- */
 
 /** Hero. Headline and lede are lifted from her short bio. */
+/** Hero: headline and call to action only. The introduction lives in HOME_INTRO below. */
 export const HOME_HERO = {
   eyebrow: "Transformational life coaching · BQH/QHHT® · online",
   headline: "Remember who you truly are — the creator of your own reality.",
-  lede: "I'm Hadassah Headley, transformational life coach and BQH/QHHT® practitioner. My work guides you to break through limiting beliefs, heal subconscious patterns, and consciously create a life filled with love, prosperity, and purpose — through deep identity transformation, spiritual awareness, and practical manifestation.",
+};
+
+/** The introduction band directly under the hero. */
+export const HOME_INTRO = {
+  eyebrow: "Welcome",
+  body: "I'm Hadassah Headley, transformational life coach and BQH/QHHT® practitioner. My work guides you to break through limiting beliefs, heal subconscious patterns, and consciously create a life filled with love, prosperity, and purpose — through deep identity transformation, spiritual awareness, and practical manifestation.",
 };
 
 /** The short bio, verbatim from her one-page PDF. */
@@ -69,14 +79,6 @@ export const METHOD = [
     title: "Practical manifestation",
     body: "Aligning thought, emotion, and action so the life you want stops being a wish and becomes the way you move through the world.",
   },
-];
-
-/** Assurance bar under the hero. TODO: confirm — drawn from what the programme PDFs list. */
-export const ASSURANCES = [
-  ["Private, one-to-one", "online, from wherever you are"],
-  ["Support between sessions", "voice notes, prompts, and check-ins"],
-  ["Single sessions are recorded", "the audio is yours to keep"],
-  ["Free discovery call first", "always"],
 ];
 
 /* ---------------------------------------------------------------------------
@@ -218,11 +220,11 @@ export const PROGRAM_FAQ_BY_TIER: Record<ProgramTier, FaqQuestion[]> = {
 };
 
 /* ---------------------------------------------------------------------------
- * Pricing — derived from PROGRAMS so a price can never drift between pages.
+ * Pricing — derived from PROGRAMS (cheapest first) so a price can never drift between pages.
  * ------------------------------------------------------------------------- */
 export const PRICING_ROWS: { label: string; price: string; href?: string; highlight?: boolean }[] = [
   { label: "Discovery call · 15 minutes", price: "Free" },
-  ...PROGRAMS.map((p) => ({
+  ...programsByPrice().map((p) => ({
     label: `${p.name} · ${p.duration}`,
     price: p.price,
     href: `/programs/${p.slug}`,
