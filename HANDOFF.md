@@ -13,7 +13,7 @@ Edit them there and they update everywhere.
 | `SITE.email` | `info@inneralchemyinstitution.com` | Set. Confirm the inbox is live and monitored before launch. |
 | `SITE.phone` | `+592 663 1808` | Every "Book a call" button dials this. Confirm it's the number she wants public. |
 | `SITE.location` | `Georgetown, Guyana` | Confirmation. Shown in the footer and as `areaServed` for the in-person MRI intensive. |
-| `SITE.url` | `NEXT_PUBLIC_SITE_URL`, falling back to localhost | The production domain, set as an env var in Vercel. Until then canonicals, the sitemap and OG image URLs point at localhost. |
+| `SITE.url` | `https://www.inneralchemyinstitution.com` | Set. Make sure the bare domain (no `www`) redirects to `www` at the DNS/host level so there is one canonical origin. `NEXT_PUBLIC_SITE_URL` overrides if it ever changes. |
 | `SITE.testimonialsApproved` | `false` | See below. |
 
 ## 1b. Copy derived from her PDFs — needs her sign-off
@@ -101,7 +101,29 @@ Services", and is hidden between 1024–1280px where it would collide with the n
 - **Pre-session intake form.** Not built. The FAQ promises clients an intake
   form after booking, so this is a stated commitment.
 
-## 6. Legal
+## 6. SEO — in place, and what still needs a person
+
+Done in code: per-page titles, descriptions, canonicals and share cards
+(`lib/seo.ts`), OG images for every route, an Apple touch icon, `robots.txt`
+and `sitemap.xml`, and structured data — `WebSite`, `Person`,
+`ProfessionalService` (site-wide), `Service` + `Offer` + `BreadcrumbList`
+(program pages) and `FAQPage` (FAQ).
+
+Still needs a human:
+
+- **One canonical origin** — the site is `https://www.inneralchemyinstitution.com`.
+  Redirect the bare domain and any `*.vercel.app` alias to it (301) so Google
+  sees one origin.
+- **Google Search Console** — verify the domain and submit `/sitemap.xml`.
+  Add the token to `metadata.verification` in `app/layout.tsx` if using the
+  meta-tag method.
+- **Google Business Profile** — the `ProfessionalService` schema is ready to
+  match it; the address is city-level only.
+- **Social profiles** — add them as `sameAs` on the `Person` and
+  `ProfessionalService` nodes in `app/layout.tsx` once known.
+- Validate at <https://search.google.com/test/rich-results> after deploy.
+
+## 7. Legal
 
 - The footer scope/disclaimer paragraph still carries its own bracketed note that
   it must be reviewed by a lawyer or her certifying body. That note is visible on

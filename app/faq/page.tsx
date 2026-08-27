@@ -3,13 +3,14 @@ import BookingButton from "@/components/BookingButton";
 import FaqAccordion from "@/components/FaqAccordion";
 import { Section, Eyebrow, H1 } from "@/components/ui";
 import { FAQ_GROUPS } from "@/content/site";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "FAQ",
+export const metadata: Metadata = pageMetadata({
+  title: "FAQ — Coaching & Quantum Healing Questions",
   description:
-    "Honest answers about the coaching programs — format, support between sessions, recordings, payment plans — and about quantum healing sessions: control, memory, what happens if you don't go deep.",
-  alternates: { canonical: "/faq" },
-};
+    "Honest answers about transformational coaching programs — format, support between sessions, recordings, payment plans — and BQH/QHHT® quantum healing sessions: control, memory, and what happens if you don't go deep.",
+  path: "/faq",
+});
 
 /* Every answer is also SEO surface — emit FAQPage structured data. */
 function FaqJsonLd() {

@@ -10,12 +10,17 @@ import { programsByPrice, FLAGSHIP_SLUG, type ProgramTier } from "./programs";
  * before launch. See the handoff checklist in HANDOFF.md.
  * ------------------------------------------------------------------------- */
 export const SITE = {
-  /** Absolute origin, used for metadataBase, canonicals, sitemap and OG images. */
+  /**
+   * Absolute origin, used for metadataBase, canonicals, sitemap and OG images.
+   * Production and local builds use the real domain so canonicals never point
+   * at a *.vercel.app host; Vercel preview deployments use their own URL so
+   * share-card images resolve there. NEXT_PUBLIC_SITE_URL overrides everything.
+   */
   url:
     process.env.NEXT_PUBLIC_SITE_URL ??
-    (process.env.VERCEL_PROJECT_PRODUCTION_URL
-      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-      : "http://localhost:3000"),
+    (process.env.VERCEL_ENV === "preview" && process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "https://www.inneralchemyinstitution.com"),
 
   /** TODO: confirm the inbox is live and monitored. */
   email: "info@inneralchemyinstitution.com",

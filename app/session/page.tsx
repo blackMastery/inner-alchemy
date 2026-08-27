@@ -4,13 +4,14 @@ import BookingButton from "@/components/BookingButton";
 import CheckList from "@/components/CheckList";
 import SessionTimeline from "@/components/SessionTimeline";
 import { Section, Eyebrow, H1, H2 } from "@/components/ui";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "What a Quantum Healing Session Looks Like",
+export const metadata: Metadata = pageMetadata({
+  title: "What a BQH/QHHT® Quantum Healing Session Looks Like",
   description:
-    "Stage by stage, plainly written: the interview, the induction, the journey, your questions, and the recording you take home. Including what happens if you don't reach a deep trance.",
-  alternates: { canonical: "/session" },
-};
+    "A quantum healing hypnosis session, stage by stage: the interview, the induction, the journey, your questions, and the recording you take home — including what happens if you don't reach a deep trance.",
+  path: "/session",
+});
 
 export default function SessionPage() {
   return (

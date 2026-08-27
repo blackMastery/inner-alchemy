@@ -3,13 +3,14 @@ import ImageSlot from "@/components/ImageSlot";
 import BookingButton from "@/components/BookingButton";
 import { Section, Eyebrow, H1 } from "@/components/ui";
 import { PRACTITIONER, STORY_PARAGRAPHS, STORY_PULL_QUOTE, STORY_PARAGRAPHS_AFTER } from "@/content/site";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "How I Came to This Work",
+export const metadata: Metadata = pageMetadata({
+  title: "Hadassah Headley — My Story",
   description:
-    "From Guyana to transformational coaching: Hadassah Headley's story of survival, single motherhood, and remembering who she truly is.",
-  alternates: { canonical: "/story" },
-};
+    "From Guyana to transformational life coaching: Hadassah Headley's story of survival, single motherhood, and remembering who she truly is — and why she now guides others through the same awakening.",
+  path: "/story",
+});
 
 export default function StoryPage() {
   return (

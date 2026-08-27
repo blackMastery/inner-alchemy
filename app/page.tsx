@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import ImageSlot from "@/components/ImageSlot";
 import BookingButton from "@/components/BookingButton";
@@ -17,6 +18,15 @@ import {
   FIT,
 } from "@/content/site";
 import { FLAGSHIP_SLUG, programBySlug } from "@/content/programs";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = pageMetadata({
+  title: "Transformational Life Coach & BQH/QHHT® Practitioner — Inner Alchemy Institution",
+  description:
+    "Transformational life coaching with Hadassah Headley — clear limiting beliefs, heal subconscious patterns and consciously create your life, online. Eight coaching programs plus BQH/QHHT® quantum healing sessions. Book a free 15-minute call.",
+  path: "/",
+  absoluteTitle: true,
+});
 
 export default function HomePage() {
   const flagship = programBySlug(FLAGSHIP_SLUG)!;
@@ -141,7 +151,7 @@ export default function HomePage() {
         {/* Replace with the real embed (Mux / YouTube / self-hosted). 16:9. */}
         <div className="relative mx-auto aspect-video max-w-[720px] overflow-hidden rounded-2xl bg-linen-warm">
           <ImageSlot
-            alt="Welcome video"
+            alt={`${PRACTITIONER.name} — welcome video`}
             label="Video poster frame — the two-minute practitioner introduction"
             width={1280}
             height={720}

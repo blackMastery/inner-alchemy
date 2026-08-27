@@ -4,13 +4,14 @@ import FlagshipCard from "@/components/FlagshipCard";
 import ProgramCard from "@/components/ProgramCard";
 import { Section, Eyebrow, H1, H2 } from "@/components/ui";
 import { FLAGSHIP_SLUG, programBySlug, programsByPrice } from "@/content/programs";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Programs & Pricing",
+export const metadata: Metadata = pageMetadata({
+  title: "Coaching Programs & Pricing",
   description:
-    "Eight transformational coaching programs, from a 90-minute Power Reset to the 12-week Unleash the Inner Alchemist and a two-day private intensive for entrepreneurs.",
-  alternates: { canonical: "/programs" },
-};
+    "Eight transformational coaching programs with plain pricing — from the $150 Power Reset session and $350 BQH quantum healing session to the 12-week Unleash the Inner Alchemist and a two-day private intensive for entrepreneurs.",
+  path: "/programs",
+});
 
 export default function ProgramsPage() {
   const flagship = programBySlug(FLAGSHIP_SLUG)!;

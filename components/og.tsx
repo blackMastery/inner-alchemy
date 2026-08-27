@@ -25,7 +25,7 @@ const C = {
   rule: "#E7DECF",
 };
 
-async function fonts() {
+export async function ogFonts() {
   const dir = join(process.cwd(), "assets", "fonts");
   const [display, sans] = await Promise.all([
     readFile(join(dir, "cormorant-garamond-500.woff")),
@@ -123,6 +123,6 @@ export async function ogImage({
         </div>
       </div>
     ),
-    { ...OG_SIZE, fonts: await fonts() },
+    { ...OG_SIZE, fonts: await ogFonts() },
   );
 }

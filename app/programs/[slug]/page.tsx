@@ -10,6 +10,7 @@ import SessionTimeline from "@/components/SessionTimeline";
 import { Section, Eyebrow, H1, H2, Card } from "@/components/ui";
 import { PROGRAMS, TIER_LABELS, programBySlug, type Prose } from "@/content/programs";
 import { SITE, PROGRAM_FAQ_BY_TIER, QHHT_NOTE, faqByQuestion } from "@/content/site";
+import { pageMetadata } from "@/lib/seo";
 
 /**
  * Programme pages render the practitioner's own package copy, section for
@@ -26,12 +27,11 @@ export async function generateMetadata({ params }: PageProps<"/programs/[slug]">
   if (!program) return {};
 
   const description = `${program.tagline} ${program.price} · ${program.duration}.`.slice(0, 160);
-  return {
-    title: program.name,
+  return pageMetadata({
+    title: `${program.name} — ${TIER_LABELS[program.tier]}`,
     description,
-    alternates: { canonical: `/programs/${program.slug}` },
-    openGraph: { title: program.name, description },
-  };
+    path: `/programs/${program.slug}`,
+  });
 }
 
 function ProseBlock({ prose, tone = "linen" }: { prose: Prose; tone?: "linen" | "warm" }) {
@@ -56,22 +56,42 @@ export default async function ProgramPage({ params }: PageProps<"/programs/[slug
   const faqs = (program.faq ?? PROGRAM_FAQ_BY_TIER[program.tier]).map(faqByQuestion);
   const inPerson = program.format === "in-person";
 
+  const pageUrl = `${SITE.url}/programs/${program.slug}`;
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Service",
-    name: program.name,
-    description: program.tagline,
-    serviceType: TIER_LABELS[program.tier],
-    url: `${SITE.url}/programs/${program.slug}`,
-    provider: { "@id": `${SITE.url}/#practitioner` },
-    areaServed: inPerson ? SITE.location : "Worldwide",
-    offers: {
-      "@type": "Offer",
-      url: `${SITE.url}/programs/${program.slug}`,
-      price: program.price.replace(/[^0-9.]/g, ""),
-      priceCurrency: "USD",
-      availability: "https://schema.org/InStock",
-    },
+    "@graph": [
+      {
+        "@type": "Service",
+        "@id": `${pageUrl}#service`,
+        name: program.name,
+        description: program.tagline,
+        serviceType: TIER_LABELS[program.tier],
+        url: pageUrl,
+        provider: { "@id": `${SITE.url}/#practice` },
+        areaServed: inPerson ? SITE.location : "Worldwide",
+        availableChannel: {
+          "@type": "ServiceChannel",
+          serviceUrl: pageUrl,
+          servicePhone: { "@type": "ContactPoint", telephone: SITE.phone, contactType: "Bookings" },
+        },
+        offers: {
+          "@type": "Offer",
+          url: pageUrl,
+          price: program.price.replace(/[^0-9.]/g, ""),
+          priceCurrency: "USD",
+          availability: "https://schema.org/InStock",
+          seller: { "@id": `${SITE.url}/#practice` },
+        },
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: SITE.url },
+          { "@type": "ListItem", position: 2, name: "Programs", item: `${SITE.url}/programs` },
+          { "@type": "ListItem", position: 3, name: program.name, item: pageUrl },
+        ],
+      },
+    ],
   };
 
   return (
