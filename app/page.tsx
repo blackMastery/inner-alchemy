@@ -17,7 +17,6 @@ import {
   FIT,
 } from "@/content/site";
 import { FLAGSHIP_SLUG, programBySlug } from "@/content/programs";
-import { JOURNAL } from "@/content/journal";
 
 export default function HomePage() {
   const flagship = programBySlug(FLAGSHIP_SLUG)!;
@@ -32,13 +31,18 @@ export default function HomePage() {
       <Section className="grid grid-cols-[1.15fr_0.85fr] items-center gap-[72px] !pb-[88px] !pt-[104px] max-md:grid-cols-1 max-md:gap-8">
         <div>
           <Eyebrow>{HOME_HERO.eyebrow}</Eyebrow>
-          <h1 className="mb-[26px] font-display text-[58px] font-medium leading-[1.12] text-ink text-pretty max-md:text-[34px]">
-            {HOME_HERO.headline}
+          <h1 className="mb-7 font-display text-ink">
+            {HOME_HERO.headline.map((line) => (
+              <span key={line} className="block text-[60px] font-medium leading-[1.04] tracking-[-0.01em] max-md:text-[38px]">
+                {line}
+              </span>
+            ))}
+            <span className="mt-5 block max-w-[26ch] text-[30px] font-normal italic leading-[1.25] text-clay-dark max-md:mt-3 max-md:text-[23px]">
+              {HOME_HERO.subline}
+            </span>
           </h1>
-          <div className="mt-2">
-            <BookingButton />
-          </div>
-          <p className="mt-5 text-[13px] text-muted">No obligation. It&rsquo;s a conversation, not a sales call.</p>
+          <p className="mb-8 max-w-[44ch] text-[17px] leading-[1.7] text-body-3">{HOME_HERO.body}</p>
+          <BookingButton>{HOME_HERO.cta}</BookingButton>
         </div>
         <div className="flex justify-center">
           {/* Portrait: 380×480 desktop, rounded to a full arch (radius 190px). */}
@@ -57,7 +61,13 @@ export default function HomePage() {
       {/* INTRO */}
       <Section width="mid" className="text-center !py-20">
         <Eyebrow>{HOME_INTRO.eyebrow}</Eyebrow>
-        <p className="mx-auto max-w-[58ch] text-[19px] leading-[1.75] text-body-3 max-md:text-[17px]">{HOME_INTRO.body}</p>
+        <div className="mx-auto flex max-w-[58ch] flex-col gap-5 text-[19px] leading-[1.7] text-body-3 max-md:text-[17px]">
+          {HOME_INTRO.paragraphs.map((text, i) => (
+            <p key={text.slice(0, 24)} className={i === 0 ? "font-display text-[28px] leading-[1.3] text-ink max-md:text-[24px]" : ""}>
+              {text}
+            </p>
+          ))}
+        </div>
         <Link
           href="/programs"
           className="mt-8 inline-block border-b border-sage-light pb-0.5 text-[15px] font-semibold text-sage-dark hover:text-ink"
@@ -201,35 +211,6 @@ export default function HomePage() {
           </div>
         </Section>
       )}
-
-      {/* JOURNAL */}
-      <Section tone="warm" width="mid">
-        <div className="mb-12 text-center">
-          <Eyebrow tone="clay">From the journal</Eyebrow>
-          <H2>Read before you book</H2>
-        </div>
-        <div className="grid grid-cols-3 gap-7 max-md:grid-cols-1">
-          {[...JOURNAL]
-            .sort((a, b) => b.date.localeCompare(a.date))
-            .slice(0, 3)
-            .map((post) => (
-              <Link
-                key={post.slug}
-                href={`/journal/${post.slug}`}
-                className="flex flex-col gap-3 rounded-[18px] border border-rule bg-parchment p-8 no-underline hover:border-clay-light max-md:p-[26px]"
-              >
-                <span className="text-xs uppercase tracking-[0.16em] text-clay-dark">{post.tag}</span>
-                <span className="font-display text-[23px] leading-tight text-ink">{post.title}</span>
-                <span className="flex-1 text-sm leading-[1.7] text-body-3">{post.excerpt}</span>
-              </Link>
-            ))}
-        </div>
-        <p className="mt-10 text-center">
-          <Link href="/journal" className="text-sm font-semibold">
-            Read the journal →
-          </Link>
-        </p>
-      </Section>
 
       {/* PRICING */}
       <Section width="narrow">

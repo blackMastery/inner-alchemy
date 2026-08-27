@@ -25,7 +25,6 @@ export default function SiteFooter() {
             <Link href="/programs/beyond-the-mind" className="text-cream hover:text-cream-2">Quantum healing sessions</Link>
             <Link href="/session" className="text-cream hover:text-cream-2">What a session looks like</Link>
             <Link href="/faq" className="text-cream hover:text-cream-2">FAQ</Link>
-            <Link href="/journal" className="text-cream hover:text-cream-2">Journal</Link>
             <Link href="/story" className="text-cream hover:text-cream-2">How I came to this work</Link>
           </div>
 

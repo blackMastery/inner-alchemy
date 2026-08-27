@@ -46,16 +46,27 @@ export const PRACTITIONER = {
  * ------------------------------------------------------------------------- */
 
 /** Hero. Headline and lede are lifted from her short bio. */
-/** Hero: headline and call to action only. The introduction lives in HOME_INTRO below. */
+/**
+ * Hero. `headline` renders one phrase per line in the display face; `subline`
+ * is the italic payoff beneath it. The introduction lives in HOME_INTRO below.
+ */
 export const HOME_HERO = {
   eyebrow: "Transformational life coaching · BQH/QHHT® · online",
-  headline: "Remember who you truly are — the creator of your own reality.",
+  headline: ["Your business.", "Your relationships.", "Your inner world."],
+  subline: "Same unhealed pattern, wearing three different masks.",
+  body: "Masters of their reality don't fix one area and hope the rest follows. They heal the pattern underneath all of it.",
+  cta: "Book Your Free 15-Minute Call →",
 };
 
-/** The introduction band directly under the hero. */
+/** The introduction band directly under the hero. One string per paragraph. */
 export const HOME_INTRO = {
   eyebrow: "Welcome",
-  body: "I'm Hadassah Headley, transformational life coach and BQH/QHHT® practitioner. My work guides you to break through limiting beliefs, heal subconscious patterns, and consciously create a life filled with love, prosperity, and purpose — through deep identity transformation, spiritual awareness, and practical manifestation.",
+  paragraphs: [
+    "I'm Hadassah Headley — transformational life coach and BQH/QHHT® practitioner.",
+    "The best athletes have a coach. The best CEOs have a coach. The best in any field don't get there alone — neither will you.",
+    "I don't sell theory. I deliver results through cleared beliefs, healed patterns, and mindset renewal.",
+    "This isn't therapy. It isn't motivation. It's identity work — and it works.",
+  ],
 };
 
 /** The short bio, verbatim from her one-page PDF. */

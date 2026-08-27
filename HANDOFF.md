@@ -48,26 +48,7 @@ Set `SITE.testimonialsApproved = true` to restore it — but only once written
 consent from each client is on file. Unconsented client testimonials for a
 health-adjacent practice are a real liability, not a formality.
 
-## 3. Journal posts — unreviewed drafts, currently live
-
-Four posts under `app/journal/` were drafted from the reviewed FAQ answers in
-`content/site.ts`. They are **live and indexed**, and they publish **without a
-byline** because Hadassah has not read them.
-
-- `will-i-lose-control-under-hypnosis`
-- `what-if-nothing-happens-for-me`
-- `do-i-have-to-believe-in-past-lives`
-- `how-to-write-your-question-list`
-
-Each file opens with a comment marking it as an unreviewed draft. After review,
-remove those comments and set `unreviewed: false` in
-[`content/journal.ts`](content/journal.ts) to attach her byline.
-
-They make no medical claims and repeat the site's existing "complementary, not a
-substitute" framing — but they are written in her voice about her practice, and
-they are publicly indexed today.
-
-## 4. Copy conflict between the two handoff artifacts
+## 3. Copy conflict between the two handoff artifacts
 
 The HTML prototype and `src/content/site.ts` disagree. The site follows
 `site.ts`, which the handoff README names as canonical. Worth resolving:
@@ -81,7 +62,7 @@ The HTML prototype and `src/content/site.ts` disagree. The site follows
 Note `PRICING_ROWS` separately describes the QHHT® session as "4–6 hours", so
 the 3–6 figure and the 4–6 figure currently coexist on the site.
 
-## 5. Accessibility — two items need a design decision
+## 4. Accessibility — two items need a design decision
 
 Six failing colour pairings were fixed at the usage layer without changing any
 token value. Two could not be:
@@ -99,7 +80,7 @@ size. It now matches the prototype's shorter "Life Coaching & Hypnotherapy
 Services", and is hidden between 1024–1280px where it would collide with the nav.
 
 
-## 6. Still missing
+## 5. Still missing
 
 - **Photography.** Her four portraits are in place: `portrait-white-suit.jpg`
   (home hero), `portrait-dark.jpg` (home "Meet Hadassah" band), `portrait-casual.jpg`
@@ -117,10 +98,10 @@ Services", and is hidden between 1024–1280px where it would collide with the n
   form back, re-wrap the layout in `BookingProvider`, mount `BookingModal`, and
   wire `deliver()` in [`app/api/booking/route.ts`](app/api/booking/route.ts)
   to Resend/Postmark or a scheduler.
-- **Pre-session intake form.** Not built. The FAQ and a journal post both promise
-  clients an intake form after booking, so this is a stated commitment.
+- **Pre-session intake form.** Not built. The FAQ promises clients an intake
+  form after booking, so this is a stated commitment.
 
-## 7. Legal
+## 6. Legal
 
 - The footer scope/disclaimer paragraph still carries its own bracketed note that
   it must be reviewed by a lawyer or her certifying body. That note is visible on
