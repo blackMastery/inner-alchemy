@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import BookingButton from "./BookingButton";
 import { SITE } from "@/content/site";
@@ -8,9 +9,8 @@ export default function SiteFooter() {
       <div className="mx-auto max-w-[1120px] px-8 pb-10 pt-16 max-md:px-[22px]">
         <div className="grid grid-cols-[1.2fr_0.8fr_0.8fr] gap-12 border-b border-rule/15 pb-10 max-md:grid-cols-1 max-md:gap-8">
           <div>
-            <p className="mb-1.5 font-display text-2xl text-cream-2">
-              Inner <span aria-hidden="true" className="text-sm text-clay-light">✦</span> Alchemy
-            </p>
+            <Image src="/logos/emblem-on-dark.png" alt="" width={142} height={142} className="mb-4 h-14 w-14" />
+            <p className="mb-1.5 font-display text-2xl text-cream-2">Inner Alchemy</p>
             <p className="mb-5 text-[11px] uppercase tracking-[0.24em] text-cream">
               Institution · Life Coaching &amp; Hypnotherapy Services
             </p>

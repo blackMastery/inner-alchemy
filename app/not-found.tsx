@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import BookingButton from "@/components/BookingButton";
 import { Section, Eyebrow, H1 } from "@/components/ui";
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
 export default function NotFound() {
   return (
     <Section width="narrow" className="text-center">
+      <Image src="/logos/emblem-on-light.png" alt="" width={142} height={142} className="mx-auto mb-6 h-14 w-14" />
       <Eyebrow>404</Eyebrow>
       <H1 className="mb-5">That page isn&rsquo;t here.</H1>
       <p className="mx-auto mb-9 max-w-[48ch] text-[17px] leading-[1.75] text-body-3">

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Karla } from "next/font/google";
 import "./globals.css";
 import SiteHeader from "@/components/SiteHeader";
@@ -23,6 +23,10 @@ const karla = Karla({
 const TITLE = "Transformational Life Coach & BQH/QHHT® Practitioner — Inner Alchemy Institution";
 const DESCRIPTION =
   "Transformational life coaching with Hadassah Headley — clear limiting beliefs, heal subconscious patterns and consciously create your life, online. Eight coaching programs plus BQH/QHHT® quantum healing sessions. Book a free 15-minute call.";
+
+export const viewport: Viewport = {
+  themeColor: "#FAF6EF",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
@@ -104,6 +108,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         name: SITE_NAME,
         description: DESCRIPTION,
         url: SITE.url,
+        logo: `${SITE.url}/logos/logo-512.png`,
         image: portrait,
         email: SITE.email,
         telephone: SITE.phone,

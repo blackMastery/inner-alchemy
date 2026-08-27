@@ -25,6 +25,12 @@ const C = {
   rule: "#E7DECF",
 };
 
+/** The brand mark, inlined — Satori cannot fetch from the running server. */
+async function emblemDataUrl() {
+  const png = await readFile(join(process.cwd(), "public", "logos", "emblem-on-light.png"));
+  return `data:image/png;base64,${png.toString("base64")}`;
+}
+
 export async function ogFonts() {
   const dir = join(process.cwd(), "assets", "fonts");
   const [display, sans] = await Promise.all([
@@ -46,6 +52,7 @@ export async function ogImage({
   title: string;
   meta?: string;
 }) {
+  const emblem = await emblemDataUrl();
   return new ImageResponse(
     (
       <div
@@ -60,23 +67,11 @@ export async function ogImage({
           fontFamily: "Karla",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
+          {/* eslint-disable-next-line @next/next/no-img-element -- Satori renders plain <img> */}
+          <img src={emblem} width={64} height={64} alt="" style={{ width: 64, height: 64 }} />
           <span style={{ fontFamily: "Cormorant", fontSize: 40, color: C.ink, letterSpacing: 1 }}>
-            Inner
-          </span>
-          {/* The brand mark is ✦, which the latin font subset does not carry —
-              it renders as tofu. Drawn as a shape instead. */}
-          <span
-            style={{
-              display: "flex",
-              width: 10,
-              height: 10,
-              borderRadius: 10,
-              background: C.clay,
-            }}
-          />
-          <span style={{ fontFamily: "Cormorant", fontSize: 40, color: C.ink, letterSpacing: 1 }}>
-            Alchemy
+            Inner Alchemy
           </span>
         </div>
 

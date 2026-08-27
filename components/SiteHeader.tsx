@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -25,12 +26,22 @@ export default function SiteHeader() {
         Skip to content
       </a>
       <div className="mx-auto flex max-w-[1120px] items-center justify-between gap-8 px-8 py-[18px] max-md:px-[22px]">
-        <Link href="/" className="flex min-w-0 flex-col gap-0.5">
-          <span className="flex items-baseline gap-2.5 font-display text-[26px] font-medium tracking-[0.04em] text-body">
-            Inner <span aria-hidden="true" className="text-[15px] text-clay">✦</span> Alchemy
-          </span>
-          <span className="text-[11px] uppercase tracking-[0.2em] text-muted max-xl:hidden max-lg:block">
-            Life Coaching &amp; Hypnotherapy Services
+        <Link href="/" className="flex min-w-0 items-center gap-3.5">
+          <Image
+            src="/logos/emblem-on-light.png"
+            alt=""
+            width={142}
+            height={142}
+            priority
+            className="h-12 w-12 shrink-0 max-md:h-10 max-md:w-10"
+          />
+          <span className="flex min-w-0 flex-col gap-0.5">
+            <span className="font-display text-[26px] font-medium leading-none tracking-[0.04em] text-body">
+              Inner Alchemy
+            </span>
+            <span className="text-[11px] uppercase tracking-[0.2em] text-muted max-xl:hidden max-lg:block">
+              Life Coaching &amp; Hypnotherapy Services
+            </span>
           </span>
         </Link>
 

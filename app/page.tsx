@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import ImageSlot from "@/components/ImageSlot";
 import BookingButton from "@/components/BookingButton";
@@ -70,6 +71,7 @@ export default function HomePage() {
 
       {/* INTRO */}
       <Section width="mid" className="text-center !py-20">
+        <Image src="/logos/emblem-on-light.png" alt="" width={142} height={142} className="mx-auto mb-6 h-14 w-14" />
         <Eyebrow>{HOME_INTRO.eyebrow}</Eyebrow>
         <div className="mx-auto flex max-w-[58ch] flex-col gap-5 text-[19px] leading-[1.7] text-body-3 max-md:text-[17px]">
           {HOME_INTRO.paragraphs.map((text, i) => (

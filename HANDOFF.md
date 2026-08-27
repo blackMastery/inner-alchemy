@@ -98,6 +98,11 @@ Services", and is hidden between 1024–1280px where it would collide with the n
   form back, re-wrap the layout in `BookingProvider`, mount `BookingModal`, and
   wire `deliver()` in [`app/api/booking/route.ts`](app/api/booking/route.ts)
   to Resend/Postmark or a scheduler.
+- **Logo source files.** `public/logos/image-{black,white}.jpg` (1024px) are
+  the masters; `emblem-on-{light,dark}.png`, `logo-512.png`, the favicon set
+  (`app/favicon.ico`, `app/icon.png`, `app/apple-icon.png`, `public/icons/*`)
+  and the manifest icons are derived from them. Regenerate the derivatives if the
+  masters change; a vector original would still be worth asking for.
 - **Pre-session intake form.** Not built. The FAQ promises clients an intake
   form after booking, so this is a stated commitment.
 
