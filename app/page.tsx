@@ -16,12 +16,13 @@ import {
   TESTIMONIALS,
   FIT,
 } from "@/content/site";
-import { FLAGSHIP_SLUG, TIER_LABELS, TIER_ORDER, programBySlug, programsByTier } from "@/content/programs";
+import { FLAGSHIP_SLUG, programBySlug, programsByPrice } from "@/content/programs";
 import { JOURNAL } from "@/content/journal";
 
 export default function HomePage() {
   const flagship = programBySlug(FLAGSHIP_SLUG)!;
   const bqh = programBySlug("beyond-the-mind")!;
+  const programs = programsByPrice().filter((p) => p.slug !== FLAGSHIP_SLUG);
 
   // Testimonials stay out of the DOM entirely until written consent is on file.
   const showTestimonials = SITE.testimonialsApproved && TESTIMONIALS.length > 0;
@@ -47,7 +48,7 @@ export default function HomePage() {
         <div className="flex justify-center">
           {/* Portrait: 380×480 desktop, rounded to a full arch (radius 190px). */}
           <ImageSlot
-            src="/images/portrait-white-suit.jpg"
+            src="/images/hero-portrait.png"
             alt={`${PRACTITIONER.name}, ${PRACTITIONER.title.toLowerCase()}`}
             label="Portrait of the practitioner, arch crop"
             width={380}
@@ -105,18 +106,12 @@ export default function HomePage() {
           <Eyebrow>Ways to work together</Eyebrow>
           <H2 className="mb-3.5">Find your doorway</H2>
           <p className="mx-auto max-w-[58ch] text-base leading-[1.7] text-muted">
-            Eight programs, three kinds. Many clients begin with a single session and move deeper when it feels right.
+            Eight programs, from a single session to a two-day intensive — listed from the lightest investment to the deepest.
+            Many clients begin with a single session and move deeper when it feels right.
           </p>
         </div>
-        <div className="grid grid-cols-3 gap-8 max-lg:grid-cols-1">
-          {TIER_ORDER.map((tier) => (
-            <div key={tier} className="flex flex-col gap-5">
-              <h3 className="text-[13px] font-bold uppercase tracking-[0.16em] text-clay-dark">{TIER_LABELS[tier]}</h3>
-              {programsByTier(tier).map((p) => (
-                <ProgramCard key={p.slug} p={p} variant="compact" dark={p.slug === FLAGSHIP_SLUG} />
-              ))}
-            </div>
-          ))}
+        <div className="grid grid-cols-3 gap-8 max-lg:grid-cols-2 max-md:grid-cols-1">
+          {programs.map((p) => <ProgramCard key={p.slug} p={p} variant="compact" />)}
         </div>
         <p className="mt-10 text-center">
           <Link href="/programs" className="inline-block rounded-full bg-sage px-[26px] py-3.5 text-[15px] font-semibold text-linen hover:bg-sage-dark">

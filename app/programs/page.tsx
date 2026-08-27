@@ -3,7 +3,7 @@ import BookingButton from "@/components/BookingButton";
 import FlagshipCard from "@/components/FlagshipCard";
 import ProgramCard from "@/components/ProgramCard";
 import { Section, Eyebrow, H1, H2 } from "@/components/ui";
-import { FLAGSHIP_SLUG, TIER_LABELS, TIER_ORDER, programBySlug, programsByTier } from "@/content/programs";
+import { FLAGSHIP_SLUG, programBySlug, programsByPrice } from "@/content/programs";
 
 export const metadata: Metadata = {
   title: "Programs & Pricing",
@@ -12,14 +12,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "/programs" },
 };
 
-const TIER_TITLES = {
-  program: "Guided transformations — 4 to 12 weeks",
-  entrepreneur: "For entrepreneurs",
-  session: "Single sessions — start here, or go deep",
-} satisfies Record<keyof typeof TIER_LABELS, string>;
-
 export default function ProgramsPage() {
   const flagship = programBySlug(FLAGSHIP_SLUG)!;
+  const programs = programsByPrice().filter((p) => p.slug !== FLAGSHIP_SLUG);
 
   return (
     <>
@@ -37,17 +32,14 @@ export default function ProgramsPage() {
         <FlagshipCard p={flagship} />
       </section>
 
-      {TIER_ORDER.map((tier) => {
-        const programs = programsByTier(tier).filter((p) => p.slug !== FLAGSHIP_SLUG);
-        return (
-          <section key={tier} className="mx-auto max-w-[1120px] px-8 pb-14 max-md:px-[22px]">
-            <h2 className="mb-5 text-[13px] font-bold uppercase tracking-[0.16em] text-clay-dark">{TIER_TITLES[tier]}</h2>
-            <div className="grid grid-cols-2 gap-7 max-md:grid-cols-1">
-              {programs.map((p) => <ProgramCard key={p.slug} p={p} dark={p.featured} />)}
-            </div>
-          </section>
-        );
-      })}
+      <section className="mx-auto max-w-[1120px] px-8 pb-14 max-md:px-[22px]">
+        <h2 className="mb-5 text-[13px] font-bold uppercase tracking-[0.16em] text-clay-dark">
+          All programs — lowest to highest investment
+        </h2>
+        <div className="grid grid-cols-2 gap-7 max-md:grid-cols-1">
+          {programs.map((p) => <ProgramCard key={p.slug} p={p} />)}
+        </div>
+      </section>
 
       <Section tone="warm" width="narrow" className="text-center">
         <H2 className="mb-4">Not sure which doorway is yours?</H2>

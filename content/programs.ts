@@ -751,3 +751,9 @@ export const TIER_ORDER: ProgramTier[] = ["program", "entrepreneur", "session"];
 
 export const programBySlug = (slug: string) => PROGRAMS.find((p) => p.slug === slug);
 export const programsByTier = (tier: ProgramTier) => PROGRAMS.filter((p) => p.tier === tier);
+
+/** Numeric value of a display price like "$2,500", for sorting. */
+export const priceValue = (p: Program) => Number(p.price.replace(/[^0-9.]/g, ""));
+
+/** All programs, cheapest first. */
+export const programsByPrice = () => [...PROGRAMS].sort((a, b) => priceValue(a) - priceValue(b));
