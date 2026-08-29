@@ -10,9 +10,9 @@ export default function SiteFooter() {
         <div className="grid grid-cols-[1.2fr_0.8fr_0.8fr] gap-12 border-b border-rule/15 pb-10 max-md:grid-cols-1 max-md:gap-8">
           <div>
             <Image src="/logos/emblem-on-dark.png" alt="" width={142} height={142} className="mb-4 h-14 w-14" />
-            <p className="mb-1.5 font-display text-2xl text-cream-2">Inner Alchemy</p>
+            <p className="mb-1.5 font-display text-2xl text-cream-2">Inner Alchemy Institution</p>
             <p className="mb-5 text-[11px] uppercase tracking-[0.24em] text-cream">
-              Institution · Life Coaching &amp; Hypnotherapy Services
+              Life Coaching &amp; Hypnotherapy Services
             </p>
             <p className="max-w-[40ch] text-[13px] leading-relaxed text-cream">
               Transformational life coaching and hypnotherapy sessions, online worldwide. {SITE.location}.

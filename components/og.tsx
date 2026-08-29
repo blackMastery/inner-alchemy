@@ -71,7 +71,7 @@ export async function ogImage({
           {/* eslint-disable-next-line @next/next/no-img-element -- Satori renders plain <img> */}
           <img src={emblem} width={64} height={64} alt="" style={{ width: 64, height: 64 }} />
           <span style={{ fontFamily: "Cormorant", fontSize: 40, color: C.ink, letterSpacing: 1 }}>
-            Inner Alchemy
+            Inner Alchemy Institution
           </span>
         </div>
 

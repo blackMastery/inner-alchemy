@@ -152,8 +152,8 @@ export default function SiteHeader() {
             className="h-12 w-12 shrink-0 max-md:h-10 max-md:w-10"
           />
           <span className="flex min-w-0 flex-col gap-0.5">
-            <span className="font-display text-[26px] font-medium leading-none tracking-[0.04em] text-body">
-              Inner Alchemy
+            <span className="font-display text-[26px] font-medium leading-none tracking-[0.04em] text-body max-md:text-[22px]">
+              Inner Alchemy Institution
             </span>
             <span className="text-[11px] uppercase tracking-[0.2em] text-muted max-xl:hidden max-lg:block">
               Life Coaching &amp; Hypnotherapy Services
