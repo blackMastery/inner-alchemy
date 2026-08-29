@@ -4,7 +4,7 @@ import "./globals.css";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import { SITE, PRACTITIONER } from "@/content/site";
-import { PROGRAMS, priceValue } from "@/content/programs";
+import { ALL_PROGRAMS, priceValue } from "@/content/programs";
 import { SITE_NAME, OG_LOCALE } from "@/lib/seo";
 
 const cormorant = Cormorant_Garamond({
@@ -22,7 +22,7 @@ const karla = Karla({
 
 const TITLE = "Transformational Life Coach & BQH/QHHT® Practitioner — Inner Alchemy Institution";
 const DESCRIPTION =
-  "Transformational life coaching with Hadassah Headley — clear limiting beliefs, heal subconscious patterns and consciously create your life, online. Eight coaching programs plus BQH/QHHT® quantum healing sessions. Book a free 15-minute call.";
+  "Transformational life coaching with Hadassah Headley — clear limiting beliefs, heal subconscious patterns and consciously create your life, online. Coaching programs across life, money, business, relationships and spirit, plus BQH/QHHT® hypnotherapy sessions. Book a free 15-minute call.";
 
 export const viewport: Viewport = {
   themeColor: "#FAF6EF",
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
-  const prices = PROGRAMS.map(priceValue);
+  const prices = ALL_PROGRAMS.map(priceValue);
   const priceRange = `$${Math.min(...prices).toLocaleString("en-US")}–$${Math.max(...prices).toLocaleString("en-US")}`;
   const portrait = `${SITE.url}/images/hero-portrait.png`;
 
@@ -124,7 +124,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           email: SITE.email,
           availableLanguage: "English",
         },
-        knowsAbout: ["Transformational life coaching", "BQH/QHHT® quantum healing sessions"],
+        knowsAbout: ["Transformational life coaching", "BQH/QHHT® hypnotherapy sessions"],
       },
     ],
   };

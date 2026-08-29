@@ -3,12 +3,15 @@ import type { ReactNode } from "react";
 /** Standard page band. tone controls the alternating background rhythm. */
 export function Section({
   children,
+  id,
   tone = "linen",
   width = "wide",
   className = "",
   outerClassName = "",
 }: {
   children: ReactNode;
+  /** Anchor target — pair with a scroll-mt-* in outerClassName to clear the sticky header. */
+  id?: string;
   tone?: "linen" | "warm" | "ink";
   width?: "wide" | "mid" | "narrow";
   /** Applied to the inner container, inside the page gutters. */
@@ -23,7 +26,7 @@ export function Section({
   } as const;
   const widths = { wide: "max-w-[1120px]", mid: "max-w-[880px]", narrow: "max-w-[760px]" } as const;
   return (
-    <section className={`${tones[tone]} ${outerClassName}`}>
+    <section id={id} className={`${tones[tone]} ${outerClassName}`}>
       <div className={`mx-auto ${widths[width]} px-8 py-24 max-md:px-[22px] max-md:py-16 ${className}`}>
         {children}
       </div>

@@ -1,27 +1,23 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import BookingButton from "@/components/BookingButton";
-import FlagshipCard from "@/components/FlagshipCard";
-import ProgramCard from "@/components/ProgramCard";
-import { Section, Eyebrow, H1, H2 } from "@/components/ui";
-import { FLAGSHIP_SLUG, programBySlug, programsByPrice } from "@/content/programs";
+import { Section, Eyebrow, H1, H2, Card } from "@/components/ui";
+import { CATEGORIES, COACHING, HYPNOTHERAPY, programHref } from "@/content/programs";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Coaching Programs & Pricing",
+  title: "Programs & Pricing",
   description:
-    "Eight transformational coaching programs with plain pricing — from the $150 Power Reset session and $350 BQH quantum healing session to the 12-week Unleash the Inner Alchemist and a two-day private intensive for entrepreneurs.",
+    "Two paths in: coaching programs across life, money, business, relationships and spirit — from a $150 Power Reset to a two-day private intensive — and BQH/QHHT® hypnotherapy sessions from $350.",
   path: "/programs",
 });
 
 export default function ProgramsPage() {
-  const flagship = programBySlug(FLAGSHIP_SLUG)!;
-  const programs = programsByPrice().filter((p) => p.slug !== FLAGSHIP_SLUG);
-
   return (
     <>
       <Section width="mid" className="text-center !pb-14">
-        <Eyebrow>Transformational coaching programs</Eyebrow>
-        <H1 className="mb-5">Eight doorways. One destination.</H1>
+        <Eyebrow>Programs &amp; pricing</Eyebrow>
+        <H1 className="mb-5">Programs</H1>
         <p className="mx-auto max-w-[60ch] text-[17px] leading-[1.8] text-body-3">
           Every program leads to the same place — remembering who you truly are and consciously creating from there.
           They differ in depth, length, and the life area they enter through. Not sure which fits? That&rsquo;s what the
@@ -29,16 +25,52 @@ export default function ProgramsPage() {
         </p>
       </Section>
 
-      <section className="mx-auto max-w-[1120px] px-8 pb-16 max-md:px-[22px]">
-        <FlagshipCard p={flagship} />
-      </section>
-
-      <section className="mx-auto max-w-[1120px] px-8 pb-14 max-md:px-[22px]">
-        <h2 className="mb-5 text-[13px] font-bold uppercase tracking-[0.16em] text-clay-dark">
-          All programs — lowest to highest investment
-        </h2>
+      <section className="mx-auto max-w-[1120px] px-8 pb-20 max-md:px-[22px]">
         <div className="grid grid-cols-2 gap-7 max-md:grid-cols-1">
-          {programs.map((p) => <ProgramCard key={p.slug} p={p} />)}
+          <Card className="flex flex-col">
+            <Eyebrow tone="clay">{CATEGORIES.coaching.label}</Eyebrow>
+            <H2 className="mb-6 !text-[32px]">Five areas of mastery</H2>
+            <ul className="mb-8 flex flex-col gap-3">
+              {COACHING.map((m) => (
+                <li key={m.id}>
+                  <Link
+                    href={`${CATEGORIES.coaching.href}#${m.id}`}
+                    className="text-[16.5px] font-semibold text-ink hover:text-clay-dark"
+                  >
+                    {m.name}
+                  </Link>
+                  <span className="text-sm text-muted"> · {m.programs.length} programs</span>
+                </li>
+              ))}
+            </ul>
+            <Link href={CATEGORIES.coaching.href} className="mt-auto text-[15px] font-semibold">
+              All coaching programs →
+            </Link>
+          </Card>
+
+          <Card className="flex flex-col">
+            <Eyebrow tone="clay">{CATEGORIES.hypnotherapy.label}</Eyebrow>
+            <H2 className="mb-6 !text-[32px]">Three sessions</H2>
+            <ul className="mb-8 flex flex-col gap-3">
+              {HYPNOTHERAPY.map((p) => (
+                <li key={p.slug}>
+                  <Link
+                    href={programHref(p.slug)}
+                    className="text-[16.5px] font-semibold text-ink hover:text-clay-dark"
+                  >
+                    {p.name}
+                  </Link>
+                  <span className="text-sm text-muted">
+                    {" "}
+                    · {p.duration} · {p.price}
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <Link href={CATEGORIES.hypnotherapy.href} className="mt-auto text-[15px] font-semibold">
+              All hypnotherapy sessions →
+            </Link>
+          </Card>
         </div>
       </section>
 

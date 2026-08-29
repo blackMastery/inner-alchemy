@@ -1,59 +1,31 @@
 import Link from "next/link";
-import type { Program } from "@/content/programs";
+import { programHref, type Program } from "@/content/programs";
 
 /**
- * A programme as a link card.
- *   full    — /programs index: name, price, duration, blurb, "for you if".
- *   compact — home grid and sibling rows: name, duration, "for you if", price.
+ * A program as an overview card on its category page: name, duration · price,
+ * the opening line, and a link through to /programs/<slug>. The id keeps
+ * #slug anchors working on the category page.
  */
-export default function ProgramCard({
-  p,
-  variant = "full",
-  dark = false,
-}: {
-  p: Program;
-  variant?: "full" | "compact";
-  dark?: boolean;
-}) {
-  const shell = dark
-    ? "border border-clay-light bg-gradient-to-br from-ink-2 to-ink hover:border-clay-pale"
-    : "border border-rule bg-parchment hover:border-clay-light";
-  const name = dark ? "text-cream-2" : "text-ink";
-  const meta = dark ? "text-clay-light" : "text-sage-dark";
-  const body = dark ? "text-cream" : "text-body-3";
-  const price = dark ? "text-clay-light" : "text-clay-dark";
-
-  if (variant === "compact") {
-    return (
-      <Link
-        href={`/programs/${p.slug}`}
-        className={`flex h-full flex-col gap-3 rounded-[18px] p-8 no-underline transition-colors max-md:p-[26px] ${shell}`}
-      >
-        <h3 className={`font-display text-[24px] leading-tight ${name}`}>{p.name}</h3>
-        <p className={`text-[12.5px] uppercase tracking-[0.1em] ${meta}`}>{p.duration}</p>
-        <p className={`flex-1 text-sm leading-[1.7] ${body}`}>
-          For you if {p.forYouIf}
-        </p>
-        <span className={`font-bold ${price}`}>{p.price}</span>
-      </Link>
-    );
-  }
-
+export default function ProgramCard({ p }: { p: Program }) {
   return (
-    // `id` keeps the slug usable as an anchor target, so older #deep-links still land.
-    <article id={p.slug} className="scroll-mt-28">
+    <article id={p.slug} className="scroll-mt-40 max-md:scroll-mt-36">
       <Link
-        href={`/programs/${p.slug}`}
-        className={`flex h-full flex-col gap-3.5 rounded-[18px] p-[38px] no-underline transition-colors max-md:p-[26px] ${shell}`}
+        href={programHref(p.slug)}
+        className="flex h-full flex-col gap-3.5 rounded-[18px] border border-rule bg-parchment p-[34px] no-underline transition-colors hover:border-clay-light max-md:p-[26px]"
       >
         <div className="flex items-baseline justify-between gap-4">
-          <h3 className={`font-display text-[28px] max-md:text-[23px] ${name}`}>{p.name}</h3>
-          <span className={`whitespace-nowrap font-bold ${price}`}>{p.price}</span>
+          <h3 className="font-display text-[26px] leading-tight text-ink max-md:text-[23px]">{p.name}</h3>
+          <span className="whitespace-nowrap font-bold text-clay-dark">
+            {p.price}
+            {p.priceNote && <span className="font-normal text-muted"> {p.priceNote}</span>}
+          </span>
         </div>
-        <p className={`text-[12.5px] uppercase tracking-[0.1em] ${meta}`}>{p.duration}</p>
-        <p className={`flex-1 text-[15px] leading-[1.7] ${body}`}>{p.blurb}</p>
-        <p className={`text-sm ${dark ? "text-cream" : "text-muted"}`}>For you if {p.forYouIf}</p>
-        <span className={`text-sm font-semibold ${price}`}>Read more →</span>
+        <p className="text-[12.5px] uppercase tracking-[0.1em] text-sage-dark">
+          {p.duration}
+          {p.format === "in-person" && " · In person"}
+        </p>
+        <p className="flex-1 text-[15px] leading-[1.7] text-body-3">{p.paragraphs[0].replace(/\[\[[^\]|]+\|([^\]]+)\]\]/g, "$1")}</p>
+        <span className="text-sm font-semibold text-clay-dark">Read more →</span>
       </Link>
     </article>
   );

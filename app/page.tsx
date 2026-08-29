@@ -3,8 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import ImageSlot from "@/components/ImageSlot";
 import BookingButton from "@/components/BookingButton";
-import FlagshipCard from "@/components/FlagshipCard";
-import ProgramCard from "@/components/ProgramCard";
 import CheckList from "@/components/CheckList";
 import { Section, Eyebrow, H2, Card } from "@/components/ui";
 import {
@@ -18,21 +16,18 @@ import {
   TESTIMONIALS,
   FIT,
 } from "@/content/site";
-import { FLAGSHIP_SLUG, programBySlug } from "@/content/programs";
+import { CATEGORIES, COACHING, HYPNOTHERAPY, programHref } from "@/content/programs";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
   title: "Transformational Life Coach & BQH/QHHT® Practitioner — Inner Alchemy Institution",
   description:
-    "Transformational life coaching with Hadassah Headley — clear limiting beliefs, heal subconscious patterns and consciously create your life, online. Eight coaching programs plus BQH/QHHT® quantum healing sessions. Book a free 15-minute call.",
+    "Transformational life coaching with Hadassah Headley — clear limiting beliefs, heal subconscious patterns and consciously create your life, online. Coaching programs across life, money, business, relationships and spirit, plus BQH/QHHT® hypnotherapy sessions. Book a free 15-minute call.",
   path: "/",
   absoluteTitle: true,
 });
 
 export default function HomePage() {
-  const flagship = programBySlug(FLAGSHIP_SLUG)!;
-  const bqh = programBySlug("beyond-the-mind")!;
-
   // Testimonials stay out of the DOM entirely until written consent is on file.
   const showTestimonials = SITE.testimonialsApproved && TESTIMONIALS.length > 0;
 
@@ -84,7 +79,7 @@ export default function HomePage() {
           href="/programs"
           className="mt-8 inline-block border-b border-sage-light pb-0.5 text-[15px] font-semibold text-sage-dark hover:text-ink"
         >
-          Explore the eight programs →
+          Explore the programs →
         </Link>
       </Section>
 
@@ -109,13 +104,56 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* FLAGSHIP */}
+      {/* TWO PATHS — coaching and hypnotherapy, each with its own page */}
       <Section tone="warm">
         <div className="mb-10 text-center">
-          <Eyebrow>The signature program</Eyebrow>
-          <H2>Where the name comes from</H2>
+          <Eyebrow>Where to begin</Eyebrow>
+          <H2>Two paths in</H2>
         </div>
-        <FlagshipCard p={flagship} />
+        <div className="grid grid-cols-2 gap-7 max-md:grid-cols-1">
+          <Card className="flex flex-col">
+            <Eyebrow tone="clay">{CATEGORIES.coaching.label}</Eyebrow>
+            <p className="mb-4 font-display text-[28px] leading-tight text-ink">Rebuild the pattern underneath it all.</p>
+            <p className="mb-6 text-[15.5px] leading-[1.7] text-body-3">
+              Private, one-to-one coaching across five areas of mastery — from a single 90-minute reset to a two-day
+              in-person intensive.
+            </p>
+            <ul className="mb-8 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
+              {COACHING.map((m) => (
+                <li key={m.id}>
+                  <Link href={`${CATEGORIES.coaching.href}#${m.id}`} className="text-body-2 hover:text-clay-dark">
+                    {m.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <Link href={CATEGORIES.coaching.href} className="mt-auto text-[15px] font-semibold">
+              See the coaching programs →
+            </Link>
+          </Card>
+          <Card className="flex flex-col">
+            <Eyebrow tone="clay">{CATEGORIES.hypnotherapy.label}</Eyebrow>
+            <p className="mb-4 font-display text-[28px] leading-tight text-ink">Go beneath the mind.</p>
+            <p className="mb-6 text-[15.5px] leading-[1.7] text-body-3">
+              Some patterns don&rsquo;t move through conversation alone. A quantum healing session reaches the
+              subconscious directly — deeply relaxed, fully aware, speaking the whole time.{" "}
+              <Link href="/session">Read the session, stage by stage</Link>.
+            </p>
+            <ul className="mb-8 flex flex-col gap-2 text-sm">
+              {HYPNOTHERAPY.map((p) => (
+                <li key={p.slug} className="flex justify-between gap-4">
+                  <Link href={programHref(p.slug)} className="font-semibold text-body-2 hover:text-clay-dark">
+                    {p.name}
+                  </Link>
+                  <span className="whitespace-nowrap font-bold text-clay-dark">{p.price}</span>
+                </li>
+              ))}
+            </ul>
+            <Link href={CATEGORIES.hypnotherapy.href} className="mt-auto text-[15px] font-semibold">
+              See the hypnotherapy sessions →
+            </Link>
+          </Card>
+        </div>
       </Section>
 
       {/* MEET HADASSAH */}
@@ -168,23 +206,6 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* WHEN TALK ISN'T ENOUGH — the one place hypnosis is framed on the home page */}
-      <Section tone="warm" className="grid grid-cols-[1fr_1fr] items-center gap-[72px] max-md:grid-cols-1 max-md:gap-8">
-        <div>
-          <Eyebrow tone="clay">When talk isn&rsquo;t enough</Eyebrow>
-          <H2 className="mb-5">Go beneath the mind</H2>
-          <p className="mb-5 text-[16.5px] leading-[1.75] text-body-3">
-            Some patterns don&rsquo;t move through conversation alone. A BQH quantum healing session reaches the
-            subconscious directly — a deeply relaxed state where you stay aware, speak the whole time, and put your own
-            questions to the part of you that knows why the pattern is there.
-          </p>
-          <p className="text-[15px] text-muted">
-            Curious what that looks like? <Link href="/session">Read the session, stage by stage</Link>.
-          </p>
-        </div>
-        <ProgramCard p={bqh} variant="compact" dark />
-      </Section>
-
       {/* FIT CHECK */}
       <Section>
         <div className="mb-14 text-center">
@@ -230,7 +251,7 @@ export default function HomePage() {
           <Eyebrow tone="clay">No surprises</Eyebrow>
           <H2 className="mb-3.5">Pricing, plainly</H2>
           <p className="text-[15.5px] leading-[1.7] text-muted">
-            Deep work takes real time. Here is exactly what everything costs.
+            Deep work takes real time. The anchors below; every price is on the program pages.
           </p>
         </div>
         <div className="overflow-hidden rounded-[18px] border border-rule-2 bg-parchment">
@@ -258,6 +279,10 @@ export default function HomePage() {
             );
           })}
         </div>
+        <p className="mt-6 flex flex-wrap justify-center gap-x-8 gap-y-2 text-[15px] font-semibold">
+          <Link href={CATEGORIES.coaching.href}>All coaching programs →</Link>
+          <Link href={CATEGORIES.hypnotherapy.href}>Hypnotherapy sessions →</Link>
+        </p>
         <p className="mt-[22px] text-center text-[13px] text-muted">
           Payment plans available — just ask on the discovery call. A deposit holds your place.
         </p>

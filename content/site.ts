@@ -1,8 +1,8 @@
 /* All site copy lives here so pages stay layout-only.
-   The eight programmes themselves live in ./programs (transcribed from the
-   practitioner's PDFs); this file holds everything around them. */
+   The programs themselves live in ./programs (the practitioner's own copy);
+   this file holds everything around them. */
 
-import { programsByPrice, FLAGSHIP_SLUG, type ProgramTier } from "./programs";
+import { featuredByPrice, programHref, type ProgramCategory } from "./programs";
 
 /* ---------------------------------------------------------------------------
  * Unconfirmed values live here and NOWHERE else.
@@ -68,8 +68,8 @@ export const HOME_INTRO = {
   eyebrow: "Welcome",
   paragraphs: [
     "I'm Hadassah Headley — transformational life coach and BQH/QHHT® practitioner.",
-    "The best athletes have a coach. The best CEOs have a coach. The best in any field don't get there alone — neither will you.",
-    "I don't sell theory. I deliver results through cleared beliefs, healed patterns, and mindset renewal.",
+    "Most coaching helps you think differently. I help you become different.",
+    "I find the belief, pattern, or block that's been quietly running your life — and clear it. Not manage it. Not talk around it. Clear it.",
     "This isn't therapy. It isn't motivation. It's identity work — and it works.",
   ],
 };
@@ -98,31 +98,31 @@ export const METHOD = [
 ];
 
 /* ---------------------------------------------------------------------------
- * FAQ — the reviewed answers. Programme pages pull from here by question.
+ * FAQ — the reviewed answers. The program pages pull from here by question.
  * ------------------------------------------------------------------------- */
 export const FAQ_GROUPS = [
   {
     group: "Coaching programs",
     items: [
       {
-        /* TODO: confirm — formats taken from the programme PDFs. */
+        /* TODO: confirm — formats taken from the program descriptions. */
         q: "How are coaching sessions held?",
-        a: "Privately, one-to-one, online over video. The multi-week programs meet once a week — the Limitless Entrepreneur meets every two weeks for a longer session — and single sessions run 90 minutes for the Power Reset or 3–4 hours for Beyond the Mind. The MRI intensive is the one exception: two full days in person.",
+        a: "Privately, one-to-one, online over video. The multi-week programs meet once a week; the Power Reset is a single 90-minute session, and a BQH session runs 3–4 hours. The MRI intensive is the one exception: two full days in person.",
       },
       {
         /* TODO: confirm. */
         q: "Does coaching involve hypnosis?",
-        a: "Not unless you choose it. The coaching programs are conversation, exercises, and reflection work. Hypnosis appears in two places: Beyond the Mind, which is a BQH quantum healing session, and Unleash the Inner Alchemist, which includes a 3-hour BQH session in its second phase.",
+        a: "Not unless you choose it. The coaching programs are conversation, exercises, and reflection work. Hypnosis appears in the Hypnotherapy Programs — BQH, QHHT®, and the two combined — and inside Unleash the Inner Alchemist, which includes two BQH sessions.",
       },
       {
-        /* TODO: confirm — voice-note support is listed on three of the programme PDFs. */
+        /* TODO: confirm — voice-note support was listed on three of the original program PDFs. */
         q: "What support do I get between sessions?",
         a: "Voice-note support between sessions is built into Unleash the Inner Alchemist, the Magnetic Boss Babe, and When the Soul Awakens — which also includes a mid-week check-in. Every program comes with weekly prompts or exercises, so the work continues between calls.",
       },
       {
         /* TODO: confirm. */
         q: "Are sessions recorded?",
-        a: "Single sessions are: the Power Reset and Beyond the Mind both include a recording — for BQH, only if you want one. Coaching program calls aren't recorded by default; ask if you'd like them to be.",
+        a: "Single sessions are: the Power Reset and the BQH session both include a recording — for BQH, only if you want one. Coaching program calls aren't recorded by default; ask if you'd like them to be.",
       },
       {
         /* TODO: confirm — repeats the pricing footnote. */
@@ -132,7 +132,7 @@ export const FAQ_GROUPS = [
     ],
   },
   {
-    group: "Quantum healing sessions",
+    group: "Hypnotherapy sessions",
     items: [
       {
         q: "Will I be unconscious or lose control?",
@@ -177,7 +177,7 @@ export const FAQ_GROUPS = [
     items: [
       {
         q: "Which programs are in person?",
-        a: "Everything is online except the MRI intensive, which is two in-person days, and QHHT®, which the method itself requires in person. Coaching, the Power Reset, and BQH sessions are all held over video.",
+        a: "Everything is online except the MRI intensive, which is two in-person days, and QHHT® — on its own or combined with BQH — which the method itself requires in person. Coaching, the Power Reset, and standalone BQH sessions are all held over video.",
       },
       {
         q: "Is this a treatment for my medical or mental health condition?",
@@ -209,48 +209,49 @@ export function faqByQuestion(question: FaqQuestion): FaqItem {
   throw new Error(`Unknown FAQ question: ${question}`);
 }
 
-/**
- * Which FAQ questions to surface on a programme page, by tier. A programme can
- * override this with its own `faq` list.
- */
-export const PROGRAM_FAQ_BY_TIER: Record<ProgramTier, FaqQuestion[]> = {
-  program: [
+/** Which FAQ questions to surface at the foot of each program category page. */
+export const CATEGORY_FAQ: Record<ProgramCategory, FaqQuestion[]> = {
+  coaching: [
     "How are coaching sessions held?",
     "Does coaching involve hypnosis?",
     "What support do I get between sessions?",
+    "Are sessions recorded?",
     "Can I pay in instalments?",
+    "Which programs are in person?",
     "Is what I say confidential?",
   ],
-  entrepreneur: [
-    "How are coaching sessions held?",
-    "Which programs are in person?",
-    "Can I pay in instalments?",
-    "Is this a treatment for my medical or mental health condition?",
-  ],
-  session: [
+  hypnotherapy: [
     "Will I be unconscious or lose control?",
     "Will I remember the session?",
+    "Do I have to believe in past lives for this to work?",
+    "What should I ask? How do I prepare my questions?",
     "What if nothing happens for me?",
     "Why are sessions so long?",
+    "What if something upsetting comes up?",
+    "Can my partner sit in?",
+    "How will I feel afterwards?",
+    "Which programs are in person?",
   ],
 };
 
 /* ---------------------------------------------------------------------------
- * Pricing — derived from PROGRAMS (cheapest first) so a price can never drift between pages.
+ * Pricing — the home-page anchors, derived from the featured programs (cheapest
+ * first) so a price can never drift between pages. Full pricing lives on the
+ * two category pages.
  * ------------------------------------------------------------------------- */
 export const PRICING_ROWS: { label: string; price: string; href?: string; highlight?: boolean }[] = [
   { label: "Discovery call · 15 minutes", price: "Free" },
-  ...programsByPrice().map((p) => ({
+  ...featuredByPrice().map((p) => ({
     label: `${p.name} · ${p.duration}`,
-    price: p.price,
-    href: `/programs/${p.slug}`,
-    highlight: p.slug === FLAGSHIP_SLUG,
+    price: p.priceNote ? `${p.price} ${p.priceNote}` : p.price,
+    href: programHref(p.slug),
+    highlight: p.slug === "unleash-the-inner-alchemist",
   })),
 ];
 
 /* ---------------------------------------------------------------------------
  * The quantum healing session, hour by hour. Shown on /session and on the
- * Beyond the Mind page. Spans are relative — a BQH session runs 3–4 hours.
+ * hypnotherapy page. Spans are relative — a BQH session runs 3–4 hours.
  * ------------------------------------------------------------------------- */
 export const SESSION_TIMELINE = [
   {
@@ -298,7 +299,7 @@ export const TESTIMONIALS = [
   },
 ];
 
-/** Home-page fit check. `yes` is drawn from the programme PDFs' audience lists. */
+/** Home-page fit check. `yes` is drawn from the original program PDFs' audience lists. */
 export const FIT = {
   yes: [
     "A pattern keeps repeating — in relationships, money, or how you see yourself — and you can't trace its origin",
@@ -327,9 +328,3 @@ export const STORY_PARAGRAPHS_AFTER = [
   "I had been living as if my circumstances defined me — even when they didn't. Within every human being lives an incredible creative power: the ability to shape our lives from the inside out. When I remembered that truth, my life began to change. Slowly, I rebuilt myself — healed old wounds, reshaped my identity, and began consciously creating a future that once felt impossible.",
   "Today, I am a transformational life coach and a BQH/QHHT® practitioner devoted to helping others remember that same truth within themselves. I guide people through identity transformation and subconscious healing so they can break free from the patterns that keep them stuck and begin creating lives filled with love, prosperity, and purpose. Because I know from my own life: where you begin does not determine where you can go.",
 ];
-
-/** Shown on the Beyond the Mind page — the in-person alternative, without a price. TODO: confirm in-person availability. */
-export const QHHT_NOTE = {
-  heading: "Prefer it in person? QHHT®",
-  body: "Beyond the Mind is a BQH session, held online. I'm also certified in QHHT®, which is practiced in person only, per the method's guidelines — the depth of the state requires being in the room together. Sessions are one-on-one; no observers, including partners. If you'd like the in-person format, ask on the call — the right fit depends on your questions.",
-};

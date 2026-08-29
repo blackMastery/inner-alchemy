@@ -1,4 +1,7 @@
-/** The site's bulleted list: a ✦ (or an em-dash for the "not for you" column) before each line. */
+import { renderRich } from "./RichText";
+
+/** The site's bulleted list: a ✦ (or an em-dash for the "not for you" column) before each line.
+ *  Lines may carry [[slug|Label]] program links — see RichText. */
 export default function CheckList({
   items,
   marker = "sage",
@@ -15,7 +18,7 @@ export default function CheckList({
       {items.map((line) => (
         <li key={line} className="flex gap-3">
           <span aria-hidden="true" className={tone}>{glyph}</span>
-          <span>{line}</span>
+          <span>{renderRich(line)}</span>
         </li>
       ))}
     </ul>

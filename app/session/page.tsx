@@ -25,7 +25,7 @@ export default function SessionPage() {
           relaxed, fully in control, able to speak the whole time. Here is the entire session, with nothing left out.
         </p>
         <p className="mt-5 text-[15px] text-muted">
-          This is the <Link href="/programs/beyond-the-mind">Beyond the Mind</Link> session, and the BQH session inside{" "}
+          This is the <Link href="/programs/bqh">BQH session</Link>, and the BQH sessions inside{" "}
           <Link href="/programs/unleash-the-inner-alchemist">Unleash the Inner Alchemist</Link>.
         </p>
       </Section>

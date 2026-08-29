@@ -2,11 +2,14 @@ import createMDX from "@next/mdx";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Journal posts are authored as MDX pages under app/journal/<slug>/page.mdx.
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
-  // The standalone QHHT® page was folded into the Beyond the Mind programme.
+  // The standalone QHHT® page and the "Beyond the Mind" programme were renamed;
+  // every other old program URL kept its slug and still resolves directly.
   async redirects() {
-    return [{ source: "/qhht", destination: "/programs/beyond-the-mind", permanent: true }];
+    return [
+      { source: "/qhht", destination: "/programs/qhht", permanent: true },
+      { source: "/programs/beyond-the-mind", destination: "/programs/bqh", permanent: true },
+    ];
   },
 };
 
