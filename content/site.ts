@@ -81,19 +81,19 @@ export const SHORT_BIO = [
   "Today, I guide others through the same awakening, helping them reclaim their inner power and consciously create the beautiful life that has always been their birthright.",
 ];
 
-/** TODO: confirm — the three pillars named in her bio, expanded into a line each. */
+/** The three threads every program blends — the "How the work works" cards on the home page. */
 export const METHOD = [
   {
-    title: "Identity transformation",
-    body: "Who you believe you are decides what you allow. We find the identity you've been living from — often built in survival — and rebuild it from truth.",
+    title: "The identity you didn’t choose",
+    body: "Somewhere along the way, you built a version of yourself that could survive — and you’ve been living from it ever since, even now that survival isn’t the goal anymore. We find that version, and we build the one that’s actually true.",
   },
   {
-    title: "Spiritual awareness",
-    body: "Reconnecting with the inner wisdom that already knows the way: intuition, grounded daily practice, and trust in your own guidance.",
+    title: "The knowing you stopped trusting",
+    body: "You had an inner compass before anyone told you to ignore it. Somewhere it got quiet — overridden by other people’s opinions, other people’s fear. We bring it back online, so you stop outsourcing your own life.",
   },
   {
-    title: "Practical manifestation",
-    body: "Aligning thought, emotion, and action so the life you want stops being a wish and becomes the way you move through the world.",
+    title: "The gap between what you want and what you do",
+    body: "You know what you want. You can even picture it. But somehow your days don’t move you toward it — because thought, feeling, and action aren’t pulling in the same direction yet. We close that gap, so wanting it stops being the hard part.",
   },
 ];
 

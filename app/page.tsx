@@ -183,11 +183,14 @@ export default function HomePage() {
       {/* VIDEO */}
       <Section width="mid" className="text-center">
         <Eyebrow tone="clay">A two-minute hello</Eyebrow>
-        <H2 className="mb-4">Hear my voice before you book anything.</H2>
-        <p className="mx-auto mb-10 max-w-[56ch] text-[16.5px] leading-[1.75] text-body-3">
-          Coaching is a relationship of trust. Before you decide anything, listen to how I speak and how I hold a
-          conversation — you&rsquo;ll know quickly whether this feels like a fit.
-        </p>
+        <H2 className="mb-4">Before you book, hear this.</H2>
+        <div className="mx-auto mb-10 flex max-w-[56ch] flex-col gap-4 text-[16.5px] leading-[1.75] text-body-3">
+          <p>
+            You&rsquo;re about to hand me access to the parts of your life you don&rsquo;t usually talk about. That
+            deserves more than a bio and a price list.
+          </p>
+          <p>Press play. No pitch, no pressure — just two minutes to see if this feels right.</p>
+        </div>
         {/* Replace with the real embed (Mux / YouTube / self-hosted). 16:9. */}
         <div className="relative mx-auto aspect-video max-w-[720px] overflow-hidden rounded-2xl bg-linen-warm">
           <ImageSlot
