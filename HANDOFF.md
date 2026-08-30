@@ -130,9 +130,10 @@ Still needs a human:
 
 ## 7. Legal
 
-- The footer scope/disclaimer paragraph still carries its own bracketed note that
-  it must be reviewed by a lawyer or her certifying body. That note is visible on
-  the live site and must be removed before launch.
+- The footer scope/disclaimer paragraph (`components/SiteFooter.tsx`) has not
+  been reviewed by a lawyer or her certifying body. The visible bracketed reminder
+  was removed from the page so AI agents and search snippets stop quoting it;
+  the review itself is still outstanding.
 - QHHT® and Quantum Healing Hypnosis Technique℠ have brand usage rules tied to
   certification level. Check the official guidelines before any lockup using the
   marks or Dolores Cannon's name.

@@ -8,16 +8,12 @@ import { Section, Eyebrow, H1, H2 } from "@/components/ui";
 import { CATEGORIES, HYPNOTHERAPY } from "@/content/programs";
 import { SITE, CATEGORY_FAQ, faqByQuestion } from "@/content/site";
 import { offerFor, programBreadcrumbs, jsonLdHtml } from "@/lib/jsonld";
+import { STATIC_PAGES } from "@/lib/pages";
 import { pageMetadata } from "@/lib/seo";
 
 const { label, href } = CATEGORIES.hypnotherapy;
 
-export const metadata: Metadata = pageMetadata({
-  title: `${label} — BQH & QHHT®`,
-  description:
-    "Three quantum healing hypnosis sessions: BQH online from anywhere (US$350), QHHT® in person as Dolores Cannon designed it (US$450), or both combined (US$700). Plain pricing, sessions of 3–8 hours.",
-  path: href,
-});
+export const metadata: Metadata = pageMetadata(STATIC_PAGES.hypnotherapy);
 
 export default function HypnotherapyPage() {
   const pageUrl = `${SITE.url}${href}`;

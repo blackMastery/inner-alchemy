@@ -32,12 +32,15 @@ export default function SiteFooter() {
           <div className="flex flex-col items-start gap-3 text-sm">
             <p className="mb-1 text-[11px] uppercase tracking-[0.16em] text-cream">Begin</p>
             <BookingButton variant="sand" size="sm">Book a free discovery call</BookingButton>
-            <a href={SITE.phoneHref} className="text-cream hover:text-cream-2">
-              {SITE.phone}
-            </a>
-            <a href={`mailto:${SITE.email}`} className="text-cream hover:text-cream-2">
-              {SITE.email}
-            </a>
+            <address className="flex flex-col items-start gap-3 not-italic">
+              <a href={SITE.phoneHref} className="text-cream hover:text-cream-2">
+                {SITE.phone}
+              </a>
+              <a href={`mailto:${SITE.email}`} className="text-cream hover:text-cream-2">
+                {SITE.email}
+              </a>
+              <span className="text-cream">{SITE.location} · sessions online worldwide</span>
+            </address>
           </div>
         </div>
 
@@ -46,7 +49,13 @@ export default function SiteFooter() {
           health care, and nothing on this site is a diagnosis, treatment, or medical claim. If you are in crisis,
           please contact a licensed professional or your local crisis line. QHHT® and Quantum Healing Hypnosis
           Technique℠ are trademarks of their respective owner; this practitioner is independently certified.
-          <em> [Have final copy reviewed by a lawyer or the certifying body before launch.]</em>
+        </p>
+
+        {/* Discovery files for crawlers and AI agents — linked, because agents find them through links, not by guessing paths. */}
+        <p className="mt-5 flex flex-wrap gap-x-5 gap-y-1 text-xs text-cream/80">
+          <a href="/sitemap.xml" className="text-cream/80 hover:text-cream-2">Sitemap</a>
+          <a href="/llms.txt" className="text-cream/80 hover:text-cream-2">llms.txt</a>
+          <a href="/llms-full.txt" className="text-cream/80 hover:text-cream-2">Full site as Markdown</a>
         </p>
       </div>
     </footer>

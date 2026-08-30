@@ -2,18 +2,34 @@ import type { Metadata } from "next";
 import ImageSlot from "@/components/ImageSlot";
 import BookingButton from "@/components/BookingButton";
 import { Section, Eyebrow, H1 } from "@/components/ui";
-import { PRACTITIONER, STORY_PARAGRAPHS, STORY_PULL_QUOTE, STORY_PARAGRAPHS_AFTER } from "@/content/site";
+import { SITE, PRACTITIONER, STORY_PARAGRAPHS, STORY_PULL_QUOTE, STORY_PARAGRAPHS_AFTER } from "@/content/site";
+import { breadcrumbs, jsonLdHtml } from "@/lib/jsonld";
+import { STATIC_PAGES } from "@/lib/pages";
 import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = pageMetadata({
-  title: "Hadassah Headley — My Story",
-  description:
-    "From Guyana to transformational life coaching: Hadassah Headley's story of survival, single motherhood, and remembering who she truly is — and why she now guides others through the same awakening.",
-  path: "/story",
-});
+const page = STATIC_PAGES.story;
+
+export const metadata: Metadata = pageMetadata(page);
 
 export default function StoryPage() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "ProfilePage",
+        "@id": `${SITE.url}${page.path}`,
+        url: `${SITE.url}${page.path}`,
+        name: page.title,
+        description: page.description,
+        mainEntity: { "@id": `${SITE.url}/#practitioner` },
+      },
+      breadcrumbs([{ name: "My Story", path: page.path }]),
+    ],
+  };
+
   return (
+    <>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdHtml(jsonLd) }} />
     <Section className="grid grid-cols-[0.8fr_1.2fr] items-start gap-[72px] !pb-[72px] max-md:grid-cols-1 max-md:gap-8">
       <div className="sticky top-[120px] max-lg:static">
         <ImageSlot
@@ -45,5 +61,6 @@ export default function StoryPage() {
         <BookingButton className="mt-9" />
       </div>
     </Section>
+    </>
   );
 }

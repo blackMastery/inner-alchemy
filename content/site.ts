@@ -281,6 +281,26 @@ export const SESSION_TIMELINE = [
   },
 ];
 
+/** The preparation box on /session. */
+export const SESSION_PREP = {
+  heading: "Before you arrive",
+  body: "Once you book, you'll receive an intake form. The most important part is your list of questions — the things you want to ask your deeper self, about your life, relationships, purpose, and body. Bring it written down; we'll use it word for word during the session.",
+  items: [
+    "Sleep well the night before; skip caffeine past noon that day if you can",
+    "Eat a normal meal beforehand — we break for something light",
+    "Clear the block of time. No school pickup, no plans right after. The time is yours",
+  ],
+};
+
+/** The honest answer to "what if I don't go deep?" — on /session and in its Markdown mirror. */
+export const SESSION_HONESTY = {
+  heading: "What if I don’t go deep?",
+  paragraphs: [
+    "It happens, and you deserve a straight answer about it. A small number of people — usually the ones gripping the steering wheel hardest — stay in a lighter state on their first session. If that’s you: nothing is wrong with you, you’re not “unhypnotizable,” and the time is not wasted. Lighter states still produce meaningful material, and the interview and question work stand on their own.",
+    "If we get very little, I’ll say so plainly during the debrief, and we’ll decide together what makes sense — a second attempt at a reduced rate, or a different doorway like coaching. What I won’t do is dress up a shallow session as a breakthrough. Trust is the whole practice.",
+  ],
+};
+
 export const TESTIMONIALS = [
   {
     quote:

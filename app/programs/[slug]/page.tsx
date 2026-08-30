@@ -18,6 +18,7 @@ import {
 } from "@/content/programs";
 import { SITE, CATEGORY_FAQ, faqByQuestion } from "@/content/site";
 import { offerFor, programBreadcrumbs, jsonLdHtml } from "@/lib/jsonld";
+import { programPageMeta } from "@/lib/pages";
 import { pageMetadata } from "@/lib/seo";
 
 export function generateStaticParams() {
@@ -33,14 +34,7 @@ function pageProgram(slug: string) {
 export async function generateMetadata({ params }: PageProps<"/programs/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const program = pageProgram(slug);
-  if (!program) return {};
-  const category = CATEGORIES[categoryOf(slug)];
-  const meta = [program.duration, program.priceNote ? `${program.price} ${program.priceNote}` : program.price].join(" · ");
-  return pageMetadata({
-    title: `${program.name} — ${category.label}`,
-    description: `${program.paragraphs[0].replace(/\[\[[^\]|]+\|([^\]]+)\]\]/g, "$1")} ${meta}.`.slice(0, 160),
-    path: programHref(slug),
-  });
+  return program ? pageMetadata(programPageMeta(program)) : {};
 }
 
 export default async function ProgramPage({ params }: PageProps<"/programs/[slug]">) {

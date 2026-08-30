@@ -3,14 +3,10 @@ import Link from "next/link";
 import BookingButton from "@/components/BookingButton";
 import { Section, Eyebrow, H1, H2, Card } from "@/components/ui";
 import { CATEGORIES, COACHING, HYPNOTHERAPY, programHref } from "@/content/programs";
+import { STATIC_PAGES } from "@/lib/pages";
 import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = pageMetadata({
-  title: "Programs & Pricing",
-  description:
-    "Two paths in: coaching programs across life, money, business, relationships and spirit — from a US$150 Power Reset to a two-day private intensive — and BQH/QHHT® hypnotherapy sessions from US$350.",
-  path: "/programs",
-});
+export const metadata: Metadata = pageMetadata(STATIC_PAGES.programs);
 
 export default function ProgramsPage() {
   return (

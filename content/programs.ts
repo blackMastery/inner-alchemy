@@ -44,6 +44,12 @@ export type Program = {
 
 export type Mastery = { id: MasteryId; name: string; programs: Program[] };
 
+/**
+ * `[[slug|Label]]` tokens in program copy. <RichText> turns them into links;
+ * the Markdown mirrors turn them into `[Label](url)`. Groups: 1 = slug, 2 = label.
+ */
+export const LINK_TOKEN = /\[\[([^\]|]+)\|([^\]]+)\]\]/g;
+
 export const CATEGORIES: Record<ProgramCategory, { label: string; href: string }> = {
   coaching: { label: "Coaching Programs", href: "/programs/coaching" },
   hypnotherapy: { label: "Hypnotherapy Programs", href: "/programs/hypnotherapy" },

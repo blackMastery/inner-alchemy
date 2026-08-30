@@ -5,6 +5,7 @@ import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import { SITE, PRACTITIONER } from "@/content/site";
 import { ALL_PROGRAMS, priceValue } from "@/content/programs";
+import { STATIC_PAGES, mdPathFor } from "@/lib/pages";
 import { SITE_NAME, OG_LOCALE } from "@/lib/seo";
 
 const cormorant = Cormorant_Garamond({
@@ -20,9 +21,7 @@ const karla = Karla({
   weight: ["400", "500", "600", "700"],
 });
 
-const TITLE = "Transformational Life Coach & BQH/QHHT® Practitioner — Inner Alchemy Institution";
-const DESCRIPTION =
-  "Transformational life coaching with Hadassah Headley — clear limiting beliefs, heal subconscious patterns and consciously create your life, online. Coaching programs across life, money, business, relationships and spirit, plus BQH/QHHT® hypnotherapy sessions. Book a free 15-minute call.";
+const { title: TITLE, description: DESCRIPTION } = STATIC_PAGES.home;
 
 export const viewport: Viewport = {
   themeColor: "#FAF6EF",
@@ -39,7 +38,7 @@ export const metadata: Metadata = {
   authors: [{ name: PRACTITIONER.name, url: `${SITE.url}/story` }],
   creator: PRACTITIONER.name,
   category: "Life coaching & hypnotherapy",
-  alternates: { canonical: "/" },
+  alternates: { canonical: "/", types: { "text/markdown": mdPathFor("/") } },
   openGraph: {
     type: "website",
     siteName: SITE_NAME,

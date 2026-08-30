@@ -17,15 +17,10 @@ import {
   FIT,
 } from "@/content/site";
 import { CATEGORIES, COACHING, HYPNOTHERAPY, programHref } from "@/content/programs";
+import { STATIC_PAGES } from "@/lib/pages";
 import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = pageMetadata({
-  title: "Transformational Life Coach & BQH/QHHT® Practitioner — Inner Alchemy Institution",
-  description:
-    "Transformational life coaching with Hadassah Headley — clear limiting beliefs, heal subconscious patterns and consciously create your life, online. Coaching programs across life, money, business, relationships and spirit, plus BQH/QHHT® hypnotherapy sessions. Book a free 15-minute call.",
-  path: "/",
-  absoluteTitle: true,
-});
+export const metadata: Metadata = pageMetadata(STATIC_PAGES.home);
 
 export default function HomePage() {
   // Testimonials stay out of the DOM entirely until written consent is on file.

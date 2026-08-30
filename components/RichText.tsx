@@ -1,17 +1,16 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { programHref } from "@/content/programs";
+import { LINK_TOKEN, programHref } from "@/content/programs";
 
 /**
- * `[[slug|Label]]` tokens in program copy become in-page links to that
- * program's entry on its category page; everything else is plain text.
+ * `[[slug|Label]]` tokens in program copy become links to that program's
+ * page; everything else is plain text.
  */
-const TOKEN = /\[\[([^\]|]+)\|([^\]]+)\]\]/g;
 
 export function renderRich(text: string): ReactNode[] {
   const parts: ReactNode[] = [];
   let last = 0;
-  for (const m of text.matchAll(TOKEN)) {
+  for (const m of text.matchAll(LINK_TOKEN)) {
     const [whole, slug, label] = m;
     if (m.index > last) parts.push(text.slice(last, m.index));
     parts.push(

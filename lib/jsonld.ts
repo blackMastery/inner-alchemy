@@ -15,9 +15,9 @@ export function offerFor(p: Program) {
   };
 }
 
-/** Home → Programs → …trail. Paths are site-relative. */
-export function programBreadcrumbs(trail: { name: string; path: string }[]) {
-  const items = [{ name: "Home", path: "" }, { name: "Programs", path: "/programs" }, ...trail];
+/** Home → …trail. Paths are site-relative. */
+export function breadcrumbs(trail: { name: string; path: string }[]) {
+  const items = [{ name: "Home", path: "" }, ...trail];
   return {
     "@type": "BreadcrumbList",
     itemListElement: items.map((t, i) => ({
@@ -28,6 +28,10 @@ export function programBreadcrumbs(trail: { name: string; path: string }[]) {
     })),
   };
 }
+
+/** Home → Programs → …trail. */
+export const programBreadcrumbs = (trail: { name: string; path: string }[]) =>
+  breadcrumbs([{ name: "Programs", path: "/programs" }, ...trail]);
 
 /** Serialise for an inline <script type="application/ld+json">. */
 export const jsonLdHtml = (data: unknown) => JSON.stringify(data).replace(/</g, "\\u003c");

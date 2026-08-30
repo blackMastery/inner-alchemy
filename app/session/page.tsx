@@ -4,18 +4,42 @@ import BookingButton from "@/components/BookingButton";
 import CheckList from "@/components/CheckList";
 import SessionTimeline from "@/components/SessionTimeline";
 import { Section, Eyebrow, H1, H2 } from "@/components/ui";
+import { SITE, SESSION_TIMELINE, SESSION_PREP, SESSION_HONESTY } from "@/content/site";
+import { breadcrumbs, jsonLdHtml } from "@/lib/jsonld";
+import { STATIC_PAGES } from "@/lib/pages";
 import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = pageMetadata({
-  title: "What a BQH/QHHT® Quantum Healing Session Looks Like",
-  description:
-    "A quantum healing hypnosis session, stage by stage: the interview, the induction, the journey, your questions, and the recording you take home — including what happens if you don't reach a deep trance.",
-  path: "/session",
-});
+const page = STATIC_PAGES.session;
+
+export const metadata: Metadata = pageMetadata(page);
 
 export default function SessionPage() {
+  /* The page is a step-by-step explainer — the strongest citation candidate on
+     the site — so it carries HowTo structured data built from the same timeline. */
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "HowTo",
+        "@id": `${SITE.url}${page.path}#howto`,
+        name: page.title,
+        description: page.description,
+        totalTime: "PT4H",
+        step: SESSION_TIMELINE.map((s, i) => ({
+          "@type": "HowToStep",
+          position: i + 1,
+          name: s.title,
+          text: s.body,
+        })),
+      },
+      breadcrumbs([{ name: "What a session looks like", path: page.path }]),
+    ],
+  };
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdHtml(jsonLd) }} />
+
       <Section width="narrow" className="!pb-16">
         <Eyebrow>The session, demystified</Eyebrow>
         <H1 className="mb-6">What a quantum healing session looks like</H1>
@@ -32,43 +56,25 @@ export default function SessionPage() {
 
       <section className="mx-auto max-w-[760px] px-8 pb-16 max-md:px-[22px]">
         <div className="rounded-[18px] border border-rule-2 bg-linen-warm px-10 py-9 max-md:p-[26px]">
-          <h2 className="mb-3.5 font-display text-2xl text-ink">Before you arrive</h2>
-          <p className="mb-4 text-[15.5px] leading-[1.75] text-body-3">
-            Once you book, you&rsquo;ll receive an intake form. The most important part is your{" "}
-            <strong>list of questions</strong> — the things you want to ask your deeper self, about your life,
-            relationships, purpose, and body. Bring it written down; we&rsquo;ll use it word for word during the session.
-          </p>
-          <CheckList
-            marker="clay"
-            className="!gap-2.5 !text-[14.5px] !text-muted"
-            items={[
-              "Sleep well the night before; skip caffeine past noon that day if you can",
-              "Eat a normal meal beforehand — we break for something light",
-              "Clear the block of time. No school pickup, no plans right after. The time is yours",
-            ]}
-          />
+          <h2 className="mb-3.5 font-display text-2xl text-ink">{SESSION_PREP.heading}</h2>
+          <p className="mb-4 text-[15.5px] leading-[1.75] text-body-3">{SESSION_PREP.body}</p>
+          <CheckList marker="clay" className="!gap-2.5 !text-[14.5px] !text-muted" items={SESSION_PREP.items} />
         </div>
       </section>
 
       <section className="mx-auto max-w-[760px] px-8 pb-[72px] max-md:px-[22px]">
+        <Eyebrow tone="clay">Stage by stage</Eyebrow>
+        <H2 className="mb-2 !text-4xl">The session, stage by stage</H2>
         <SessionTimeline />
       </section>
 
       {/* The honesty section — the second conversion blocker, answered directly. */}
       <Section tone="ink" width="narrow">
         <Eyebrow tone="light">The honest part</Eyebrow>
-        <H2 dark className="mb-5 !text-4xl">What if I don&rsquo;t go deep?</H2>
-        <p className="mb-[18px] text-base leading-[1.8] text-cream">
-          It happens, and you deserve a straight answer about it. A small number of people — usually the ones gripping
-          the steering wheel hardest — stay in a lighter state on their first session. If that&rsquo;s you: nothing is
-          wrong with you, you&rsquo;re not &ldquo;unhypnotizable,&rdquo; and the time is not wasted. Lighter states still
-          produce meaningful material, and the interview and question work stand on their own.
-        </p>
-        <p className="text-base leading-[1.8] text-cream">
-          If we get very little, I&rsquo;ll say so plainly during the debrief, and we&rsquo;ll decide together what
-          makes sense — a second attempt at a reduced rate, or a different doorway like coaching. What I won&rsquo;t do
-          is dress up a shallow session as a breakthrough. Trust is the whole practice.
-        </p>
+        <H2 dark className="mb-5 !text-4xl">{SESSION_HONESTY.heading}</H2>
+        <div className="flex flex-col gap-[18px] text-base leading-[1.8] text-cream">
+          {SESSION_HONESTY.paragraphs.map((p) => <p key={p.slice(0, 24)}>{p}</p>)}
+        </div>
       </Section>
 
       <Section width="narrow" className="text-center">

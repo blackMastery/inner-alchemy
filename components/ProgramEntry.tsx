@@ -8,7 +8,7 @@ export default function ProgramEntry({ p }: { p: Program }) {
   return (
     <article className="rounded-[18px] border border-rule bg-parchment p-[38px] max-md:p-[26px]">
       <div className="mb-5 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
-        <h3 className="font-display text-[30px] leading-tight text-ink max-md:text-[25px]">{p.name}</h3>
+        <h2 className="font-display text-[30px] leading-tight text-ink max-md:text-[25px]">{p.name}</h2>
         <p className="flex flex-wrap items-baseline gap-x-2.5 text-[15px] text-body-3">
           <span className="text-[12.5px] uppercase tracking-[0.1em] text-sage-dark">{p.duration}</span>
           <span className="text-muted" aria-hidden="true">·</span>
@@ -38,7 +38,7 @@ export default function ProgramEntry({ p }: { p: Program }) {
 
       {p.structure && (
         <div className="mt-7">
-          <h4 className="mb-4 text-[13px] font-bold uppercase tracking-[0.16em] text-clay-dark">{p.structure.heading}</h4>
+          <h3 className="mb-4 text-[13px] font-bold uppercase tracking-[0.16em] text-clay-dark">{p.structure.heading}</h3>
           <ol className="flex flex-col gap-4">
             {p.structure.steps.map((step, i) => (
               <li key={step.title} className="grid grid-cols-[44px_1fr] gap-3 max-md:grid-cols-[36px_1fr]">
@@ -55,7 +55,7 @@ export default function ProgramEntry({ p }: { p: Program }) {
 
       {p.forYouIf && (
         <div className="mt-7">
-          <h4 className="mb-4 text-[13px] font-bold uppercase tracking-[0.16em] text-clay-dark">This is for you if</h4>
+          <h3 className="mb-4 text-[13px] font-bold uppercase tracking-[0.16em] text-clay-dark">This is for you if</h3>
           <CheckList items={p.forYouIf} className="!gap-3 !text-[15px]" />
         </div>
       )}

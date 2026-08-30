@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { mdPathFor, type PageMeta } from "./pages";
 
 export const SITE_NAME = "Inner Alchemy Institution";
 export const OG_LOCALE = "en_GB";
@@ -11,26 +12,16 @@ export const OG_LOCALE = "en_GB";
  * keeps every page's share card in step with its title, description and
  * canonical — while the file-convention `opengraph-image.tsx` still attaches
  * the image automatically.
+ *
+ * Every page also advertises its Markdown twin (`<link rel="alternate"
+ * type="text/markdown">`) so AI agents can find the plain-text version.
  */
-export function pageMetadata({
-  title,
-  description,
-  path,
-  absoluteTitle = false,
-}: {
-  /** Page title. Templated as "<title> — Inner Alchemy Institution" unless `absoluteTitle`. */
-  title: string;
-  description: string;
-  /** Route path, e.g. "/programs". Becomes the canonical and og:url. */
-  path: string;
-  /** Use the title verbatim in <title> — for the home page, where the brand leads. */
-  absoluteTitle?: boolean;
-}): Metadata {
+export function pageMetadata({ title, description, path, absoluteTitle = false }: PageMeta): Metadata {
   const fullTitle = absoluteTitle ? title : `${title} — ${SITE_NAME}`;
   return {
     title: absoluteTitle ? { absolute: title } : title,
     description,
-    alternates: { canonical: path },
+    alternates: { canonical: path, types: { "text/markdown": mdPathFor(path) } },
     openGraph: {
       type: "website",
       siteName: SITE_NAME,

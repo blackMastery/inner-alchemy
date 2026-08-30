@@ -3,29 +3,33 @@ import BookingButton from "@/components/BookingButton";
 import FaqAccordion from "@/components/FaqAccordion";
 import { Section, Eyebrow, H1 } from "@/components/ui";
 import { FAQ_GROUPS } from "@/content/site";
+import { breadcrumbs, jsonLdHtml } from "@/lib/jsonld";
+import { STATIC_PAGES } from "@/lib/pages";
 import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = pageMetadata({
-  title: "FAQ — Coaching & Quantum Healing Questions",
-  description:
-    "Honest answers about transformational coaching programs — format, support between sessions, recordings, payment plans — and BQH/QHHT® quantum healing sessions: control, memory, and what happens if you don't go deep.",
-  path: "/faq",
-});
+const page = STATIC_PAGES.faq;
+
+export const metadata: Metadata = pageMetadata(page);
 
 /* Every answer is also SEO surface — emit FAQPage structured data. */
 function FaqJsonLd() {
   const json = {
     "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: FAQ_GROUPS.flatMap((g) =>
-      g.items.map((i) => ({
-        "@type": "Question",
-        name: i.q,
-        acceptedAnswer: { "@type": "Answer", text: i.a },
-      })),
-    ),
+    "@graph": [
+      {
+        "@type": "FAQPage",
+        mainEntity: FAQ_GROUPS.flatMap((g) =>
+          g.items.map((i) => ({
+            "@type": "Question",
+            name: i.q,
+            acceptedAnswer: { "@type": "Answer", text: i.a },
+          })),
+        ),
+      },
+      breadcrumbs([{ name: "FAQ", path: page.path }]),
+    ],
   };
-  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(json).replace(/</g, "\\u003c") }} />;
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdHtml(json) }} />;
 }
 
 export default function FaqPage() {
