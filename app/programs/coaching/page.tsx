@@ -14,7 +14,7 @@ const { label, href } = CATEGORIES.coaching;
 export const metadata: Metadata = pageMetadata({
   title: label,
   description:
-    "Seventeen transformational coaching programs across five areas of mastery — life, money, business, relationships and spirit — with plain pricing, from a $150 Power Reset session to a two-day private intensive.",
+    "Seventeen transformational coaching programs across five areas of mastery — life, money, business, relationships and spirit — with plain pricing, from a US$150 Power Reset session to a two-day private intensive.",
   path: href,
 });
 

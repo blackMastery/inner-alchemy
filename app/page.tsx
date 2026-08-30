@@ -287,7 +287,8 @@ export default function HomePage() {
           <Link href={CATEGORIES.hypnotherapy.href}>Hypnotherapy sessions →</Link>
         </p>
         <p className="mt-[22px] text-center text-[13px] text-muted">
-          Payment plans available — just ask on the discovery call. A deposit holds your place.
+          All prices in US dollars. Payment plans available — just ask on the discovery call. A deposit holds your
+          place.
         </p>
       </Section>
 

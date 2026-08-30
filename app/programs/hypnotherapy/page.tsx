@@ -15,7 +15,7 @@ const { label, href } = CATEGORIES.hypnotherapy;
 export const metadata: Metadata = pageMetadata({
   title: `${label} — BQH & QHHT®`,
   description:
-    "Three quantum healing hypnosis sessions: BQH online from anywhere ($350), QHHT® in person as Dolores Cannon designed it ($450), or both combined ($700). Plain pricing, sessions of 3–8 hours.",
+    "Three quantum healing hypnosis sessions: BQH online from anywhere (US$350), QHHT® in person as Dolores Cannon designed it (US$450), or both combined (US$700). Plain pricing, sessions of 3–8 hours.",
   path: href,
 });
 

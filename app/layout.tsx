@@ -68,7 +68,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   const prices = ALL_PROGRAMS.map(priceValue);
-  const priceRange = `$${Math.min(...prices).toLocaleString("en-US")}–$${Math.max(...prices).toLocaleString("en-US")}`;
+  const priceRange = `US$${Math.min(...prices).toLocaleString("en-US")}–US$${Math.max(...prices).toLocaleString("en-US")}`;
   const portrait = `${SITE.url}/images/hero-portrait.png`;
 
   const jsonLd = {

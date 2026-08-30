@@ -20,7 +20,7 @@ export type Program = {
   name: string;
   /** e.g. "90 minutes", "12 weeks", "2-day immersive", "3–4 hrs" */
   duration: string;
-  /** Display string, e.g. "$150". priceValue() strips it for structured data. */
+  /** Display string in US dollars, e.g. "US$150". priceValue() strips it for structured data. */
   price: string;
   /** e.g. "per couple" — shown after the price in the UI only. */
   priceNote?: string;
@@ -61,7 +61,7 @@ export const COACHING: Mastery[] = [
         slug: "power-reset",
         name: "Power Reset Session",
         duration: "90 minutes",
-        price: "$150",
+        price: "US$150",
         format: "online",
         featured: true,
         paragraphs: [
@@ -75,7 +75,7 @@ export const COACHING: Mastery[] = [
         slug: "unleash-the-inner-alchemist",
         name: "Unleash the Inner Alchemist — Intensive",
         duration: "12 weeks",
-        price: "$2,500",
+        price: "US$2,500",
         format: "online",
         featured: true,
         paragraphs: [
@@ -93,7 +93,7 @@ export const COACHING: Mastery[] = [
         slug: "mri-intensive",
         name: "MRI: Mindset Rehabilitation Intensive",
         duration: "2-day immersive",
-        price: "$10,000",
+        price: "US$10,000",
         format: "in-person",
         featured: true,
         paragraphs: [
@@ -135,7 +135,7 @@ export const COACHING: Mastery[] = [
         name: "The Fear Factor",
         duration: "6 weeks",
         // TODO: confirm — the source read "$1,40"; assumed $1,400.
-        price: "$1,400",
+        price: "US$1,400",
         format: "online",
         paragraphs: [
           "Every purchase feels like a countdown. Every bill triggers panic — even when the money’s there.",
@@ -152,7 +152,7 @@ export const COACHING: Mastery[] = [
         slug: "the-leaky-bucket",
         name: "The Leaky Bucket",
         duration: "6 weeks",
-        price: "$1,500",
+        price: "US$1,500",
         format: "online",
         paragraphs: [
           "Money comes in — a raise, a windfall, a good month — and somehow it’s gone before it has the chance to build into anything.",
@@ -169,7 +169,7 @@ export const COACHING: Mastery[] = [
         slug: "limitless-manifestor",
         name: "The Limitless Manifestor",
         duration: "10 weeks",
-        price: "$1,800",
+        price: "US$1,800",
         format: "online",
         paragraphs: [
           "The capstone of the money work — where belief, emotion, and action finally align to consciously create wealth, instead of chasing it.",
@@ -192,7 +192,7 @@ export const COACHING: Mastery[] = [
         slug: "the-pivot",
         name: "The Pivot",
         duration: "8 weeks",
-        price: "$1,600",
+        price: "US$1,600",
         format: "online",
         paragraphs: [
           "You’ve had the idea for years. The plan is sketched out somewhere. You bought the domain name — and never touched it again.",
@@ -209,7 +209,7 @@ export const COACHING: Mastery[] = [
         slug: "limitless-entrepreneur",
         name: "The Limitless Entrepreneur",
         duration: "12 weeks",
-        price: "$2,500",
+        price: "US$2,500",
         format: "online",
         paragraphs: [
           "Revenue that won’t budge past the same number, no matter what you try next.",
@@ -226,7 +226,7 @@ export const COACHING: Mastery[] = [
         slug: "the-business-alchemist",
         name: "The Business Alchemist",
         duration: "8 weeks",
-        price: "$1,800",
+        price: "US$1,800",
         format: "online",
         paragraphs: [
           "For the owner who’s good at what they do — and still can’t fill the calendar. Or the one who’s outgrown how their business is built, and knows something structural has to change.",
@@ -249,7 +249,7 @@ export const COACHING: Mastery[] = [
         slug: "the-free-woman",
         name: "The Free Woman",
         duration: "8 weeks",
-        price: "$1,400",
+        price: "US$1,400",
         format: "online",
         paragraphs: [
           "For the woman who’s forgotten what it feels like to make a choice without checking with someone else first.",
@@ -267,7 +267,7 @@ export const COACHING: Mastery[] = [
         slug: "magnetic-boss-babe",
         name: "The Magnetic Boss Babe",
         duration: "8 weeks",
-        price: "$1,200",
+        price: "US$1,200",
         format: "online",
         paragraphs: [
           "For the woman who’s powerful everywhere except her love life. Successful, capable, respected — and quietly wondering what’s wrong with her when it comes to this one area.",
@@ -284,7 +284,7 @@ export const COACHING: Mastery[] = [
         slug: "before-i-do",
         name: "Before I Do",
         duration: "6 weeks",
-        price: "$1,800",
+        price: "US$1,800",
         priceNote: "per couple",
         format: "online",
         paragraphs: [
@@ -302,7 +302,7 @@ export const COACHING: Mastery[] = [
         slug: "trouble-in-paradise",
         name: "Trouble in Paradise",
         duration: "8 weeks",
-        price: "$2,000",
+        price: "US$2,000",
         priceNote: "per couple",
         format: "online",
         paragraphs: [
@@ -326,7 +326,7 @@ export const COACHING: Mastery[] = [
         slug: "bqh-quantum-healing",
         name: "BQH Quantum Healing",
         duration: "3–4 hrs",
-        price: "$350",
+        price: "US$350",
         format: "online",
         paragraphs: [
           "A single deep BQH session — standalone. The accessible way into this track before committing to a longer journey.",
@@ -344,7 +344,7 @@ export const COACHING: Mastery[] = [
         slug: "awaken-the-intuition",
         name: "Awaken the Intuition",
         duration: "5 weeks",
-        price: "$750",
+        price: "US$750",
         format: "online",
         paragraphs: [
           "Teaches you to trust and use your own intuition instead of outsourcing every decision to someone else. A skill-building track — practical, repeatable, yours to keep.",
@@ -360,7 +360,7 @@ export const COACHING: Mastery[] = [
         slug: "when-the-soul-awakens",
         name: "When the Soul Awakens",
         duration: "4 weeks",
-        price: "$999",
+        price: "US$999",
         format: "online",
         paragraphs: [
           "Spiritual awakening rarely arrives neatly. It shows up as disorientation, restlessness, and a growing sense that your old life doesn’t fit anymore — with no map for what comes next. This gives you that map, so the confusion becomes a doorway instead of a crisis.",
@@ -376,7 +376,7 @@ export const COACHING: Mastery[] = [
         slug: "know-thy-self",
         name: "Know Thy Self",
         duration: "8 weeks",
-        price: "$1,300",
+        price: "US$1,300",
         format: "online",
         paragraphs: [
           "Most people can list what they do, who they’re related to, and what they’re supposed to want — and still couldn’t tell you who they actually are underneath all of it. This is the journey back to the self that existed before every role you’ve had to play.",
@@ -400,7 +400,7 @@ export const HYPNOTHERAPY: Program[] = [
     slug: "bqh",
     name: "BQH — Beyond Quantum Healing",
     duration: "3–4 hrs",
-    price: "$350",
+    price: "US$350",
     format: "online",
     featured: true,
     paragraphs: [
@@ -417,7 +417,7 @@ export const HYPNOTHERAPY: Program[] = [
     slug: "qhht",
     name: "QHHT® — Quantum Healing Hypnosis Technique",
     duration: "4–6 hrs",
-    price: "$450",
+    price: "US$450",
     format: "in-person",
     paragraphs: [
       "The original protocol followed exactly as designed — no blending with other techniques, no outside interpretation. Just you, your own Higher Self, and the process Dolores Cannon built. In person only, by the method’s own design.",
@@ -433,7 +433,7 @@ export const HYPNOTHERAPY: Program[] = [
     slug: "bqh-qhht-combined",
     name: "BQH & QHHT Combined",
     duration: "6–8 hrs (or two sessions)",
-    price: "$700",
+    price: "US$700",
     format: "in-person",
     paragraphs: [
       "For the client who wants both: the depth and structure of the original protocol, plus the flexibility to bring in whatever else the session needs. The most complete version of this work available.",

@@ -8,7 +8,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "Programs & Pricing",
   description:
-    "Two paths in: coaching programs across life, money, business, relationships and spirit — from a $150 Power Reset to a two-day private intensive — and BQH/QHHT® hypnotherapy sessions from $350.",
+    "Two paths in: coaching programs across life, money, business, relationships and spirit — from a US$150 Power Reset to a two-day private intensive — and BQH/QHHT® hypnotherapy sessions from US$350.",
   path: "/programs",
 });
 
