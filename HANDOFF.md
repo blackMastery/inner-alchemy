@@ -39,14 +39,14 @@ normalised. Things to confirm with her:
 - **"Why are sessions so long?"** still says three to six hours; the Beyond the
   Mind PDF says 3–4. The session timeline no longer shows clock times.
 
-## 2. Testimonials — currently not published
+## 2. Testimonials — published
 
-The three testimonials in `content/site.ts` are **not rendered anywhere**. The
-homepage band is conditionally removed and the section rhythm closes over it.
-
-Set `SITE.testimonialsApproved = true` to restore it — but only once written
-consent from each client is on file. Unconsented client testimonials for a
-health-adjacent practice are a real liability, not a formality.
+Three client testimonials (Natasha Clement, Diane Amsterdam, Ms Annette) are
+rendered on the home page and in its Markdown mirror, gated by
+`SITE.testimonialsApproved` in `content/site.ts`. Confirm written consent from
+each named client is on file — unconsented client testimonials for a
+health-adjacent practice are a real liability, not a formality. Flip the flag
+to `false` to pull them from the site.
 
 ## 3. Copy conflict between the two handoff artifacts
 

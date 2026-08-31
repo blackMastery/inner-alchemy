@@ -11,6 +11,7 @@ import {
   METHOD,
   FIT,
   PRICING_ROWS,
+  TESTIMONIALS,
   FAQ_GROUPS,
   CATEGORY_FAQ,
   faqByQuestion,
@@ -117,6 +118,9 @@ function homeMd() {
     "It isn’t the right tool if…",
     "",
     ...bullets(FIT.no),
+    ...(SITE.testimonialsApproved
+      ? ["## What shifted for clients", "", ...TESTIMONIALS.flatMap((t) => [`> "${t.quote}"`, `> — ${t.attribution}`, ""])]
+      : []),
     "## Pricing, plainly",
     "",
     "| Program | Price |",

@@ -33,10 +33,10 @@ export const SITE = {
   location: "Georgetown, Guyana",
 
   /**
-   * Testimonials stay out of the rendered site until written consent is on
-   * file. Flip to `true` to restore the homepage testimonial band.
+   * Gates the homepage testimonial band (and its Markdown mirror). Flip to
+   * `false` to pull testimonials from the rendered site again.
    */
-  testimonialsApproved: false,
+  testimonialsApproved: true,
 } as const;
 
 export const PRACTITIONER = {
@@ -301,21 +301,22 @@ export const SESSION_HONESTY = {
   ],
 };
 
+/* Client quotes verbatim; only spelling and punctuation were normalised. */
 export const TESTIMONIALS = [
   {
     quote:
-      "I'd had the same nightmare since I was nine. We found where it started — not in this lifetime — and I haven't had it once in the eight months since.",
-    attribution: "Danielle · BQH session",
+      "Working with Ms. Hadassah has been truly transformational. I appreciated the ways in which she is extremely dedicated to her craft. I needed support navigating a difficult relationship but from our very first session I knew I was at the right place and that I was going to get the help I needed.",
+    attribution: "Natasha Clement",
   },
   {
     quote:
-      "I went in skeptical about past lives, honestly. What I got was two hours of my own subconscious explaining my marriage to me. The recording still gives me chills.",
-    attribution: "Marcus · BQH session",
+      "I must say, I was very sceptical and it took me a while to get started with the manifestation program. Coming from a Christian background, I was afraid that it would conflict with my values. However, I soon realized that everything that was used to guide me can be found in the Bible. Nothing contradictory — only enhanced and explained well. Today, the 10-week coaching I received is what released me from my financial blocks. My business is finally generating the revenues it deserves.",
+    attribution: "Diane Amsterdam",
   },
   {
     quote:
-      "After my mum died I couldn't cry for a year. I started with coaching because a full session felt like too much. By the time I did the regression, I was ready — and it undid the knot.",
-    attribution: "Priya · Coaching → BQH",
+      "Book the session. You will get more than what you bargained for. I’m familiar with Dolores Cannon and her work so I was pleasantly surprised to know that there was a practitioner in Guyana that does this type of hypnotherapy. She was very patient and supportive throughout the entire session which allowed me to relax my mind to gain the most life-changing experience I’ve ever had.",
+    attribution: "Ms Annette",
   },
 ];
 
