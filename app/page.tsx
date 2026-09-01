@@ -12,7 +12,6 @@ import {
   HOME_INTRO,
   SHORT_BIO,
   METHOD,
-  PRICING_ROWS,
   TESTIMONIALS,
   FIT,
 } from "@/content/site";
@@ -243,61 +242,6 @@ export default function HomePage() {
         </Section>
       )}
 
-      {/* PRICING */}
-      <Section width="narrow">
-        <div className="mb-11 text-center">
-          <Eyebrow tone="clay">No surprises</Eyebrow>
-          <H2 className="mb-3.5">Pricing, plainly</H2>
-          <p className="text-[15.5px] leading-[1.7] text-muted">
-            Deep work takes real time. The anchors below; every price is on the program pages.
-          </p>
-        </div>
-        <div className="overflow-hidden rounded-[18px] border border-rule-2 bg-parchment">
-          {PRICING_ROWS.map((row, i) => {
-            const rowClass = `flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 px-8 py-5 max-md:px-5 max-md:py-4 ${
-              i < PRICING_ROWS.length - 1 ? "border-b border-rule-4" : ""
-            } ${row.highlight ? "bg-highlight" : ""}`;
-            const priceClass = `font-bold ${
-              row.price === "Free" ? "text-sage-dark" : row.highlight ? "text-lg text-clay-dark" : "text-body"
-            }`;
-            const inner = (
-              <>
-                <span className="text-[15.5px] text-body">{row.label}</span>
-                <span className={priceClass}>{row.price}</span>
-              </>
-            );
-            return row.href ? (
-              <Link key={row.label} href={row.href} className={`${rowClass} no-underline hover:bg-highlight`}>
-                {inner}
-              </Link>
-            ) : (
-              <div key={row.label} className={rowClass}>
-                {inner}
-              </div>
-            );
-          })}
-        </div>
-        <p className="mt-6 flex flex-wrap justify-center gap-x-8 gap-y-2 text-[15px] font-semibold">
-          <Link href={CATEGORIES.coaching.href}>All coaching programs →</Link>
-          <Link href={CATEGORIES.hypnotherapy.href}>Hypnotherapy sessions →</Link>
-        </p>
-        <p className="mt-[22px] text-center text-[13px] text-muted">
-          All prices in US dollars. Payment plans available — just ask on the discovery call. A deposit holds your
-          place.
-        </p>
-      </Section>
-
-      {/* CLOSING CTA */}
-      <Section tone="ink" width="narrow" className="text-center !py-[104px]">
-        <h2 className="mb-5 font-display text-[44px] font-medium leading-tight text-cream-2 max-md:text-[27px]">
-          Start with fifteen minutes.
-        </h2>
-        <p className="mb-9 text-[17px] leading-[1.75] text-cream">
-          Bring your questions — the practical ones and the strange ones. If this isn&rsquo;t the right work for you,
-          I&rsquo;ll say so and point you somewhere better.
-        </p>
-        <BookingButton variant="sand">Book a free discovery call</BookingButton>
-      </Section>
     </>
   );
 }

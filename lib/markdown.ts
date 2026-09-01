@@ -10,7 +10,6 @@ import {
   SHORT_BIO,
   METHOD,
   FIT,
-  PRICING_ROWS,
   TESTIMONIALS,
   FAQ_GROUPS,
   CATEGORY_FAQ,
@@ -121,14 +120,6 @@ function homeMd() {
     ...(SITE.testimonialsApproved
       ? ["## What shifted for clients", "", ...TESTIMONIALS.flatMap((t) => [`> "${t.quote}"`, `> — ${t.attribution}`, ""])]
       : []),
-    "## Pricing, plainly",
-    "",
-    "| Program | Price |",
-    "| --- | --- |",
-    ...PRICING_ROWS.map((r) => `| ${r.href ? link(r.label, r.href) : r.label} | ${r.price} |`),
-    "",
-    "All prices in US dollars. Payment plans available — just ask on the discovery call. A deposit holds your place.",
-    "",
     ...contact(),
   ].join("\n");
 }
