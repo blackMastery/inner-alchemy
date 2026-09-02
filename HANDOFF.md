@@ -12,6 +12,7 @@ Edit them there and they update everywhere.
 |---|---|---|
 | `SITE.email` | `info@inneralchemyinstitution.com` | Set. Confirm the inbox is live and monitored before launch. |
 | `SITE.phone` | `+592 663 1808` | Every "Book a call" button dials this. Confirm it's the number she wants public. |
+| `SITE.bookingFormUrl` | Google Form `1FAIpQLSc-d06…` | Every "Book a program" button opens this. Confirm responses land in an inbox she checks. |
 | `SITE.location` | `Georgetown, Guyana` | Confirmation. Shown in the footer and as `areaServed` for the in-person MRI intensive. |
 | `SITE.url` | `https://www.inneralchemyinstitution.com` | Set. Make sure the bare domain (no `www`) redirects to `www` at the DNS/host level so there is one canonical origin. `NEXT_PUBLIC_SITE_URL` overrides if it ever changes. |
 | `SITE.testimonialsApproved` | `false` | See below. |
@@ -83,15 +84,21 @@ Services", and is hidden between 1024–1280px where it would collide with the n
 ## 5. Still missing
 
 - **Photography.** Her four portraits are in place: `portrait-white-suit.jpg`
-  (home hero), `portrait-dark.jpg` (home "Meet Hadassah" band), `portrait-casual.jpg`
+  (home audio hello; the hero still uses `hero-portrait.png`), `portrait-dark.jpg` (home "Meet Hadassah" band), `portrait-casual.jpg`
   (`/story`), and `portrait-sunglasses.jpg` (unused, in reserve). All four are tall
   ~1:2 crops, so every slot is portrait with `object-top`. `hero-portrait.png` and
   the `IMG_39xx.PNG` files in `public/images/` are no longer referenced and can be
-  deleted. The only remaining placeholder is the video poster (1280×720).
-- **Practitioner video.** The homepage reserves a 16:9 block for it. The handoff
-  calls this the highest-leverage asset on the site.
-- **Booking.** Every "Book a call" button is a `tel:` link to `SITE.phone`;
-  there is no form in the flow. The earlier modal form
+  deleted. No image placeholders remain.
+- **Practitioner audio.** The homepage "two-minute hello" block plays
+  `public/audio/hello.m4a` (~1:51) over her white-suit portrait via
+  [`components/AudioHello.tsx`](components/AudioHello.tsx). Swap the file or
+  the image there. A video could replace it later in the same slot.
+- **Booking.** The main call to action is "Book a program", which opens the
+  Google Form at `SITE.bookingFormUrl` in a new tab (program pages, the programs
+  index, category pages, story, session, 404, the footer, the FAQ, and the
+  Markdown mirrors). The "Book a free 15-minute call" button was removed from
+  those pages; the header, home hero, footer and FAQ buttons still dial
+  `SITE.phone` as `tel:` links. The earlier modal form
   ([`components/BookingModal.tsx`](components/BookingModal.tsx),
   [`components/BookingContext.tsx`](components/BookingContext.tsx)) and its
   `POST /api/booking` route are still in the repo but unmounted. To bring the

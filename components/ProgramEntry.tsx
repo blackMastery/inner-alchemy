@@ -61,7 +61,7 @@ export default function ProgramEntry({ p }: { p: Program }) {
       )}
 
       <div className="mt-8">
-        <BookingButton>Book a free 15-minute call</BookingButton>
+        <BookingButton kind="program">Book this program</BookingButton>
       </div>
     </article>
   );

@@ -19,7 +19,7 @@ export default function NotFound() {
         It may have moved, or the link was typed wrong. Everything on this site is a step or two from the pages below.
       </p>
       <div className="flex flex-wrap items-center justify-center gap-6">
-        <BookingButton />
+        <BookingButton kind="program" />
         <Link href="/programs" className="text-[15px] font-semibold">
           See all programs →
         </Link>

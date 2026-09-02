@@ -29,6 +29,10 @@ export const SITE = {
   phone: "+592 663 1808",
   phoneHref: "tel:+5926631808",
 
+  /** Every "Book a program" button opens this Google Form in a new tab. */
+  bookingFormUrl:
+    "https://docs.google.com/forms/d/e/1FAIpQLSc-d06OmhxUR6R6WBwNf3bg2s0_r15Fl38_ljGZZ9BiBRt7Nw/viewform",
+
   /** TODO: confirm. */
   location: "Georgetown, Guyana",
 
@@ -185,7 +189,7 @@ export const FAQ_GROUPS = [
       },
       {
         q: "How do I book, and what's the cancellation policy?",
-        a: "Start with the free discovery call. If we're a fit, we pick a start date and a deposit holds it. Reschedule freely up to 72 hours before; inside that window the deposit covers the held time, since a session blocks a long calendar block.",
+        a: "Start with the free discovery call — or, if you already know which program you want, fill in the booking form and I'll confirm by email. Either way, we pick a start date and a deposit holds it. Reschedule freely up to 72 hours before; inside that window the deposit covers the held time, since a session blocks a long calendar block.",
       },
       {
         q: "Is what I say confidential?",

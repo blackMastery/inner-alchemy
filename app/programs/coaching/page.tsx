@@ -71,9 +71,9 @@ export default function CoachingPage() {
         <H2 dark className="mb-4">Not sure which doorway is yours?</H2>
         <p className="mb-[30px] text-base leading-[1.75] text-cream">
           Tell me what&rsquo;s present in your life right now, and I&rsquo;ll tell you honestly which program fits — or
-          whether a single session is the better start.
+          whether a single session is the better start. Say so on the booking form, and I&rsquo;ll reply by email.
         </p>
-        <BookingButton variant="sand" />
+        <BookingButton kind="program" variant="sand" />
       </Section>
     </>
   );

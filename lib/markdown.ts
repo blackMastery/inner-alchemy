@@ -65,7 +65,7 @@ const timeline = () => SESSION_TIMELINE.flatMap((s) => [`### ${s.span} — ${s.t
 const contact = () => [
   "## Book a free 15-minute discovery call",
   "",
-  `Call ${SITE.phone} or email ${SITE.email}. Sessions are held online worldwide; in-person programs take place in ${SITE.location}. All prices are in US dollars. Payment plans are available on every program, and a deposit holds your place.`,
+  `Call ${SITE.phone} or email ${SITE.email}. Already know which program you want? [Book a program](${SITE.bookingFormUrl}). Sessions are held online worldwide; in-person programs take place in ${SITE.location}. All prices are in US dollars. Payment plans are available on every program, and a deposit holds your place.`,
   "",
   `More: ${link("Programs & pricing", "/programs")} · ${link("FAQ", "/faq")} · ${link("What a session looks like", "/session")} · ${link("About " + PRACTITIONER.name, "/story")}`,
 ];
@@ -264,7 +264,7 @@ export function renderLlmsTxt() {
   return [
     `# ${SITE_NAME}`,
     "",
-    `> Transformational life coaching and BQH/QHHT® quantum healing hypnotherapy with ${PRACTITIONER.name}. Private, one-to-one sessions online worldwide; in-person programs in ${SITE.location}. All prices in US dollars. Book a free 15-minute discovery call: ${SITE.phone} · ${SITE.email}.`,
+    `> Transformational life coaching and BQH/QHHT® quantum healing hypnotherapy with ${PRACTITIONER.name}. Private, one-to-one sessions online worldwide; in-person programs in ${SITE.location}. All prices in US dollars. Book a free 15-minute discovery call: ${SITE.phone} · ${SITE.email}. Book a program directly: ${SITE.bookingFormUrl}`,
     "",
     `Every page on the site has a Markdown version: append \`.md\` to its URL, or request it with \`Accept: text/markdown\`. The complete site text in one file is at ${abs("/llms-full.txt")}.`,
     "",

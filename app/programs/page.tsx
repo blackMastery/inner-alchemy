@@ -16,8 +16,8 @@ export default function ProgramsPage() {
         <H1 className="mb-5">Programs</H1>
         <p className="mx-auto max-w-[60ch] text-[17px] leading-[1.8] text-body-3">
           Every program leads to the same place — remembering who you truly are and consciously creating from there.
-          They differ in depth, length, and the life area they enter through. Not sure which fits? That&rsquo;s what the
-          free call is for.
+          They differ in depth, length, and the life area they enter through. Not sure which fits? Say so on the
+          booking form and I&rsquo;ll point you to the right one.
         </p>
       </Section>
 
@@ -74,9 +74,9 @@ export default function ProgramsPage() {
         <H2 className="mb-4">Not sure which doorway is yours?</H2>
         <p className="mb-[30px] text-base leading-[1.75] text-body-3">
           Tell me what&rsquo;s present in your life right now, and I&rsquo;ll tell you honestly which program fits — or
-          whether a single session is the better start.
+          whether a single session is the better start. Say so on the booking form, and I&rsquo;ll reply by email.
         </p>
-        <BookingButton />
+        <BookingButton kind="program" />
       </Section>
     </>
   );

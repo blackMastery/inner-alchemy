@@ -80,9 +80,9 @@ export default function SessionPage() {
       <Section width="narrow" className="text-center">
         <H2 className="mb-4">Questions before you decide?</H2>
         <p className="mb-8 text-base leading-[1.75] text-body-3">
-          Read the <Link href="/faq">full FAQ</Link>, or just bring them to a free call.
+          Read the <Link href="/faq">full FAQ</Link>, or ask them on the booking form.
         </p>
-        <BookingButton />
+        <BookingButton kind="program" />
       </Section>
     </>
   );

@@ -58,7 +58,7 @@ export default function StoryPage() {
           {STORY_PARAGRAPHS_AFTER.map((p) => <p key={p.slice(0, 24)}>{p}</p>)}
         </div>
 
-        <BookingButton className="mt-9" />
+        <BookingButton kind="program" className="mt-9" />
       </div>
     </Section>
     </>

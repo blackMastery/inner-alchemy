@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import ImageSlot from "@/components/ImageSlot";
+import AudioHello from "@/components/AudioHello";
 import BookingButton from "@/components/BookingButton";
 import CheckList from "@/components/CheckList";
 import { Section, Eyebrow, H2, Card } from "@/components/ui";
@@ -174,7 +175,7 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* VIDEO */}
+      {/* AUDIO HELLO */}
       <Section width="mid" className="text-center">
         <Eyebrow tone="clay">A two-minute hello</Eyebrow>
         <H2 className="mb-4">Before you book, hear this.</H2>
@@ -185,22 +186,13 @@ export default function HomePage() {
           </p>
           <p>Press play. No pitch, no pressure — just two minutes to see if this feels right.</p>
         </div>
-        {/* Replace with the real embed (Mux / YouTube / self-hosted). 16:9. */}
-        <div className="relative mx-auto aspect-video max-w-[720px] overflow-hidden rounded-2xl bg-linen-warm">
-          <ImageSlot
-            alt={`${PRACTITIONER.name} — welcome video`}
-            label="Video poster frame — the two-minute practitioner introduction"
-            width={1280}
-            height={720}
-            fill
-            className="object-cover"
-          />
-          <span className="pointer-events-none absolute inset-0 flex items-center justify-center">
-            <span className="flex h-[76px] w-[76px] items-center justify-center rounded-full bg-linen/90 shadow-[0_8px_30px_rgba(53,48,42,0.25)]">
-              <span className="ml-1.5 border-y-[12px] border-l-[20px] border-y-transparent border-l-clay" />
-            </span>
-          </span>
-        </div>
+        <AudioHello
+          src="/audio/hello.m4a"
+          fallbackSrc="/audio/hello.mp3"
+          image="/images/portrait-white-suit.jpg"
+          alt={`${PRACTITIONER.name}, ${PRACTITIONER.title.toLowerCase()}`}
+          caption="About two minutes"
+        />
       </Section>
 
       {/* FIT CHECK */}

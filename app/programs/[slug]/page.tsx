@@ -141,12 +141,12 @@ export default async function ProgramPage({ params }: PageProps<"/programs/[slug
       </section>
 
       <Section tone="ink" width="narrow" className="text-center">
-        <H2 dark className="mb-4">Start with fifteen minutes.</H2>
+        <H2 dark className="mb-4">Ready to begin?</H2>
         <p className="mb-[30px] text-base leading-[1.75] text-cream">
-          Tell me what&rsquo;s present right now and I&rsquo;ll say honestly whether {program.name} is the right
-          doorway — or point you to a better one.
+          Book {program.name} directly, and I&rsquo;ll confirm by email. If you&rsquo;re unsure whether it&rsquo;s the
+          right doorway, say so on the form and I&rsquo;ll tell you honestly — or point you to a better one.
         </p>
-        <BookingButton variant="sand" />
+        <BookingButton kind="program" variant="sand">Book this program</BookingButton>
       </Section>
     </>
   );

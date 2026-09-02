@@ -75,12 +75,12 @@ export default function HypnotherapyPage() {
       </section>
 
       <Section tone="ink" width="narrow" className="text-center">
-        <H2 dark className="mb-4">Bring your questions to a free call.</H2>
+        <H2 dark className="mb-4">Bring your questions with you.</H2>
         <p className="mb-[30px] text-base leading-[1.75] text-cream">
           Which format fits depends on what you&rsquo;re carrying and whether you can be here in person. Fifteen minutes
           is enough to tell.
         </p>
-        <BookingButton variant="sand" />
+        <BookingButton kind="program" variant="sand" />
       </Section>
     </>
   );
