@@ -3,7 +3,7 @@ import { Cormorant_Garamond, Karla } from "next/font/google";
 import "./globals.css";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
-import { SITE, PRACTITIONER } from "@/content/site";
+import { SITE, PRACTITIONER, SOCIAL, LINKTREE_URL } from "@/content/site";
 import { ALL_PROGRAMS, priceValue } from "@/content/programs";
 import { STATIC_PAGES, mdPathFor } from "@/lib/pages";
 import { SITE_NAME, OG_LOCALE } from "@/lib/seo";
@@ -69,6 +69,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   const prices = ALL_PROGRAMS.map(priceValue);
   const priceRange = `US$${Math.min(...prices).toLocaleString("en-US")}–US$${Math.max(...prices).toLocaleString("en-US")}`;
   const portrait = `${SITE.url}/images/hero-portrait.png`;
+  // Her public profiles, so search engines and AI agents can tie this site to them.
+  const sameAs = [...SOCIAL.map((s) => s.url), LINKTREE_URL];
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -92,6 +94,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         image: portrait,
         url: `${SITE.url}/story`,
         worksFor: { "@id": `${SITE.url}/#practice` },
+        sameAs,
         knowsAbout: [
           "Transformational life coaching",
           "Identity transformation",
@@ -116,6 +119,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         areaServed: "Worldwide",
         address: { "@type": "PostalAddress", addressLocality: SITE.location.split(",")[0].trim(), addressCountry: "GY" },
         founder: { "@id": `${SITE.url}/#practitioner` },
+        sameAs,
         contactPoint: {
           "@type": "ContactPoint",
           contactType: "Bookings",

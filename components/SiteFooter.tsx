@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import BookingButton from "./BookingButton";
+import SocialLinks from "./SocialLinks";
 import { SITE } from "@/content/site";
 
 export default function SiteFooter() {
@@ -17,6 +18,7 @@ export default function SiteFooter() {
             <p className="max-w-[40ch] text-[13px] leading-relaxed text-cream">
               Transformational life coaching and hypnotherapy sessions, online worldwide. {SITE.location}.
             </p>
+            <SocialLinks className="mt-6" />
           </div>
 
           <div className="flex flex-col gap-3 text-sm">

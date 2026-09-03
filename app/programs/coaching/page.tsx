@@ -51,7 +51,7 @@ export default function CoachingPage() {
         <Eyebrow>{label}</Eyebrow>
         <H1 className="mb-5">Coaching Programs</H1>
         <p className="mx-auto max-w-[52ch] text-[17px] leading-[1.8] text-body-3">
-          Seventeen programs across five areas of mastery. Every one is private, one-to-one, and priced plainly.
+          Twenty programs across five areas of mastery. Every one is private, one-to-one, and priced plainly.
         </p>
       </Section>
 

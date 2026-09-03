@@ -8,6 +8,6 @@ export default async function Image() {
   return ogImage({
     eyebrow: "Coaching Programs",
     title: "Life. Money. Business. Relationships. Spirit.",
-    meta: "Seventeen programs across five areas of mastery — from a 90-minute reset to a two-day private intensive.",
+    meta: "Twenty programs across five areas of mastery — from a 90-minute reset to a two-day private intensive.",
   });
 }

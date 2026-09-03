@@ -20,6 +20,8 @@ import {
   STORY_PARAGRAPHS,
   STORY_PULL_QUOTE,
   STORY_PARAGRAPHS_AFTER,
+  SOCIAL,
+  LINKTREE_URL,
 } from "@/content/site";
 import {
   CATEGORIES,
@@ -68,6 +70,8 @@ const contact = () => [
   `Call ${SITE.phone} or email ${SITE.email}. Already know which program you want? [Book a program](${SITE.bookingFormUrl}). Sessions are held online worldwide; in-person programs take place in ${SITE.location}. All prices are in US dollars. Payment plans are available on every program, and a deposit holds your place.`,
   "",
   `More: ${link("Programs & pricing", "/programs")} · ${link("FAQ", "/faq")} · ${link("What a session looks like", "/session")} · ${link("About " + PRACTITIONER.name, "/story")}`,
+  "",
+  `Follow: ${SOCIAL.map((s) => `[${s.label}](${s.url})`).join(" · ")} · [Linktree](${LINKTREE_URL})`,
 ];
 
 /* ---------------------------------------------------------------------------
@@ -143,7 +147,7 @@ function programsMd() {
 function coachingMd() {
   return [
     ...head(STATIC_PAGES.coaching),
-    "Seventeen programs across five areas of mastery. Every one is private, one-to-one, and priced plainly.",
+    "Twenty programs across five areas of mastery. Every one is private, one-to-one, and priced plainly.",
     "",
     ...COACHING.flatMap((m) => [`## ${m.name}`, "", ...m.programs.flatMap(programEntry)]),
     ...categoryFaq("coaching"),
@@ -294,6 +298,8 @@ export function renderLlmsTxt() {
     `- Phone: ${SITE.phone}`,
     `- Email: ${SITE.email}`,
     `- Location: ${SITE.location} — sessions online worldwide`,
+    ...SOCIAL.map((s) => `- ${s.label}: ${s.url}`),
+    `- Linktree: ${LINKTREE_URL}`,
     `- Sitemap: ${abs("/sitemap.xml")}`,
     "",
   ].join("\n");

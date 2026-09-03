@@ -50,6 +50,26 @@ export const PRACTITIONER = {
   location: `${SITE.location} — sessions online`,
 };
 
+/**
+ * Her public profiles, in the order they appear on her Linktree
+ * (https://linktr.ee/Inner.A.Institution). Rendered as the icon row in the
+ * footer, listed in the Markdown mirrors, and emitted as `sameAs` in the
+ * structured data. `id` selects the icon in components/SocialLinks.tsx.
+ */
+export const SOCIAL = [
+  { id: "instagram", label: "Instagram", handle: "@inneralchemyinstitution", url: "https://www.instagram.com/inneralchemyinstitution" },
+  { id: "tiktok", label: "TikTok", handle: "@inneralchemy.gy", url: "https://www.tiktok.com/@inneralchemy.gy" },
+  { id: "youtube", label: "YouTube", handle: "Inner Alchemy Institution", url: "https://www.youtube.com/channel/UC2d8S9CFvMeg-V7V1uLwN3g" },
+  { id: "linkedin", label: "LinkedIn", handle: "Hadassah Headley", url: "https://www.linkedin.com/in/hadassah-a-o-headley-2a355119b" },
+  { id: "whatsapp", label: "WhatsApp", handle: "+592 663 1808", url: "https://api.whatsapp.com/send?phone=5926631808" },
+  { id: "facebook", label: "Facebook", handle: "Inner Alchemy Institution", url: "https://www.facebook.com/share/1FATAhC6yz/" },
+] as const;
+
+export type SocialId = (typeof SOCIAL)[number]["id"];
+
+/** The Linktree itself — one link that gathers everything above. */
+export const LINKTREE_URL = "https://linktr.ee/Inner.A.Institution";
+
 /* ---------------------------------------------------------------------------
  * Home page
  * ------------------------------------------------------------------------- */

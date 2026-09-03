@@ -78,6 +78,23 @@ export const COACHING: Mastery[] = [
           "The person who has one big decision, one tangled problem, or one moment of overwhelm they need to move through today.",
       },
       {
+        slug: "the-ignition-point",
+        name: "The Ignition Point",
+        duration: "4 weeks",
+        price: "US$500",
+        format: "online",
+        paragraphs: [
+          "You already know what to do. You’ve known for a while. The plan is clear, the steps are obvious to everyone but you — and somehow, you still haven’t moved.",
+          "This isn’t about motivation or another to-do list. It’s about finding what’s actually keeping you frozen — and finally taking the step you’ve been circling for months, maybe years.",
+        ],
+        forYouIf: [
+          "You can explain exactly what you should be doing, and still aren’t doing it",
+          "You’ve tried productivity systems, deadlines, accountability partners — and the stall keeps returning",
+          "You suspect the block isn’t logistical; it’s something deeper making “not yet” feel safer than “now”",
+          "You’re ready to finally move, not just plan to move",
+        ],
+      },
+      {
         slug: "unleash-the-inner-alchemist",
         name: "Unleash the Inner Alchemist — Intensive",
         duration: "12 weeks",
@@ -136,6 +153,23 @@ export const COACHING: Mastery[] = [
     id: "money-mastery",
     name: "Money Mastery",
     programs: [
+      {
+        slug: "the-money-blueprint",
+        name: "The Money Blueprint",
+        duration: "4 weeks",
+        price: "US$500",
+        format: "online",
+        paragraphs: [
+          "Nobody taught you this. Not in school, not at home — how money actually works, how wealth is built, how to think like someone who has it instead of someone who’s afraid of losing it.",
+          "Four weeks to build the foundation nobody gave you: real financial literacy paired with the mindset shift that lets you actually use it, so abundance stops being a hope and starts being a skill.",
+        ],
+        forYouIf: [
+          "You never got a real education in money, wealth, or how to grow it",
+          "You want practical financial understanding, not just mindset work",
+          "You’re ready to build wealth on purpose, not by accident",
+          "You want the “how” and the “why” — the strategy and the belief system behind it",
+        ],
+      },
       {
         slug: "the-fear-factor",
         name: "The Fear Factor",
@@ -251,6 +285,23 @@ export const COACHING: Mastery[] = [
     id: "relationship-mastery",
     name: "Relationship Mastery",
     programs: [
+      {
+        slug: "the-compatibility-audit",
+        name: "The Compatibility Audit",
+        duration: "4 weeks",
+        price: "US$500",
+        format: "online",
+        paragraphs: [
+          "Right or wrong. Stay or go. It’s the question you keep circling in your head at 2am and haven’t let yourself answer.",
+          "This is a full audit of your relationship — where it’s actually working, where it isn’t, and whether what’s missing is about the relationship itself or about old wounds that are quietly blocking you from letting anyone all the way in.",
+        ],
+        forYouIf: [
+          "You genuinely don’t know if this relationship is right for you, or you’re afraid to admit what you already suspect",
+          "You want an honest, structured look at the relationship — not another vent session with a friend",
+          "You suspect some of what’s “wrong” might actually be your own unhealed patterns showing up here",
+          "You’re ready for clarity, one way or the other",
+        ],
+      },
       {
         slug: "the-free-woman",
         name: "The Free Woman",
