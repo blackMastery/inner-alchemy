@@ -52,7 +52,7 @@ export default function FaqPage() {
       ))}
 
       <Section width="narrow" className="text-center !pt-0">
-        <BookingButton>Ask the rest on a free call</BookingButton>
+        <BookingButton />
       </Section>
     </>
   );

@@ -11,7 +11,7 @@ Edit them there and they update everywhere.
 | Value | Current | Needs |
 |---|---|---|
 | `SITE.email` | `info@inneralchemyinstitution.com` | Set. Confirm the inbox is live and monitored before launch. |
-| `SITE.phone` | `+592 663 1808` | Every "Book a call" button dials this. Confirm it's the number she wants public. |
+| `SITE.phone` | `+592 663 1808` | The footer and the Markdown mirrors link this as a `tel:`. Confirm it's the number she wants public. |
 | `SITE.bookingFormUrl` | Google Form `1FAIpQLSc-d06…` | Every "Book a program" button opens this. Confirm responses land in an inbox she checks. |
 | `SITE.location` | `Georgetown, Guyana` | Confirmation. Shown in the footer and as `areaServed` for the in-person MRI intensive. |
 | `SITE.url` | `https://www.inneralchemyinstitution.com` | Set. Make sure the bare domain (no `www`) redirects to `www` at the DNS/host level so there is one canonical origin. `NEXT_PUBLIC_SITE_URL` overrides if it ever changes. |
@@ -95,10 +95,11 @@ Services", and is hidden between 1024–1280px where it would collide with the n
   the image there. A video could replace it later in the same slot.
 - **Booking.** The main call to action is "Book a program", which opens the
   Google Form at `SITE.bookingFormUrl` in a new tab (program pages, the programs
-  index, category pages, story, session, 404, the footer, the FAQ, and the
-  Markdown mirrors). The "Book a free 15-minute call" button was removed from
-  those pages; the header, home hero, footer and FAQ buttons still dial
-  `SITE.phone` as `tel:` links. The earlier modal form
+  index, category pages, story, session, 404, and the Markdown mirrors). Where a
+  page can't offer a specific program — the header, the home hero, the footer and
+  the FAQ — the button reads "Book Now" and links to `/programs` so she picks one
+  first; that's `BookingButton`'s default `kind="book"`. No button dials
+  `SITE.phone` any more. The earlier modal form
   ([`components/BookingModal.tsx`](components/BookingModal.tsx),
   [`components/BookingContext.tsx`](components/BookingContext.tsx)) and its
   `POST /api/booking` route are still in the repo but unmounted. To bring the

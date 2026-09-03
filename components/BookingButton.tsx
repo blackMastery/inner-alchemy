@@ -1,12 +1,16 @@
+import Link from "next/link";
+
 import { SITE } from "@/content/site";
 
 type Props = {
   children?: React.ReactNode;
-  /** `call` dials SITE.phone; `program` opens the booking form in a new tab. */
-  kind?: "call" | "program";
+  /** `book` links to the programs page; `program` opens the booking form in a new tab. */
+  kind?: "book" | "program";
   variant?: "primary" | "sage" | "sand" | "outline";
   size?: "sm" | "md";
   className?: string;
+  /** Only from client components — the mobile nav uses it to close the drawer. */
+  onClick?: () => void;
 };
 
 const variants = {
@@ -17,27 +21,31 @@ const variants = {
 } as const;
 
 const kinds = {
-  call: { href: SITE.phoneHref, label: "Book a free 15-minute call", external: false },
-  program: { href: SITE.bookingFormUrl, label: "Book a program", external: true },
+  book: { href: "/programs", label: "Book Now" },
+  program: { href: SITE.bookingFormUrl, label: "Book a program" },
 } as const;
 
-/** The site-wide calls to action: a `tel:` link for the discovery call, or the program booking form. */
+/** The site-wide calls to action: the programs page, or the program booking form. */
 export default function BookingButton({
   children,
-  kind = "call",
+  kind = "book",
   variant = "primary",
   size = "md",
   className = "",
+  onClick,
 }: Props) {
-  const { href, label, external } = kinds[kind];
+  const { href, label } = kinds[kind];
   const pad = size === "sm" ? "px-[22px] py-[11px] text-[13.5px]" : "px-[30px] py-4 text-[15px]";
-  return (
-    <a
-      href={href}
-      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-      className={`inline-block rounded-full font-semibold no-underline transition-colors whitespace-nowrap ${pad} ${variants[variant]} ${className}`}
-    >
-      {children ?? label}
+  const classes = `inline-block rounded-full font-semibold no-underline transition-colors whitespace-nowrap ${pad} ${variants[variant]} ${className}`;
+  const body = children ?? label;
+
+  return kind === "book" ? (
+    <Link href={href} onClick={onClick} className={classes}>
+      {body}
+    </Link>
+  ) : (
+    <a href={href} onClick={onClick} target="_blank" rel="noopener noreferrer" className={classes}>
+      {body}
     </a>
   );
 }

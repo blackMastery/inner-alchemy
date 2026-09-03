@@ -33,7 +33,7 @@ export default function SiteFooter() {
 
           <div className="flex flex-col items-start gap-3 text-sm">
             <p className="mb-1 text-[11px] uppercase tracking-[0.16em] text-cream">Begin</p>
-            <BookingButton variant="sand" size="sm">Book a free discovery call</BookingButton>
+            <BookingButton variant="sand" size="sm" />
             <a
               href={SITE.bookingFormUrl}
               target="_blank"

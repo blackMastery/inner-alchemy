@@ -190,7 +190,7 @@ export default function SiteHeader() {
               </Link>
             ),
           )}
-          <BookingButton size="sm">Book a free call</BookingButton>
+          <BookingButton size="sm" />
         </nav>
       </div>
 
@@ -223,7 +223,7 @@ export default function SiteHeader() {
               ))}
             </div>
           ))}
-          <BookingButton className="mt-4 w-full">Book a free call</BookingButton>
+          <BookingButton onClick={() => setMenuOpen(false)} className="mt-4 w-full" />
         </div>
       )}
     </header>

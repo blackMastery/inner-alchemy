@@ -25,7 +25,7 @@ export const SITE = {
   /** TODO: confirm the inbox is live and monitored. */
   email: "info@inneralchemyinstitution.com",
 
-  /** Every "Book a call" button dials this number. Display form, and the tel: href. */
+  /** The footer and the Markdown mirrors link this number. Display form, and the tel: href. */
   phone: "+592 663 1808",
   phoneHref: "tel:+5926631808",
 
@@ -84,7 +84,7 @@ export const HOME_HERO = {
   headline: ["Your business.", "Your relationships.", "Your inner world."],
   subline: "Same unhealed pattern, wearing three different masks.",
   body: "Masters of their reality don't fix one area and hope the rest follows. They heal the pattern underneath all of it.",
-  cta: "Book Your Free 15-Minute Call →",
+  cta: "Book Now →",
 };
 
 /** The introduction band directly under the hero. One string per paragraph. */
