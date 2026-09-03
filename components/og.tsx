@@ -60,7 +60,7 @@ export async function ogImage({
   meta,
 }: {
   eyebrow: string;
-  title: string;
+  title: string; // "\n" forces a line break
   meta?: string;
 }) {
   const [emblem, portrait] = await Promise.all([
@@ -228,6 +228,7 @@ export async function ogImage({
                 lineHeight: 1.06,
                 color: C.cream2,
                 letterSpacing: -0.5,
+                whiteSpace: "pre-line",
               }}
             >
               {title}
